@@ -2,12 +2,16 @@ package com.komillog.komibank.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 /**
  * Current Account
  * 
  * @author KomiLLog
- *
  */
+@Entity
+@DiscriminatorValue("CA")
 public class CurrentAccount extends Account {
 
 	private double overdraft;

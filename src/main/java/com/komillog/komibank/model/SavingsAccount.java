@@ -2,12 +2,16 @@ package com.komillog.komibank.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 /**
  * Savings Account
  * 
  * @author KomiLLog
- *
  */
+@Entity
+@DiscriminatorValue("SA")
 public class SavingsAccount extends Account {
 
 	private double interestRate;

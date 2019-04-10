@@ -2,12 +2,16 @@ package com.komillog.komibank.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 /**
  * A bank withdrawal operation
  * 
  * @author KomiLLog
- *
  */
+@Entity
+@DiscriminatorValue("W")
 public class Withdrawal extends Operation {
 
 	/**

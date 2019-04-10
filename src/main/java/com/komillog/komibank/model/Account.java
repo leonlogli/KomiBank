@@ -4,20 +4,38 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 /**
  * Base class for all kinds of banck accounts
  * 
  * @author KomiLLog
- *
  */
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "account_type",  discriminatorType = DiscriminatorType.STRING, length = 2)
 public abstract class Account implements Serializable {
 
+	@Id
 	private String code;
 	private double balance;
 	private Date creationDate;
 	
+	@ManyToOne
+    @JoinColumn(name="customer_id")
 	private Customer customer;
 	
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private List<Operation> operations;
 	
 

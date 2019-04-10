@@ -3,18 +3,35 @@ package com.komillog.komibank.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 /**
  * Abstract class for banking operations
  * 
  * @author KomiLLog
- *
  */
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "operation_type", discriminatorType = DiscriminatorType.STRING, length = 1)
 public abstract class Operation implements Serializable {
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private double amount;
 	private Date date;
 	
+	@ManyToOne
+    @JoinColumn(name="account_id")
 	private Account account;
 	
 
