@@ -1,0 +1,48 @@
+/* Layout style whith sticky footer (footer always at the bottom of the document */
+
+html, body {
+	height: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+.main-container {
+	flex: 1 0 auto;
+	// optional 
+	padding-top: 56px; // 56px is the navbar height
+}
+
+.main-footer {
+	flex-shrink: 0;
+	background-color: #3c3d41;
+	color: white; 
+	margin : 0;
+	padding: 0;
+}
+
+/* Optional */
+/* MS Edge and IE has white thin line at the bottom of the body. 
+We correct this by setting to the body the same background color as the footer copyright 
+*/
+@supports (-ms-ime-align:auto) { /* MS Edge only */
+	body {
+		background-color: #333333;
+	}
+	
+	.main-container {
+		background-color: white;
+	}
+}
+
+@media(-ms-high-contrast: none), (-ms-high-contrast: active) { /* IE only */
+ 	body {
+		background-color: #333333;
+	}
+	
+	.main-container {
+		background-color: white;
+	}
+}

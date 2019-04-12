@@ -1,0 +1,11 @@
+@import "./layout";
+
+// To remove all dotted outline around all clicked elements in html
+*, *:active, *:focus, *.focus, *.focus:active, *.active:focus, *:active:focus, *.active.focus {
+  outline: none !important;
+}
+
+// Disable horizontal scrolling
+body > .container-fluid {
+	overflow-x: hidden;
+}
