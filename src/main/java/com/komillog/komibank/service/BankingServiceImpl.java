@@ -70,7 +70,6 @@ public class BankingServiceImpl implements BankingService {
 		
 		operationDao.save(new Withdrawal(amount, new Date(), account));
 		account.setBalance(account.getBalance() - amount);
-		accountDao.save(account);
 	}
 
 	/**
@@ -81,7 +80,6 @@ public class BankingServiceImpl implements BankingService {
 		Account account = getAccount(accountCode);
 		operationDao.save(new Payment(amount, new Date(), account));
 		account.setBalance(account.getBalance() + amount);
-		accountDao.save(account);
 	}
 	
 	/**
