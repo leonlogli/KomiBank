@@ -56,6 +56,6 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-### webpack ###
-src/main/resources/static/es6+/
-src/main/resources/static/es6+/node_modules/
+### static resource & webpack dir ###
+src/main/resources/static/
+src/main/resources/webpack/node_modules/
