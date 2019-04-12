@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Optional meta tags -->
+	<title>KomiBank</title>
+	<meta name="author" content="Léon Logli">
+	<meta name="description" content="Application for Bank's basic operations and services">
+	<meta name="keywords" content="KomiBank, Online Banking, Banking,spring, bank">
+
+	<!-- bootstrap.native polyfill for old browsers support -->
+	<!--
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.15/dist/polyfill.min.js"></script>
+	-->
+	<script th:src="@{/js/polyfill.min.js}"></script>
+
+	<!-- CSS -->
+	<!-- 	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
+	<!--
+	<link rel="shortcut icon" href="./assets/img/favicon.ico">
+	<link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
+	-->
+</head>
+<body>
+	<header th:insert="partials/menu::menu"></header>
+
+	<!-- Full Header Page (Optional) -->
+	<th:block layout:fragment="fullHeaderPage"></th:block>
+	
+	<!-- Main Container -->
+	<div class="container-fluid px-0 mx-0 main-container">
+	    <div layout:fragment="content"></div>
+    </div>
+    
+	<footer th:replace="partials/footer::footer"></footer>
+	
+	<!-- Common JS -->
+	<!-- 
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap.native/2.0.15/bootstrap-native-v4.min.js"></script>
+	-->
+	<script th:src="@{/js/bootstrap-native-v4.min.js}"></script>
+	<script th:src="@{/js/aos.js}"></script>
+	<script th:src="@{/js/app.js}"></script>
+	<script>
+		AOS.init();
+	</script>
+	
+	<!-- Additional JS (Optional) -->
+	<th:block layout:fragment="scripts"></th:block>
+</body>
+</html>
