@@ -5,6 +5,52 @@
 <title>Accounts</title>
 </head>
 <body>
+	<!-- Caroussel full header page -->
+	<div layout:fragment="fullHeaderPage" class="container-fluid px-0 mx-0 full-header-page">
+		<div id="homeHeaderCarousel" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#homeHeaderCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#homeHeaderCarousel" data-slide-to="1"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active" id="home-carousel-1">
+					<div class="w-100 h-100 cover-pane"></div>
+					<div class="carousel-caption text-left">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6 pt-2 px-3">
+									<h1>Welcome to KomiBank</h1>
+									<p>With KomiBank, banking becomes very simple and easy, <br>
+									Open an account online <br>
+									Consult your accounts, make transfers <br>
+									</p>
+									<p><a class="btn btn-lg btn-primary" href="#" role="button">Open an account now</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item" id="home-carousel-2">
+					<div class="w-100 h-100 cover-pane"></div>
+					<div class="carousel-caption text-left">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6 pt-2 px-3">
+									<h1>Banking, wherever and whenever you want</h1>
+									<p>Your Online Banking simply and securely. Access all your online banking 
+									services for free on your computer or tablet, etc.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#homeHeaderCarousel" role="button" data-slide="prev"></a>
+		  	<a class="carousel-control-next" href="#homeHeaderCarousel" role="button" data-slide="next"></a>
+		</div>
+	</div>
+	
+	<!-- Content -->
 	<div layout:fragment="content" class="">
 		<p>Hello Web UI</p>
 	</div>
