@@ -1,0 +1,40 @@
+.main-footer {
+    .copyright {
+        background-color: #333333;
+        text-align: center;
+        color: #ccc;
+    }
+
+    .logo p {
+        margin-top: 10px;
+        color: #d2d1d1;
+    }
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+        line-height: 1.7;
+    }
+
+    h5 {
+        font-size: 18px;
+        color: white;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+
+    h2 a {
+        font-size: 50px;
+        text-align: center;
+        color: #fff;
+    }
+
+    a {
+        color: #d2d1d1;
+    }
+
+    .social-networks a {
+        display: inline-block;
+        margin: 8px 30px 8px 0;
+    }
+}
