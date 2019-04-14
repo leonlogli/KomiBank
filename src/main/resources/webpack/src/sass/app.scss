@@ -8,9 +8,13 @@
 	outline: none !important;
 }
 
-// Disable horizontal scrolling
-body > .container-fluid {
-	overflow-x: hidden;
+body {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+
+	> .container-fluid {
+		overflow-x: hidden; // Disable horizontal scrolling
+	}	
 }
 
 /***************************************************************************
@@ -72,5 +76,32 @@ body > .container-fluid {
 		bottom: 3rem;
 		left: 12%;
 		padding: 0;
+	}
+}
+
+/***************************************************************************
+ *                                                                         *
+ * FEATURES SECTION                                                        *
+ *                                                                         *
+ **************************************************************************/
+
+ .features-header p {
+	 color: rgba(0,0,0,0.5);
+	 font-size: 18px;
+ }
+
+.features-content {
+	.material-icons {
+		font-size: 60px;
+		color: $primary-color;
+	}
+
+	h4 {
+		color: rgba(0,0,0,0.6);
+		font-weight: 700;
+	}
+
+	p {
+		color: rgba(0,0,0,0.5);
 	}
 }
