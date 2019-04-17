@@ -1,4 +1,6 @@
 @import "./commons";
+@import "@material/button/mdc-button";
+@import "@material/card/mdc-card";
 @import "./layout";
 @import "./menu";
 @import "./footer";
@@ -26,18 +28,15 @@ body {
 .full-header-page {
 	min-height: 100%;
 	height: 100%;
-
 	.carousel, .carousel-inner, .carousel-item {
 		min-height: 100%;
 		height: 100%;
 	}
-	
 	@media screen and (max-height: 500px) { 
 		& {
 			min-height: 500px !important;
 		}
 	}
-
 	@media screen and (max-width: 767px) { 
 		& {
 			margin-top: 54px; // 54px is the navbar height
@@ -45,37 +44,39 @@ body {
 			height: calc(100% - 56px);
 		}
 	}
-
 	.carousel-item .cover-pane {
 		background-color: rgba($primary-color, 0.5);
 		background: linear-gradient(20deg, darken($primary-color, 20%),rgba($primary-color, 0.1));
 	}
-
 	.carousel-item {
 		background-position: top center;
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
-
 	#home-carousel-1{
 		background-image: url('../images/welcome.jpg');
 	}
-
 	#home-carousel-2{
 		background-image: url('../images/stay-connected.jpg');
 	}
-	
 	.carousel-indicators li {
 		width: 10px;
 		height: 10px;
 		border-radius: 100%;
 	}
-
 	.carousel-caption {
 		right: 12%;
 		bottom: 3rem;
 		left: 12%;
 		padding: 0;
+	}
+	.mdc-button {
+		height: 40px;
+		@include mdc-button-container-fill-color($primary-color);
+		// Disable background-focused color
+		&.mdc-ripple-upgraded--background-focused::before, &:not(.mdc-ripple-upgraded):focus::before {
+			opacity: 0;
+		}
 	}
 }
 
@@ -85,23 +86,26 @@ body {
  *                                                                         *
  **************************************************************************/
 
- .features-header p {
-	 color: rgba(0,0,0,0.5);
-	 font-size: 18px;
- }
+.features-header p {
+	color: rgba(0,0,0,0.5);
+	font-size: 18px;
+}
 
 .features-content {
+	padding-bottom: 54px;
 	.material-icons {
 		font-size: 60px;
-		color: $primary-color;
+		color: $secondary-color;
 	}
-
 	h4 {
 		color: rgba(0,0,0,0.6);
 		font-weight: 700;
 	}
-
 	p {
 		color: rgba(0,0,0,0.5);
+	}
+	.mdc-button {
+		@include mdc-button-outline-color($secondary-color);
+		@include mdc-button-ink-color($secondary-color);
 	}
 }
