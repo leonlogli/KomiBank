@@ -109,3 +109,36 @@ body {
 		@include mdc-button-ink-color($secondary-color);
 	}
 }
+
+/***************************************************************************
+ *                                                                         *
+ * ACCOUNTS SECTION                                                        *
+ *                                                                         *
+ **************************************************************************/
+
+ #accounts-header {
+	 padding-top: 50px;
+	 background-color: #f7f7f7;
+ }
+.accounts {
+	background-color: #f7f7f7;
+	.mdc-card {
+		max-width: 450px;
+		.title {
+			font-weight: 500;
+			letter-spacing: .0125em;
+			font-size: 1.25rem;
+		}
+		.subtitle {
+			color: rgba(0,0,0,.54);
+			font-size: .875rem;
+			font-weight: 500;
+		}
+		.mdc-button {
+			@include mdc-button-ink-color($secondary-color);
+		}
+		.more-text {
+			display: none;
+		}
+	}
+}
