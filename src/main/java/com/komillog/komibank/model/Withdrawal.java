@@ -36,7 +36,7 @@ public class Withdrawal extends Operation {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected String type() {
+	public String type() {
 		return "Withdrawal";
 	}
 

@@ -37,6 +37,14 @@ public class SavingsAccount extends Account {
 		this.interestRate = interestRate;
 	}
 	
+	/***
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String type() {
+		return "Savings Account";
+	}
+
 
 	/***************************************************************************
      *                                                                         *

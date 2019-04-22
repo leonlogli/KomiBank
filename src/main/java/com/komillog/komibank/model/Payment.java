@@ -36,7 +36,7 @@ public class Payment extends Operation {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected String type() {
+	public String type() {
 		return "Payment";
 	}
 }

@@ -68,6 +68,12 @@ public abstract class Account implements Serializable {
 		this.creationDate = creationDate;
 	}
 	
+	/**
+	 * Returns the string representation of the account type
+	 * @return the string representation of the account type
+	 */
+	public abstract String type();
+	
 	
 	/***************************************************************************
      *                                                                         *

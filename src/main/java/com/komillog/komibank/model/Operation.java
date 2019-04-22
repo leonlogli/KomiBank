@@ -72,7 +72,7 @@ public abstract class Operation implements Serializable {
 	 * Returns the string representation of the operation type
 	 * @return the string representation of the operation type
 	 */
-	protected abstract String type();
+	public abstract String type();
 	
 	
 	/***************************************************************************

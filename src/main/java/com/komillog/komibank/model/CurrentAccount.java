@@ -44,6 +44,14 @@ public class CurrentAccount extends Account {
 		this.overdraft = overdraft;
 	}
 	
+	/***
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String type() {
+		return "Current Account";
+	}
+
 	
 	/***************************************************************************
      *                                                                         *
