@@ -33,8 +33,14 @@
         color: #d2d1d1;
     }
 
-    .social-networks a {
-        display: inline-block;
-        margin: 8px 30px 8px 0;
+    .social-networks {
+        a {
+            display: inline-block;
+            margin: 8px 30px 8px 0;
+        }
+        .svg-icon {
+            width: 32px;
+            height: 32px;
+        }
     }
 }
