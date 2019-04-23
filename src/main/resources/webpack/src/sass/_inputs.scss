@@ -1,0 +1,36 @@
+
+/***************************************************************************
+ *                                                                         *
+ * Commons                                                                 *
+ *                                                                         *
+ **************************************************************************/
+
+ // clear cross button on input (IE and Edge)
+
+ input::-ms-clear, 
+ input::-ms-reveal {
+     display: none;
+     width: 0;
+     height: 0;
+ }
+ 
+ input::-webkit-search-decoration,
+ input::-webkit-search-cancel-button,
+ input::-webkit-search-results-button,
+ input::-webkit-search-results-decoration {
+     display: none;
+ }
+
+ /* Change the input autofill colors */
+
+ @-webkit-keyframes autofill {
+    to {
+        color: inherit;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
