@@ -30,6 +30,14 @@ function findFirstChildByClass(parent, childClassName) {
     return foundChild;
 }
 
+/**
+ * Check if the specified object is a String
+ * @return {Boolean} true if the specified object is a String, false otherise
+ */
+function isString(value) {
+    return typeof value === 'string' || value instanceof String;
+}
+
 export {
-    findFirstChildByClass
+    findFirstChildByClass, isString
 };
