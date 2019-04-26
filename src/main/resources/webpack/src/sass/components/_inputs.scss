@@ -1,0 +1,130 @@
+
+/***************************************************************************
+ *                                                                         *
+ * Commons                                                                 *
+ *                                                                         *
+ **************************************************************************/
+
+ // clear cross button on input (IE and Edge)
+
+ input::-ms-clear, 
+ input::-ms-reveal {
+     display: none;
+     width: 0;
+     height: 0;
+ }
+ 
+ input::-webkit-search-decoration,
+ input::-webkit-search-cancel-button,
+ input::-webkit-search-results-button,
+ input::-webkit-search-results-decoration {
+     display: none;
+ }
+
+ /* Change the input autofill colors */
+
+ @-webkit-keyframes autofill {
+    to {
+        color: inherit;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
+/***************************************************************************
+ *                                                                         *
+ * MDLTextField                                                            *
+ *                                                                         *
+ **************************************************************************/
+ 
+ // MDLTextField mixins
+
+@mixin mdl-textfield-padding($paddingLeft, $paddingRight) {
+    .mdl-textfield__input {
+        padding-left: $paddingLeft;
+        padding-right: $paddingRight;
+    }
+    .mdl-textfield__label {
+        padding-left: $paddingLeft;
+    }
+}
+
+@mixin mdl-field-colors($textColor:null, $rippleColor:null, $placeHolderColor:null, $selectionCcolor:null) {
+	@if ($textColor != null) {
+		color: $textColor;
+	}
+	@if ($rippleColor != null) {
+        .mdl-textfield__label:after {
+            background-color: $rippleColor;
+        }
+		&.is-focused {
+            .mdl-textfield__label, .mdl-textfield__icon {
+                color: $rippleColor;
+            }
+        }
+	}
+	@if ($placeHolderColor != null) {
+        .mdl-textfield__input::placeholder, &:not(.mdl-textfield--floating-label) .mdl-textfield__label,
+        &:not(.is-focused) .mdl-textfield__label, &:not(.is-focused) .mdl-textfield__icon, .clear-icon,
+        &.is-focused .clear-icon {
+            color: $placeHolderColor;
+        }
+        .mdl-textfield__input {
+            border-bottom-color: darken($placeHolderColor, 5);
+        }
+    }
+    @if ($selectionCcolor != null) {
+		.mdl-textfield__input::selection {
+            background: $selectionCcolor;
+        }
+	}
+}
+
+// MDLTextField default style
+
+.mdl-textfield {
+    &.mdl-textfield--with-leading-icon.mdl-textfield--with-trailing-icon { // has leading & trailing icon
+        .mdl-textfield__icon {
+            left: 0;
+            right: auto;
+        }
+        .mdl-textfield__icon ~ .mdl-textfield__icon {
+            left: auto;
+            right: 0;
+        }
+        @include mdl-textfield-padding($textfield-icon-ize + 4px, $textfield-icon-ize + 4px);
+    }
+    &.mdl-textfield--with-leading-icon { // has leading icon only
+        .mdl-textfield__icon {
+            left: 0;
+            right: auto;
+        }
+        @include mdl-textfield-padding($textfield-icon-ize + 4px, 0);
+    }
+    &.mdl-textfield--with-trailing-icon { // has trailing icon only
+        .mdl-textfield__icon {
+            left: auto;
+            right: 0;
+        }
+        @include mdl-textfield-padding(0, $textfield-icon-ize + 4px);
+    }
+    .mdl-textfield__icon  {
+        cursor: default;
+        position: absolute;
+        font-size: $textfield-icon-ize;
+        top: 25px;
+    }
+    .clear-icon {
+        font-size: 19px !important;
+        cursor: pointer;
+    }
+    @media(-ms-high-contrast: none), (-ms-high-contrast: active) { /* IE only */
+        .mdl-textfield__input {
+            min-height: 33px;
+        }
+    }
+}
