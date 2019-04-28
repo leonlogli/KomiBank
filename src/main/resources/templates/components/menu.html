@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- MDCMenu -->
+
+<div th:fragment="MDCMenu(items)" class="mdc-menu mdc-menu-surface " tabindex="-1" th:id=${id}
+	th:classappend="${class != null ? class : ''}">
+	<ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+		<li class="mdc-list-item" role="menuitem" th:each="item : ${items}">
+			<span class="mdc-list-item__text" th:text=${item}>Menu Item</span>
+		</li>
+	</ul>
+</div>
+
+</html>
