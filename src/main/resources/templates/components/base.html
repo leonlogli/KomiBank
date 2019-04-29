@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- MDCButton -->
+
+<button th:fragment="MDCButton(text)" class="mdc-button" th:id=${id}
+	th:classappend="${class != null ? class : ''}">
+	
+	<i th:if="${leadingIcon != null}" class="material-icons mdc-button__icon" aria-hidden="true" 
+		th:text=${leadingIcon}>favorite</i>
+		
+	<span class="mdc-button__label" th:text=${text}>Button</span>
+	
+	<i th:if="${trailingIcon != null}" class="material-icons mdc-button__icon" aria-hidden="true" 
+		th:text=${trailingIcon}>chevron_right</i>
+</button>
+
+<!-- MDCIconButtonToggle -->
+
+<button th:fragment="MDCIconButtonToggle(onIcon, offIcon)" class="mdc-icon-button" 
+	aria-label="Add to favorites" aria-hidden="true" aria-pressed="false"
+	th:id=${id} th:with="active=${active} ?: 'false'"
+	th:classappend="${(class != null ? class : '') + (active == 'true' ? ' mdc-icon-button--on' : '')}">
+   
+   <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on" th:text=${onIcon}>favorite</i> 
+   <i class="material-icons mdc-icon-button__icon" th:text=${offIcon}>favorite_border</i>
+</button>
+
+</html>
