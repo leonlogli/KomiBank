@@ -9,6 +9,46 @@ export class MDCButton {
         this.label_ = findFirstChildByClass(this.root_, "mdc-button__label");
     }
 
+    blur() {
+        this.root_.blur();
+    }
+
+    /** 
+     * Sets the variant of this button. 
+     * @param {string} value Ex: raised, unelevated, outlined, dense 
+     * @param {boolean} isDense default: false
+     */
+    variant(value, isDense = false) {
+        switch (value.toUpperCase()) {
+            case 'RAISED':
+                if(!this.root_.classList.contains('mdc-button--raised')) {
+                    this.root_.classList.add('mdc-button--raised');
+                    this.root_.classList.remove('mdc-button--outlined');
+                    this.root_.classList.remove('mdc-button--unelevated');
+                }                
+                break;
+            case 'UNELEVATED':
+                if(!this.root_.classList.contains('mdc-button--unelevated')) {
+                    this.root_.classList.add('mdc-button--unelevated');
+                    this.root_.classList.remove('mdc-button--outlined');
+                    this.root_.classList.remove('mdc-button--raised');
+                }
+                break;
+            case 'OUTLINED':
+                if(!this.root_.classList.contains('mdc-button--outlined')) {
+                    this.root_.classList.add('mdc-button--outlined');
+                    this.root_.classList.remove('mdc-button--raised');
+                    this.root_.classList.remove('mdc-button--unelevated');
+                }
+                break;
+            default:
+            ['mdc-button--outlined', 'mdc-button--raised', 'mdc-button--unelevated'].forEach(cl => {
+                this.root_.classList.remove(cl);
+            });
+        }
+        isDense === true ? this.root_.classList.add('mdc-button--dense') : this.root_.classList.remove('mdc-button--dense');
+    }
+
     /*'*************************************************************************
      *                                                                         *
      *  Events Handler Methods                                                 *
