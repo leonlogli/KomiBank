@@ -13,6 +13,18 @@ export class MDCButton {
         this.root_.blur();
     }
 
+    static create(buttonClass, id, text = 'Button') {
+        const btn = document.createElement("BUTTON");
+        btn.innerHTML = '<span class="mdc-button__label">' + text + '</span>';
+        if(buttonClass) {
+            btn.classList.add(buttonClass);
+        }
+        if(id) {
+            btn.id = id;
+        }
+        return new MDCButton(btn);
+    }
+
     /** 
      * Sets the variant of this button. 
      * @param {string} value Ex: raised, unelevated, outlined, dense 
@@ -93,7 +105,7 @@ export class MDCButton {
         }
         else {
             this.label_.insertAdjacentHTML('beforebegin', 
-            '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
+                '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
         }
     }
 
@@ -109,7 +121,7 @@ export class MDCButton {
         }
         else {
             this.label_.insertAdjacentHTML('afterend', 
-            '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
+                '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
         }
     }
 
