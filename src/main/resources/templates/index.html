@@ -26,10 +26,7 @@
 									Open an account online <br>
 									Consult your accounts, make transfers <br>
 									</p>
-									<button class="mdc-button mdc-button--raised" onclick="window.location.href='#accounts-header'">
-										<span class="mdc-button__label">Let's get started</span>
-										<i class="material-icons mdc-button__icon" aria-hidden="true">chevron_right</i>			
-									</button>
+									<div th:replace="components/base::MDCButton('Let\'s get started')"></div>
 								</div>
 							</div>
 						</div>
@@ -57,7 +54,7 @@
 	
 	<!-- Content -->
 	
-	<div layout:fragment="content" class="container-fluid">
+	<div layout:fragment="content" class="container-fluid home-page">
 	
 		<!-- FEATURETTES SECTION -->
 		
@@ -84,15 +81,13 @@
 					<p>Securely manage your money with our Mobile Banking app. You can view your balance, 
 					make payments, deposit cheques and much more. Note: this feature is coming soon</p>
 				</div>
-				<div class="col-lg-4 text-center">
+				<div class="col-lg-4 text-center" id="sign-up">
 					<i class="material-icons">people</i>
 					<h4>Not a customer yet ?</h4>
 					<p>What are you waiting for to get started with Komibank ! 
 					Jump in to online banking and you can easily manage your money on-the-go
 					</p>
-					<button class="mdc-button mdc-button--outlined">		
-						<span class="mdc-button__label">Sign up now</span>
-					</button>
+					<div th:replace="components/base::MDCButton('Sign up now')"></div>
 				</div>
 			</div>
 		</div>
@@ -108,61 +103,12 @@
 		</div>
 		<div class="row pt-3 pb-5 accounts" id="accounts">
 			<div class="col-md-6">
-				<div class="mdc-card mx-auto mr-lg-4 mr mb-4" id="savings-account-card">
-					<div class="mdc-card__primary-action" tabindex="0">
-						<div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('../images/savings-account.jpg')"></div>
-						<div class="p-3">
-							<h4 class="title">Savings Account</h4>
-							<h5 class="subtitle">An interest earning account</h5>
-						</div>
-						<div class="px-3 pb-2 card-text">
-							A savings account is typically the first official bank account anybody opens. 
-							It is designed to save you money.<span class="more-dots">..</span>
-							<div class="collapse" id="saMoreInfo">
-								Money you put into a savings account will actually grow over time by accruing interest.
-								Savings accounts are an excellent place to park emergency cash. Opening a savings account
-								at KomiBank also marks the beginning of your relationship with a financial institution.
-							</div>
-						</div>
-					</div>
-					<div class="mdc-card__actions p-2">
-						<div class="mdc-card__action-buttons">
-							<button class="mdc-button mdc-card__action mdc-card__action--button">Apply now</button>
-							<button class="mdc-button mdc-card__action mdc-card__action--button more-button"
-								data-toggle="collapse" data-target="#saMoreInfo" aria-expanded="false" 
-								aria-controls="saMoreInfo">Learn More</button>
-						</div>
-					</div>
-				</div>
+				<div th:replace="components/card::MDCCard(id='savings-account-card', class='mx-auto mr-lg-4 mr mb-4',
+					title='Savings Account', subTitle='An interest earning account')"></div>
 			</div>
 			<div class="col-md-6">
-				<div class="mdc-card mx-auto ml-lg-4 mb-5" id="current-account-card">
-					<div class="mdc-card__primary-action" tabindex="0">
-						<div class="mdc-card__media mdc-card__media--16-9"
-							style="background-image: url('../images/current-account.jpg')"></div>
-						<div class="p-3">
-							<h4 class="title">Current Account</h4>
-							<h5 class="subtitle">A transactional checking account</h5>
-						</div>
-						<div class="px-3 pb-2 card-text">
-							Offers easy access to your money for your daily transactional needs and helps keep
-							your cash secure.<span class="more-dots">..</span>
-							<div class="collapse" id="ccMoreInfo">
-								Money that you put in a current account usually won’t stay there for long, 
-								since it’s where your everyday spending, bills, and other debits occur. There are no restrictions 
-								(in most personal accounts) on how many transactions can take place in your account
-							</div>
-						</div>
-					</div>
-					<div class="mdc-card__actions p-2">
-						<div class="mdc-card__action-buttons">
-							<button class="mdc-button mdc-card__action mdc-card__action--button">Apply now</button>
-							<button class="mdc-button mdc-card__action mdc-card__action--button more-button"
-								data-toggle="collapse" data-target="#ccMoreInfo" aria-expanded="false" 
-								aria-controls="ccMoreInfo">Learn More</button>
-						</div>
-					</div>
-				</div>
+				<div th:replace="components/card::MDCCard(id='current-account-card', class='mx-auto ml-lg-4 mb-5',
+					title='Current Account', subTitle='A transactional checking account')"></div>
 			</div>
 		</div>
 	</div>
