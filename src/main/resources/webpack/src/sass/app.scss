@@ -1,8 +1,13 @@
 @import "./commons";
 @import "@material/button/mdc-button";
 @import "@material/card/mdc-card";
+@import "@material/list/mdc-list";
+@import "@material/menu-surface/mdc-menu-surface";
+@import "@material/menu/mdc-menu";
+@import "@material/icon-button/mdc-icon-button";
+@import "./components/inputs";
 @import "./layout";
-@import "./menu";
+@import "./navbar";
 @import "./footer";
 
 // To remove all dotted outline around all clicked elements in html
@@ -53,10 +58,20 @@ body {
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
-	#home-carousel-1{
+	#home-carousel-1 {
 		background-image: url('../images/welcome.jpg');
+		.mdc-button {
+			height: 40px;
+			@include mdc-button-horizontal-padding(20px);
+			@include mdc-button-container-fill-color($primary-color);
+			@include mdc-button-ink-color(white);
+			// Disable background-focused color
+			&.mdc-ripple-upgraded--background-focused::before, &:not(.mdc-ripple-upgraded):focus::before {
+				opacity: 0;
+			}
+		}
 	}
-	#home-carousel-2{
+	#home-carousel-2 {
 		background-image: url('../images/stay-connected.jpg');
 	}
 	.carousel-indicators li {
@@ -69,14 +84,6 @@ body {
 		bottom: 3rem;
 		left: 12%;
 		padding: 0;
-	}
-	.mdc-button {
-		height: 40px;
-		@include mdc-button-container-fill-color($primary-color);
-		// Disable background-focused color
-		&.mdc-ripple-upgraded--background-focused::before, &:not(.mdc-ripple-upgraded):focus::before {
-			opacity: 0;
-		}
 	}
 }
 

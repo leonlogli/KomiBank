@@ -1,4 +1,4 @@
-import {isString, findFirstChildByClass} from '../utils';
+import {isString} from '../utils';
 
 export class MDCIconButtonToggle {
         
@@ -6,7 +6,7 @@ export class MDCIconButtonToggle {
         /** @private {?Element} */
         this.root_ = isString(selector) ? document.querySelector(selector) : selector;
         /** @private {?Element} */
-        this.onIcon_ = findFirstChildByClass(this.root_, 'mdc-icon-button__icon--on');
+        this.onIcon_ = this.root_.querySelector('.mdc-icon-button__icon--on');
         this.on = false;
         this.root_.onclick = () => this.on = !this.on;
     }

@@ -1,4 +1,4 @@
-import {isString, findFirstChildByClass} from '../utils';
+import {isString} from '../utils';
 
 export class MDCButton {
         
@@ -6,7 +6,7 @@ export class MDCButton {
         /** @private {?Element} */
         this.root_ = isString(selector) ? document.querySelector(selector) : selector;
         /** @private {?Element} */
-        this.label_ = findFirstChildByClass(this.root_, "mdc-button__label");
+        this.label_ = this.root_.querySelector(".mdc-button__label");
     }
 
     blur() {
@@ -15,13 +15,10 @@ export class MDCButton {
 
     static create(buttonClass, id, text = 'Button') {
         const btn = document.createElement("BUTTON");
+        btn.classList.add('mdc-button');
         btn.innerHTML = '<span class="mdc-button__label">' + text + '</span>';
-        if(buttonClass) {
-            btn.classList.add(buttonClass);
-        }
-        if(id) {
-            btn.id = id;
-        }
+        if(buttonClass) btn.classList.add(buttonClass);
+        if(id) btn.id = id;
         return new MDCButton(btn);
     }
 
@@ -90,7 +87,7 @@ export class MDCButton {
     }
     
     set text(value) {
-        this.this.label_.innerHTML = value;
+        this.label_.innerHTML = value;
     }
 
     /** @return {string} The text content of the leading icon. */

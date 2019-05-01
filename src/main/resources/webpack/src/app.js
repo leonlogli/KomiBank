@@ -2,7 +2,6 @@ import './polyfill';
 import {MDCRipple} from '@material/ripple/index';
 import {MDCButton} from './components/MDCButton';
 import {MDCCard} from './components/MDCCard';
-import * as Utils from './utils';
 import './sass/app.scss';
 
 // Setup a ripple effect for mdc compoents

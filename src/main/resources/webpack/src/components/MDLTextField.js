@@ -1,4 +1,4 @@
-import {isString, findFirstChildByClass} from '../utils';
+import {isString} from '../utils';
 
 export class MDLTextField {
         
@@ -6,11 +6,11 @@ export class MDLTextField {
         /** @private {?Element} */
         this.root_ = isString(selector) ? document.querySelector(selector) : selector;
         /** @private {?Element} */
-        this.input_ = findFirstChildByClass(this.root_, "mdl-textfield__input");
+        this.input_ = this.root_.querySelector(".mdl-textfield__input");
         /** @private {?Element} */
-        this.leadingIcon_ = findFirstChildByClass(this.root_, "leading-icon");
+        this.leadingIcon_ = this.root_.querySelector(".leading-icon");
         /** @private {?Element} */
-        this.trailingIcon_ = findFirstChildByClass(this.root_, "trailing-icon");
+        this.trailingIcon_ = this.root_.querySelector(".trailing-icon");
 
         // check if the field has clear-icon class
         if (this.trailingIcon_ && this.trailingIcon_.classList.contains('clear-icon')) {

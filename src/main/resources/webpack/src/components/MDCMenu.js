@@ -1,6 +1,6 @@
 import {MDCMenu as MDCMenu_} from '@material/menu/index';
 import {Corner} from '@material/menu-surface/constants';
-import {isString, findFirstChildByClass} from '../utils';
+import {isString} from '../utils';
 
 export class MDCMenu extends MDCMenu_ {
     constructor(selector) {
@@ -64,8 +64,7 @@ export class MDCMenu extends MDCMenu_ {
 
     /** @return {string} The current selected item text. */
     get selectedItemText() {
-        return this.selectedItem ? 
-            findFirstChildByClass(this.selectedItem, 'mdc-list-item__text').textContent : null;
+        return this.selectedItem ? this.selectedItem.querySelector('.mdc-list-item__text').textContent : null;
     }
     
     /** @return {string} The current selected index. */
