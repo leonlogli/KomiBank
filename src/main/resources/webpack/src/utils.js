@@ -10,7 +10,7 @@ function createElement(tagName, classes, innerHTML, ...childs) {
     const element = document.createElement(tagName);
     element.className = classes;
     if(innerHTML) {
-        element.innerHTML = '<div class="mdc-card__action-buttons"></div><div class="mdc-card__action-icons"></div>';
+        element.innerHTML = innerHTML;
     }
     childs.forEach(child => {
         if(child instanceof Node) {
