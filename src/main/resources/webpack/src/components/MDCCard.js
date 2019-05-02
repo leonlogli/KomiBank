@@ -9,6 +9,8 @@ export class MDCCard {
         if(!this.root_) {
             this.root_ = MDCCard._buildRoot(null, null, true, true);
         }
+        /** @private {?string} stores selector to set default id of collapsible element (when it is defined) */
+        this.selector_ = isString(selector) ? selector : this.root_.className;
         /** @private {?Element} */
         this.title_ = this.root_.querySelector(".title");
         /** @private {?Element} */
@@ -176,6 +178,10 @@ export class MDCCard {
             this.textEl_.appendChild(this.collapsibleEl_);
         }
         else this.textEl_.innerHTML = text ?  text :  this.collapsibleEl_;
+        // Set default collapsible id if not set
+        if(!this.collapsibleEl_.id) {
+            this.collapsibleID = this.selector_.replace(/\s/gi, '-').replace(/#|\./gi, '') + '-collapse';
+        }
     }
 
     set collapsibleID(value) {

@@ -35,7 +35,6 @@ if(document.querySelector('.home-page')) {
         It is designed to save you money.`, `Money you put into a savings account will actually grow over time by
         accruing interest. Savings accounts are an excellent place to park emergency cash. Opening a savings account 
         at KomiBank also marks the beginning of your relationship with a financial institution.`);
-    savingsAccountCard.collapsibleID = "saMoreInfo";
     savingsAccountCard.addActionButton("Apply now", null, "apply-sa");
     savingsAccountCard.addActionButton("Learn more", null, null, true);
     savingsAccountCard.addActionEventListener('click', "apply-sa", e => console.log(e));
@@ -47,7 +46,6 @@ if(document.querySelector('.home-page')) {
         your cash secure.`, `Money that you put in a current account usually won’t stay there for long, since it’s 
         where your everyday spending, bills, and other debits occur. There are no restrictions (in most personal 
         accounts) on how many transactions can take place in your account`);
-    currentAccountCard.collapsibleID = "ccMoreInfo";
     currentAccountCard.addActionButton("Apply now", null, "apply-ca");
     currentAccountCard.addActionButton("Learn more", null, null, true);
     currentAccountCard.addActionEventListener('click', "apply-ca", e => console.log(e));
