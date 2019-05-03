@@ -2,6 +2,7 @@ import './polyfill';
 import {MDCRipple} from '@material/ripple/index';
 import {MDCButton} from './components/MDCButton';
 import {MDCCard} from './components/MDCCard';
+import * as SVG from "./svg";
 import './sass/app.scss';
 
 // Setup a ripple effect for mdc compoents
@@ -15,6 +16,12 @@ ripples.forEach(r => {
         r.unbounded = true;
     }
 });
+
+// Set Footer SVG Icons
+const footerSocialIcons = document.querySelectorAll(".social-networks a");
+footerSocialIcons.item(0).appendChild(SVG.GooglePlusIcon());
+footerSocialIcons.item(1).appendChild(SVG.TwitterIcon());
+footerSocialIcons.item(2).appendChild(SVG.FacebookIcon());
 
 // On Home (index) page
 if(document.querySelector('.home-page')) {

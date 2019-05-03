@@ -18,7 +18,7 @@
 <!-- MDCIconButtonToggle -->
 
 <button th:fragment="MDCIconButtonToggle(onIcon, offIcon)" class="mdc-icon-button" 
-	aria-label="Add to favorites" aria-hidden="true" aria-pressed="false"
+	aria-hidden="true" aria-pressed="false"
 	th:id=${id} th:with="active=${active} ?: 'false'"
 	th:classappend="${(class != null ? class : '') + (active == 'true' ? ' mdc-icon-button--on' : '')}">
    

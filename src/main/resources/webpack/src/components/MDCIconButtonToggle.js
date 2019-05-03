@@ -11,6 +11,20 @@ export class MDCIconButtonToggle {
         this.root_.onclick = () => this.on = !this.on;
     }
 
+    blur() {
+        this.root_.blur();
+    }
+
+    /** Create a new instance of MDCIconButtonToggle */
+    static create(buttonClass, id, onIcon = 'favorite', offIcon = 'favorite_border') {
+        const btn = createElement("BUTTON", "mdc-button", 
+            `<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">${onIcon}</i>
+            <i class="material-icons mdc-icon-button__icon">${offIcon}</i>`);
+        if(buttonClass) btn.classList.add(buttonClass);
+        if(id) btn.id = id;
+        return new MDCIconButtonToggle(btn);
+    }
+
     /*'*************************************************************************
      *                                                                         *
      *  Events Handler Methods                                                 *
@@ -33,7 +47,7 @@ export class MDCIconButtonToggle {
     
     get on() {
         return this.isTransitionEnabled ? this.onIcon_.style.opacity == 1
-            : this.onIcon_.style.display == 'inline-block';
+            : this.onIcon_.style.display == 'block';
     }
 
     set on(value) {
@@ -43,10 +57,9 @@ export class MDCIconButtonToggle {
                 this.onIcon_.nextElementSibling.style.opacity = 0;
             } 
             else {
-                this.onIcon_.style.display = 'inline-block';
+                this.onIcon_.style.display = 'block';
                 this.onIcon_.nextElementSibling.style.display = 'none';
             }
-            
         }
         else {
             if(this.isTransitionEnabled) {
@@ -55,7 +68,7 @@ export class MDCIconButtonToggle {
             }
             else {
                 this.onIcon_.style.display = 'none';
-                this.onIcon_.nextElementSibling.style.display = 'inline-block';
+                this.onIcon_.nextElementSibling.style.display = 'block';
             }
         }
     }
@@ -73,7 +86,7 @@ export class MDCIconButtonToggle {
     enableTransition(value, duration = 0.3) {
         if(value === true) {
             [this.onIcon_.style, this.onIcon_.nextElementSibling.style].forEach(style => {
-                style.display = 'inline-block';
+                style.display = 'block';
                 style.transition = "opacity " + duration + "s linear";
                 style.position = "absolute";
                 style.top = style.left = "12px";
@@ -92,36 +105,40 @@ export class MDCIconButtonToggle {
         this.on = false;
     }
 
-    /** @return {string} The text content of the on icon. */
+    /** @return The text content of "on" icon. If onIcon is an SVGElement, it is returned */
     get onIcon() {
-        this.listen("zeer" ,e => console.log());
-        return this.onIcon_ ? this.onIcon_.textContent : null;
+        return this.onIcon_ instanceof SVGElement ? this.onIcon_ : this.onIcon_.textContent;
     }
-
-    /** Sets the text content of the on icon. @param {string} value */
+    
+    /** Sets 'on' icon. @param value string or SVGElement */
     set onIcon(value) {
-        if(this.onIcon_) {
-            this.onIcon_.innerHTML = value;
+        if(value instanceof SVGElement) {
+            value.setAttribute('class', value.getAttribute('class') + "mdc-icon-button__icon mdc-icon-button__icon--on");
+            value.style.verticalAlign = "top";
+            this.root_.replaceChild(value, this.onIcon_);
+            this.onIcon_ = value;
         }
-        else {
-            this.root_.insertAdjacentHTML('afterbegin',
-            '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">' + value + '</i>');
-        }
+        else this.onIcon_.innerHTML = value;
     }
 
-    /** @return {string} The text content of the off icon. */
+    /** @return The text content of "off" icon. If offIcon is an SVGElement, it is returned */
     get offIcon() {
-        return this.onIcon_.nextElementSibling ? this.onIcon_.nextElementSibling.textContent : null;
+        return this.onIcon_.nextElementSibling instanceof SVGElement ? this.onIcon_.nextElementSibling : 
+            this.onIcon_.nextElementSibling.textContent;
     }
 
-    /** Sets the text content of the off icon. @param {string} value */
+    /** Sets 'off' icon. @param value string or SVGElement*/
     set offIcon(value) {
-        if(this.onIcon_.nextElementSibling) {
-            this.onIcon_.nextElementSibling.innerHTML = value;
+        if(value instanceof SVGElement) {
+            value.setAttribute('class', value.getAttribute('class') + "mdc-icon-button__icon");
+            value.style.verticalAlign = "top";
+            this.root_.replaceChild(value, this.onIcon_.nextElementSibling);
         }
-        else {
-            this.root_.insertAdjacentHTML('beforeend',
-                '<i class="material-icons mdc-icon-button__icon">' + value + '</i>');
-        }
+        else this.onIcon_.nextElementSibling.innerHTML = value;
+    }
+
+    setIcons(onIcon, offIcon) {
+        this.onIcon = onIcon;
+        this.offIcon = offIcon;
     }
 }

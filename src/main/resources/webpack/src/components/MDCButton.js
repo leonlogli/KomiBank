@@ -1,4 +1,4 @@
-import {isString} from '../utils';
+import {isString, createElement} from '../utils';
 
 export class MDCButton {
         
@@ -13,13 +13,22 @@ export class MDCButton {
         this.root_.blur();
     }
 
+    /** Create a new instance of MDCButton */
     static create(buttonClass, id, text = 'Button') {
-        const btn = document.createElement("BUTTON");
-        btn.classList.add('mdc-button');
-        btn.innerHTML = '<span class="mdc-button__label">' + text + '</span>';
+        const btn = createElement("BUTTON", "mdc-button", '<span class="mdc-button__label">' + text + '</span>');
         if(buttonClass) btn.classList.add(buttonClass);
         if(id) btn.id = id;
         return new MDCButton(btn);
+    }
+
+    /**  @param {string} values classes as string separated by spaces. Ex : "class1 class2" */
+    addClasses(values) {
+        this.root_.className = this.root_.className + ' ' + values;
+    }
+
+    /**  @param {string} values classes as string separated by spaces. Ex : "class1 class2" */
+    removeClasses(...values) {
+        values.forEach(cl => this.root_.classList.remove(cl));
     }
 
     /** 
@@ -32,30 +41,25 @@ export class MDCButton {
             case 'RAISED':
                 if(!this.root_.classList.contains('mdc-button--raised')) {
                     this.root_.classList.add('mdc-button--raised');
-                    this.root_.classList.remove('mdc-button--outlined');
-                    this.root_.classList.remove('mdc-button--unelevated');
+                    this.removeClasses('mdc-button--outlined', 'mdc-button--unelevated');
                 }                
                 break;
             case 'UNELEVATED':
                 if(!this.root_.classList.contains('mdc-button--unelevated')) {
                     this.root_.classList.add('mdc-button--unelevated');
-                    this.root_.classList.remove('mdc-button--outlined');
-                    this.root_.classList.remove('mdc-button--raised');
+                    this.removeClasses('mdc-button--outlined', 'mdc-button--raised');
                 }
                 break;
             case 'OUTLINED':
                 if(!this.root_.classList.contains('mdc-button--outlined')) {
                     this.root_.classList.add('mdc-button--outlined');
-                    this.root_.classList.remove('mdc-button--raised');
-                    this.root_.classList.remove('mdc-button--unelevated');
+                    this.removeClasses('mdc-button--unelevated', 'mdc-button--raised');
                 }
                 break;
-            default:
-            ['mdc-button--outlined', 'mdc-button--raised', 'mdc-button--unelevated'].forEach(cl => {
-                this.root_.classList.remove(cl);
-            });
+            default: 
+                this.removeClasses('mdc-button--outlined', 'mdc-button--raised', 'mdc-button--unelevated');
         }
-        isDense === true ? this.root_.classList.add('mdc-button--dense') : this.root_.classList.remove('mdc-button--dense');
+        isDense === true ? this.addClasses('mdc-button--dense') : this.removeClasses('mdc-button--dense');
     }
 
     /*'*************************************************************************
@@ -82,6 +86,10 @@ export class MDCButton {
      *                                                                         *
      **************************************************************************/
     
+    set id(id) {
+        this.root_.id = id;
+    }
+
     get text() {
         return this.label_.textContent;
     }
@@ -90,37 +98,58 @@ export class MDCButton {
         this.label_.innerHTML = value;
     }
 
-    /** @return {string} The text content of the leading icon. */
+    /** @return The text content of the leading icon. If leadingIcon is an SVGElement, it is returned */
     get leadingIcon() {
-        return this.label_.previousElementSibling ? this.label_.previousElementSibling.textContent : null;
-    }
-
-    /** Sets the text content of the leading icon. @param {string} value */
-    set leadingIcon(value) {
         if(this.label_.previousElementSibling) {
-            this.label_.previousElementSibling.innerHTML = value;
+            value instanceof SVGElement ? this.label_.previousElementSibling : 
+                this.label_.previousElementSibling.textContent;
         }
-        else {
-            this.label_.insertAdjacentHTML('beforebegin', 
-                '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
-        }
+        else null;
     }
 
-    /** @return {string} The text content of the trailing icon. */
+    /** Sets the leading icon. @param value string or SVGElement*/
+    set leadingIcon(value) {
+        if(value instanceof SVGElement) {
+            value.setAttribute('class', value.getAttribute('class') + "mdc-button__icon");
+            this.label_.previousElementSibling ? this.root_.replaceChild(value, this.label_.previousElementSibling) : 
+                this.root_.insertBefore(value, this.label_);
+        }
+        else {
+            if(this.label_.previousElementSibling) {
+                this.label_.previousElementSibling.innerHTML = value;
+            }
+            else {
+                this.label_.insertAdjacentHTML('beforebegin', 
+                    '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
+            }
+        }
+        
+    }
+
+    /** @return The text content of the trailing icon. If trailing is an SVGElement, it is returned  */
     get trailingIcon() {
-        return this.label_.nextElementSibling ? this.label_.nextElementSibling.textContent : null;
+        if(this.label_.nextElementSibling) {
+            value instanceof SVGElement ? this.label_.nextElementSibling : 
+                this.label_.nextElementSibling.textContent;
+        }
+        else null;
     }
 
-    /** Sets the text content of the trailing icon. @param {string} value */
+    /** Sets the text content of the trailing icon. @param value string or SVGElement */
     set trailingIcon(value) {
-        if(this.label_.nextElementSibling) {
-            this.label_.nextElementSibling.innerHTML = value;
+        if(value instanceof SVGElement) {
+            value.setAttribute('class', value.getAttribute('class') + "mdc-button__icon");
+            this.label_.nextElementSibling ? this.root_.replaceChild(value, this.label_.nextElementSibling) : 
+                this.root_.appendChild(value);
         }
         else {
-            this.label_.insertAdjacentHTML('afterend', 
-                '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
+            if(this.label_.nextElementSibling) {
+                this.label_.nextElementSibling.innerHTML = value;
+            }
+            else {
+                this.label_.insertAdjacentHTML('afterend', 
+                    '<i class="material-icons mdc-button__icon" aria-hidden="true">' + value + '</i>');
+            }
         }
     }
-
-
 }
