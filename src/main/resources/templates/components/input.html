@@ -29,4 +29,42 @@
 		th:text="${trailingIcon}" tabindex="0" role="button">clear</i>
 </div>
 
+<!-- MDCTextField -->
+
+<div th:fragment="MDCTextField" th:with="type=${type} ?: 'text', variant=${variant} ?: 'default'" 
+	th:id=${id} class="mdc-text-field " 
+	th:classappend="${(class != null ? class : '')
+					+ (variant == 'textarea' ? ' mdc-text-field--textarea' : '')
+					+ (variant == 'outlined' ? ' mdc-text-field--outlined' : '')}">
+	
+	<th:block th:if="${variant == 'default'}">
+		<input th:type=${type} class="mdc-text-field__input" th:name=${name} th:id=${name}>
+		<label class="mdc-floating-label" th:for=${name} th:text="${label}">TextField Label</label>
+		<div class="mdc-line-ripple"></div>
+	</th:block>
+
+	<th:block th:if="${variant == 'textarea'}">
+		<textarea th:name=${name} th:id=${name} class="mdc-text-field__input" rows="8" cols="40"></textarea>
+		<div class="mdc-notched-outline">
+			<div class="mdc-notched-outline__leading"></div>
+			<div class="mdc-notched-outline__notch">
+				<label th:for=${name} th:text="${label}" class="mdc-floating-label">Textarea Label</label>
+			</div>
+			<div class="mdc-notched-outline__trailing"></div>
+		</div>
+	</th:block>
+
+	<th:block th:if="${variant == 'outlined'}">
+		<input th:type=${type} th:name=${name} th:id=${name} class="mdc-text-field__input">
+		<div class="mdc-notched-outline">
+			<div class="mdc-notched-outline__leading"></div>
+			<div class="mdc-notched-outline__notch">
+				<label th:for=${name} th:text="${label}" class="mdc-floating-label">Your Name</label>
+			</div>
+			<div class="mdc-notched-outline__trailing"></div>
+		</div>
+	</th:block>
+
+</div>
+
 </html>

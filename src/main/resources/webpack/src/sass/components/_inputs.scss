@@ -118,6 +118,10 @@ input:-webkit-autofill {
         font-size: $textfield-icon-ize;
         top: 25px;
     }
+    svg {
+        width: $textfield-icon-ize;
+        height: $textfield-icon-ize;
+    }
     .clear-icon {
         font-size: 19px !important;
         cursor: pointer;
@@ -126,5 +130,41 @@ input:-webkit-autofill {
         .mdl-textfield__input {
             min-height: 33px;
         }
+    }
+}
+
+
+/***************************************************************************
+ *                                                                         *
+ * MDLTextField                                                            *
+ *                                                                         *
+ **************************************************************************/
+ 
+ // MDLTextField mixins
+
+ @mixin mdc-text-field-dim($height, $iconSize) {
+	height: $height;
+	.mdc-floating-label, .mdc-text-field__icon, .material-icons {
+		top: ($height - $iconSize) / 2;
+    }
+    &.mdc-text-field--outlined .mdc-floating-label--float-above {
+        top: (56px - $iconSize) / 2;
+    }
+	.clear-icon {
+		top: ($height - 19px) / 2;  // clear-icon size is 19px
+	}
+}
+
+// MDCTextField default style
+
+.mdc-text-field {
+    //@include mdc-text-field-dim(42px, 22px);
+    svg {
+        width: $textfield-icon-ize;
+        height: $textfield-icon-ize;
+    }
+    .clear-icon {
+        font-size: 19px !important;
+        cursor: pointer;
     }
 }
