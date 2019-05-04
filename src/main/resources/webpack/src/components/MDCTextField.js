@@ -86,7 +86,6 @@ export class MDCTextField extends _MDCTextField {
     }
 
     showClearIcon() {
-        console.log(this.initialTrailingIcon_);
         if(this.trailingIconEl_) {
             if(this.initialTrailingIcon_) {
                 this.trailingIcon = this.clearIcon ? this.clearIcon : 'clear';

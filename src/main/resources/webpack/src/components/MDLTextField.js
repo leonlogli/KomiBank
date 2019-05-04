@@ -7,6 +7,8 @@ export class MDLTextField {
         this.root_ = isString(selector) ? document.querySelector(selector) : selector;
         /** @private {?Element} */
         this.input_ = this.root_.querySelector(".mdl-textfield__input");
+         /** @private {?Element} */
+         this.label_ = this.root_.querySelector(".mdl-textfield__label");
         /** @private {?Element} */
         this.leadingIcon_ = this.root_.querySelector(".leading-icon");
         /** @private {?Element} */
@@ -125,9 +127,17 @@ export class MDLTextField {
         if(!value) this.root_.classList.remove('is-dirty');
     }
 
+    get labelText() {
+        return this.label_ ? this.label_.innerHTML : null;
+    }
+
+    set labelText(value) {
+        this.label_.innerHTML = value;
+    }
+
     /** @return {string} The text content of the leading icon. */
     get leadingIcon() {
-        return this.trailingIcon_.innerHTML;
+        return this.leadingIcon_.innerHTML;
     }
 
     /** Sets the text content of the leading icon. @param {string} value */

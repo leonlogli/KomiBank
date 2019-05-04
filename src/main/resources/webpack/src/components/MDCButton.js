@@ -100,14 +100,14 @@ export class MDCButton {
 
     /** @return The text content of the leading icon. If leadingIcon is an SVGElement, it is returned */
     get leadingIcon() {
-        if(this.label_.previousElementSibling) {
-            value instanceof SVGElement ? this.label_.previousElementSibling : 
-                this.label_.previousElementSibling.textContent;
+        const icon = this.label_.previousElementSibling;
+        if(icon) {
+            return icon instanceof SVGElement ? icon : icon.textContent;
         }
-        else null;
+        else return null;
     }
 
-    /** Sets the leading icon. @param value string or SVGElement*/
+    /** Sets the leading icon. @param value string or SVGElement */
     set leadingIcon(value) {
         if(value instanceof SVGElement) {
             value.setAttribute('class', value.getAttribute('class') + "mdc-button__icon");
@@ -126,13 +126,13 @@ export class MDCButton {
         
     }
 
-    /** @return The text content of the trailing icon. If trailing is an SVGElement, it is returned  */
+    /** @return The text content of the trailing icon. If trailing is an SVGElement, it is returned */
     get trailingIcon() {
-        if(this.label_.nextElementSibling) {
-            value instanceof SVGElement ? this.label_.nextElementSibling : 
-                this.label_.nextElementSibling.textContent;
+        const icon = this.label_.nextElementSibling;
+        if(icon) {
+            return icon instanceof SVGElement ? icon : icon.textContent;
         }
-        else null;
+        else return null;
     }
 
     /** Sets the text content of the trailing icon. @param value string or SVGElement */
