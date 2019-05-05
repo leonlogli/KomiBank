@@ -237,8 +237,40 @@ export class MDCTextField extends _MDCTextField {
     /**
      * @return {string} The helper text element content.
      */
-    get helperTextContent() {
-        return this.helperTextEl_.innerHTML;
+    get helperText() {
+        return this.helperTextEl_ ? this.helperTextEl_.querySelector('.mdc-text-field-helper-text').innerHTML :  null;
+    }
+
+    set helperText(value) {
+        if(this.root_.nextElementSibling && this.root_.nextElementSibling.classList.contains('mdc-text-field-helper-line')) {
+            this.root_.nextElementSibling.innerHTML = value;
+        }
+        else {
+            this.root_.insertAdjacentHTML('afterend', 
+                `<div class="mdc-text-field-helper-line">
+                    <div class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent">${value}</div>
+                </div>`);
+        }
+        if(this.root_.nextElementSibling && this.root_.nextElementSibling.classList.contains('mdc-text-field-helper-line')) {
+            this.helperTextEl_ = this.root_.nextElementSibling;
+        }
+    }
+ 
+    get isHelperTextShown() {
+        return this.helperTextEl_ && this.helperTextEl_.classList.contains('.visible');
+    }
+
+    showHelperText(value) {
+        if(this.helperTextEl_) {
+            if(value == true) {
+                if(!this.helperTextEl_.classList.contains('visible')) this.helperTextEl_.classList.add('visible');
+                this.helperTextEl_.classList.remove('invisible');
+            }
+            else {
+                if(!this.helperTextEl_.classList.contains('invisible')) this.helperTextEl_.classList.add('invisible');
+                this.helperTextEl_.classList.remove('visible');
+            }
+        }
     }
 
     get labelText() {

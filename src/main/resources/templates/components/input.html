@@ -3,30 +3,15 @@
 
 <!-- MDLTextField -->
 
-<div th:fragment="MDLTextField" th:with="type=${type} ?: 'text', clearable=${clearable} ?: 'false', 
-	showError=${showError} ?: 'false'"
-	th:id=${id} class="mdl-textfield mdl-js-textfield " 
-	th:classappend="${(class != null ? class : '')
-					+ (label != null ? ' mdl-textfield--floating-label' : '')
-					+ (leadingIcon != null ? ' mdl-textfield--with-leading-icon' : '')
-					+ (trailingIcon != null or clearable == 'true' ? ' mdl-textfield--with-trailing-icon' : '')}">
+<div th:fragment="MDLTextField" th:with="type=${type} ?: 'text'"
+	th:id=${id} class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label " 
+	th:classappend="${(class != null ? class : '')}">
 	
 	<input th:placeholder="${label != null ? placeHolder : ''}" th:type=${type} class="mdl-textfield__input" 
 		th:name=${name} th:id=${name} th:pattern=${pattern} th:value=${value}> 
 	
 	<label class="mdl-textfield__label" style="margin-bottom: 0" th:for=${name} 
 		th:text="${label ?: placeHolder}">Label</label>
-		
-	<span class="mdl-textfield__error " 
-		th:classappend="${pattern != null ? '' : showError ? 'visible' : 'invisible'}"
-		th:text="${errorMsg}">Error in input field !</span>
-		
-	<i th:if="${leadingIcon != null}" th:text="${leadingIcon}" class="material-icons mdl-textfield__icon leading-icon" 
-		tabindex="0" role="button">search</i>
-	
-	<i th:if="${trailingIcon != null or clearable == 'true'}" class="material-icons mdl-textfield__icon trailing-icon" 
-		th:classappend="${clearable == 'true' ? ' clear-icon' :  ''}" 
-		th:text="${trailingIcon}" tabindex="0" role="button">clear</i>
 </div>
 
 <!-- MDCTextField -->
