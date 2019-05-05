@@ -5,10 +5,9 @@
 <title>Accounts</title>
 </head>
 <body>
-
 	<!-- Content -->
-	
-	<div layout:fragment="content" th:id=${pageId} th:classappend="${pageClass != null ? pageClass : ''}">
+	<div layout:fragment="content" class="banking-admin" th:id=${pageId} 
+		th:classappend="${pageClass != null ? pageClass : ''}">
 		<div class="container-fluid py-4 px-5 header">
 			<div class="row">
 				<div class="col text-center">
@@ -18,7 +17,7 @@
 			<div layout:fragment="searchContainer">
 			</div>
 		</div>
-		
+
 		<div class="container pt-3 pb-5">
 			<div class="row py-3 actionButtons">
 				<div class="col-sm d-flex justify-content-center">

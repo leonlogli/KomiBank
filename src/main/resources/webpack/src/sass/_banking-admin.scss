@@ -1,0 +1,69 @@
+/***************************************************************************
+ *                                                                         *
+ * Commons style for pages that extend banking-admin-layout                *
+ *                                                                         *
+ **************************************************************************/
+
+.banking-admin {
+    .search-options-menu {
+        .mdc-button--raised {
+            @include mdc-button-horizontal-padding(22px);
+            @include mdc-button-container-fill-color($primary-color);    
+            // Disable background-focused color
+            &.mdc-ripple-upgraded--background-focused::before, &:not(.mdc-ripple-upgraded):focus::before {
+                opacity: 0;
+            }
+        }
+        .mdc-menu {
+            @include mdc-menu-width(200px);
+        }
+        .mdc-list {
+            .mdc-list-item--selected, .mdc-list-item--activated {
+                color: navy;
+            }
+        }  
+    }
+    .search-form {
+        max-width: 250px;
+        @media (min-width: 576px) {
+            & {
+                max-width: 300px;
+            }
+        }
+    }
+    .mdc-card {
+        .card-header {
+            border-bottom: none;
+            background-color: #5f9ea0;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 4px 4px 0 0;
+        }
+        .card-body {
+            label {
+                font-weight: 400
+            }
+        }
+    }  
+}
+
+/***************************************************************************
+ *                                                                         *
+ * account-admin page style                                                *
+ *                                                                         *
+ **************************************************************************/
+
+#accounts-admin { 
+    background-color: #FAFAFA;
+    .header {
+        background-color: cadetblue;
+        color: white;    
+    }
+    .mdl-textfield {
+        @include mdl-field-colors(white, white, lighten(gainsboro, 5), $secondary-color);
+        .mdl-textfield__error {
+            font-size:14px;
+            color: yellow;
+        }
+    }         
+}

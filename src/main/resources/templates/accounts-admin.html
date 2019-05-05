@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{layouts/banking-admin-layout(pageId='accounts-admin', pageTitle='Accounts')}">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<!-- searchContainer -->
+	
+	<div layout:fragment="searchContainer" class="row" id="account-search-form">
+		<div class="col-sm-6 px-0">
+			<form th:action="@{/accounts}" method="get" class="ml-sm-auto mr-sm-0 search-form">
+				<div th:replace="components/input::MDLTextField(name='accountCode')"></div>
+			</form>
+		</div>
+		<div class="col-sm-6 my-auto px-0 pl-sm-4">
+			<div class="mdc-menu-surface--anchor search-options-menu">
+				<div th:replace="components/base::MDCButton('search options')"></div>
+				<div th:replace="components/menu::MDCMenu(${ {'By account code', 'By creation date'} })"></div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- leftContent -->
+	
+	<div class="mdc-card my-3" layout:fragment="leftContent">
+		<h5 class="card-header">Account information</h5>
+		<div class="card-body">
+			<th:block th:if="${account}">
+				<label class="d-block">Customer : <span th:text="${account.customer.name}">C1BA4TG145</span></label>
+				<label class="d-block">Code : <span th:text="${account.code}">C1BA4TG145</span></label>
+				<label class="d-block">Balance : <span th:text="${account.balance}">94520</span></label>
+				<label class="d-block">Creation date  : <span th:text="${account.creationDate}">20/04/2019</span></label>
+				<label class="d-block">Type : <span th:text="${account.type()}">Account Type</span></label>
+				<th:block th:if="${account.class.simpleName=='CurrentAccount'}">
+					<label class="d-block">Overdraft : <span th:text="${account.overdraft}">1200</span></label>
+				</th:block>
+				<th:block th:if="${account.class.simpleName=='SavingsAccount'}">
+					<label class="d-block">Interest Rate : <span th:text="${account.interestRate}">5.2</span></label>
+				</th:block>
+			</th:block>
+			<th:block th:if="${account == null}">
+				<label>No information available. Search for an account to see its details here</label>
+			</th:block>
+		</div>
+	</div>
+	
+	<!-- rightContent -->
+	
+	<div class="mdc-card my-3" layout:fragment="rightContent">
+		<h5 class="card-header">Account operations</h5>
+		<div class="card-body">
+			<th:block th:if="${operations!=null and !operations.isEmpty()}">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Num</th><th>Type</th><th>Date</th><th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="o : ${operations}">
+							<td th:text="${o.id}">1</td>
+							<td th:text="${o.type()}">Operation Type</td>
+							<td th:text="${o.date}">01/04/219</td>
+							<td th:text="${o.amount}">2500</td>
+						</tr>
+					</tbody>
+				</table>
+			</th:block>
+			<th:block th:unless="${operations!=null and !operations.isEmpty()}">
+				<label>Oups ! No transactions available</label>
+			</th:block>
+		</div>
+	</div>
+	
+	<!-- Thymeleaf JS process -->
+	<th:block layout:fragment="inlineScripts">
+	    <script th:inline="javascript">
+	    	var accountCode = /*[[${account?.code}]]*/ null;
+	    	var isAccountFound = /*[[!${!#strings.isEmpty(param.accountCode) and account == null}]]*/ false;
+	    	var accountException = /*[[${exception?.message}]]*/ 'Account not found !';
+		</script>
+     </th:block>
+</body>
+</html>
