@@ -5,13 +5,15 @@ export class MDLTextField {
     constructor(selector) {
         this.root_ = isString(selector) ? document.querySelector(selector) : selector;
         this.input_ = this.root_.querySelector(".mdl-textfield__input");
-         this.label_ = this.root_.querySelector(".mdl-textfield__label");
+        this.label_ = this.root_.querySelector(".mdl-textfield__label");
         this.leadingIcon_ = this.root_.querySelector(".leading-icon");
         this.trailingIcon_ = this.root_.querySelector(".trailing-icon");
         
         /** @private {?string} stores the initial trailingIcon before setting the input clear-icon */ 
         this.initialTrailingIcon_ = this.trailingIcon;
         this.clearIcon = 'clear';
+
+        this.setAttribute('autocomplete', "off"); // By default, disable input autocomplete
     }
 
     static create(fieldClass, id, name) {
@@ -224,5 +226,21 @@ export class MDLTextField {
             this.initialTrailingIcon_ = value;
             this.trailingIcon_.classList.remove('clear-icon');
         }
+    }
+    
+    setAttribute(name, value) {
+        if(this.input_) this.input_.setAttribute(name, value);
+    }
+    
+    getAttribute(name) {
+        return this.input_ ? this.input_.getAttribute(name) : null;
+    }
+
+    hasAttribute(name) {
+        return this.input_ ? this.input_.hasAttribute(name) : false;
+    }
+
+    removeAttribute(name) {
+        if(this.input_) this.input_.removeAttribute(name);
     }
 }

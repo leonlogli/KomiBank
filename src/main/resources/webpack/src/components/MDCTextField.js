@@ -19,6 +19,8 @@ export class MDCTextField extends _MDCTextField {
         /** @private {?string} stores the initial trailingIcon before setting the input clear-icon */ 
         this.initialTrailingIcon_ = this.trailingIcon;
         this.clearIcon = 'clear';
+
+        this.setAttribute('autocomplete', "off"); // By default, disable input autocomplete
     }
 
     static create(variant, fieldClass, id, name) {
@@ -279,5 +281,21 @@ export class MDCTextField extends _MDCTextField {
 
     set labelText(value) {
         this.labelEl_.innerHTML = value;
+    }
+
+    setAttribute(name, value) {
+        if(this.inputEl_) this.inputEl_.setAttribute(name, value);
+    }
+
+    getAttribute(name) {
+        return this.inputEl_ ? this.inputEl_.getAttribute(name) : null;
+    }
+
+    hasAttribute(name) {
+        return this.inputEl_ ? this.inputEl_.hasAttribute(name) : false;
+    }
+
+    removeAttribute(name) {
+        if(this.inputEl_) this.inputEl_.removeAttribute(name);
     }
 }

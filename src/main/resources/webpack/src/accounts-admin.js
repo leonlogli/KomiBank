@@ -15,7 +15,7 @@ if(document.querySelector('#accounts-admin')) {
     // Account search field
     accountSearchField.labelText = "Search an account";
     accountSearchField.setClearable();
-    accountSearchField.errorText = 'Account not found !';
+    accountSearchField.errorText = accountException;
     accountSearchField.value = accountCode;
     accountSearchField.showError(!isAccountFound);
 
