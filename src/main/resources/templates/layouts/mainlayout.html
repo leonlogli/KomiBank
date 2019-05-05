@@ -40,10 +40,18 @@
 	
 	<!-- Main Container -->
 	<div class="container-fluid px-0 mx-0 main-container">
-	    <div layout:fragment="content"></div>
+		<div class="row">
+			<div class="col-12">
+				<div layout:fragment="content"></div>
+			</div>
+		</div>
+	    
     </div>
     
 	<footer th:replace="partials/footer::footer"></footer>
+	
+	<!-- Inline Scripts to pass data to JS with Thymeleaf -->
+	<th:block layout:fragment="inlineScripts"></th:block>
 	
 	<!-- Common JS -->
 	<!-- 
