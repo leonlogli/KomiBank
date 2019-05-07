@@ -38,16 +38,15 @@ public class BankingServiceImpl implements BankingService {
 	@Override
 	public Account getAccount(String accountCode) {
 		Account account = null;
-		
 		try {
 			account = accountDao.findById(accountCode).get();
 		}
 		catch (NoSuchElementException e) {
-			throw new RuntimeException("Account not found");
+			throw new RuntimeException("Account not found !");
 		}
 		
 		if (account == null) {
-			throw new RuntimeException("Account not found");
+			throw new RuntimeException("Account not found !");
 		}	
 		return account;
 	}
@@ -63,11 +62,9 @@ public class BankingServiceImpl implements BankingService {
 		if (account instanceof CurrentAccount) {
 			overdraft = ((CurrentAccount) account).getOverdraft();
 		}
-		
 		if (account.getBalance() + overdraft < amount) {
-			throw new RuntimeException("Insufficient balance");
+			throw new RuntimeException("Insufficient balance !");
 		}
-		
 		operationDao.save(new Withdrawal(amount, new Date(), account));
 		account.setBalance(account.getBalance() - amount);
 	}
@@ -88,9 +85,8 @@ public class BankingServiceImpl implements BankingService {
 	@Override
 	public void transfer(String fromAccount, String toAccount, double amount) {
 		if (fromAccount.equals(toAccount)) {
-			throw new RuntimeException("Error ! account codes must be different");
+			throw new RuntimeException("Error !!! account codes must be different !");
 		}
-		
 		withdraw(fromAccount, amount);
 		deposit(toAccount, amount);
 	}

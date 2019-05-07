@@ -4,6 +4,7 @@ import {MDCButton} from './components/MDCButton';
 import {MDCCard} from './components/MDCCard';
 import * as SVG from "./svg";
 import "./accounts-admin";
+import "./add-operations";
 import './sass/app.scss';
 
 // Setup a ripple effect for mdc compoents

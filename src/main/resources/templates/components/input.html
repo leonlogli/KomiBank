@@ -22,13 +22,13 @@
 					+ (variant == 'outlined' ? ' mdc-text-field--outlined' : '')}">
 	
 	<th:block th:if="${variant == 'default'}">
-		<input th:type=${type} class="mdc-text-field__input" th:name=${name} >
+		<input th:type=${type} class="mdc-text-field__input" th:name=${name} th:value=${value}>
 		<label class="mdc-floating-label" th:text="${label}">TextField Label</label>
 		<div class="mdc-line-ripple"></div>
 	</th:block>
 
 	<th:block th:if="${variant == 'textarea'}">
-		<textarea th:name=${name}  class="mdc-text-field__input" rows="8" cols="40"></textarea>
+		<textarea th:name=${name}  class="mdc-text-field__input" rows="8" cols="40" th:value=${value}></textarea>
 		<div class="mdc-notched-outline">
 			<div class="mdc-notched-outline__leading"></div>
 			<div class="mdc-notched-outline__notch">
@@ -39,7 +39,7 @@
 	</th:block>
 
 	<th:block th:if="${variant == 'outlined'}">
-		<input th:type=${type} th:name=${name} class="mdc-text-field__input">
+		<input th:type=${type} th:name=${name} class="mdc-text-field__input" th:value=${value}>
 		<div class="mdc-notched-outline">
 			<div class="mdc-notched-outline__leading"></div>
 			<div class="mdc-notched-outline__notch">

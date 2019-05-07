@@ -1,0 +1,81 @@
+#add-operations {
+    background-color: gainsboro;
+    min-height: 100%;
+    .header {
+        background-color: #518688;
+        color: white;    
+    }
+    .mdc-tab {
+        @include mdc-tab-ink-color(white);
+        @include mdc-tab-states-color(darken($primary-color, 70));
+        &:not(.mdc-tab--active) {
+            .mdc-tab__text-label {
+                opacity: 0.8;
+            }
+        }
+        @media screen and (max-width: 576px) { 
+            & {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    }
+    .mdc-tab-indicator {
+        @include mdc-tab-indicator-underline-color(white);
+    }
+    .tab-view {
+        display: none;
+    } 
+    .tab-view--active {
+        display: block;
+    }
+    .mdl-textfield {
+        width: calc(100% - 50px);
+        margin-top: -8px;
+        @include mdl-field-colors(rgba(0,0,0,.87), $secondary-color, rgba(0,0,0,.3), null);
+        &:not(.is-focused) .mdl-textfield__label {
+            color: rgba(0,0,0,.54);
+        }
+    }
+    .submit-button {
+        @include mdc-button-container-fill-color($secondary-color);
+        width: calc(100% - 50px);
+        height: 44px;
+        display: block;
+    }
+    @media screen and (max-width: 576px) { 
+        .mdl-textfield, .submit-button {
+            width: calc(100%);
+        }
+    }
+    
+}
+#withdraw-tab-view {
+    h5 {
+        color: $secondary-color;
+    }
+}
+
+#payemt-tab-view {
+    .card-header {
+        border-bottom: none;
+        background-color: #518688;
+        color: white;
+        padding: 18px 20px;
+        border-radius: 4px 4px 0 0;
+    }
+}
+
+#transfert-tab-view {
+    .form-card-header {
+        color: white;
+        background-color: #518688;
+        position: relative;
+        top: -30px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+        border-radius: 4px;
+    }
+    h5 {
+        margin: 0;
+    }
+}

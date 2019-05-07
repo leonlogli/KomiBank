@@ -11,7 +11,7 @@
 	
 	<div layout:fragment="searchContainer" class="row" id="account-search-form">
 		<div class="col-sm-6 px-0">
-			<form th:action="@{/accounts}" method="get" autocomplete="off" class="ml-sm-auto mr-sm-0 search-form">
+			<form th:action="@{/accounts}" method="post" autocomplete="off" class="ml-sm-auto mr-sm-0 search-form">
 				<div th:replace="components/input::MDLTextField(name='accountCode')"></div>
 			</form>
 		</div>

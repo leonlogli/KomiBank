@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<div layout:fragment="content" id="add-operations">
+		<div class="container-fluid px-md-5 px-0 pt-3 header">
+			<div class="row pt-3 pb-3">
+				<div class="col text-center">
+					<h3>Add Operations</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div th:replace="components/tab::MDCTabBar(${ {'Payement', 'Withdraw', 'Transfert'} })"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container py-0 py-md-4">
+			<div class="row d-flex justify-content-center">
+			
+				<!-- Payment Tab Content View -->
+				<div class="col-lg-6 col-md-8 tab-view py-5 tab-view" id="payemt-tab-view">
+					<div class="mdc-card text-center">
+						<h5 class="card-header">Payment</h5>
+						<div class="card-body pb-5 px-md-5 px-4">
+							<p class="mt-3">Add a new payment operation</p>
+							<form th:action="@{/addOperations}" method="post" autocomplete="off">
+								<input type="hidden" name="operationType" value="Payment">
+								<div th:replace="components/input::MDLTextField(name='accountCode', 
+									class='acount-code-field')"></div>
+								<div th:replace="components/input::MDLTextField(name='amount', 
+									class='amount-field')"></div>
+								<div class="d-flex justify-content-center mt-3">
+									<div th:replace="components/base::MDCButton(text='Finish', 
+										class='submit-button', type='submit')"></div>					
+								</div>
+							</form>
+							<div th:if="${operationException != null}" th:text="${operationException.message}" 
+								class="text-danger pt-3">Oups !!! Operation failed !</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Withdraw Tab Content View -->
+				<div class="col-lg-6 col-md-8 tab-view py-5 tab-view--active" id="withdraw-tab-view">
+					<div class="mdc-card text-center p-5 px-md-5 px-4">
+						<h5>Withdrawal operation</h5>
+						<p class="mt-3">You can make as much withdrawal as you want as long as the amount 
+							is less than your available balance
+						</p>
+						<form th:action="@{/addOperations}" method="post" autocomplete="off">
+							<input type="hidden" name="operationType" value="Withdraw">
+							<div th:replace="components/input::MDLTextField(name='accountCode', 
+								class='acount-code-field')"></div>
+							<div th:replace="components/input::MDLTextField(name='amount', 
+								class='amount-field')"></div>
+							<div class="d-flex justify-content-center mt-3">
+								<div th:replace="components/base::MDCButton(text='Finish', 
+									class='submit-button', type='submit')"></div>					
+							</div>
+						</form>
+						<div th:if="${operationException != null}" th:text="${operationException.message}" 
+							class="text-danger pt-3">Oups !!! Operation failed !</div>
+					</div>
+				</div>
+					
+				<!-- Transfert Tab Content View -->
+				<div class="col-lg-6 col-md-8 tab-view py-5 tab-view--active" id="transfert-tab-view">
+					<div class="mdc-card text-center px-5 pb-5 pt-0 px-md-5 px-4">
+						<div class="p-3 form-card-header">
+							<h5>Bank transfer</h5>
+						</div>
+						<p class="mt-2">Transfert money from your account to any other Komibank customer account</p>
+						<form th:action="@{/addOperations}" method="post" autocomplete="off">
+							<input type="hidden" name="operationType" value="Transfert">
+							<div th:replace="components/input::MDLTextField(name='accountCode', 
+								class='acount-code-field')"></div>
+							<div th:replace="components/input::MDLTextField(name='recipientAccountCode', 
+								class='recipient-account-field')"></div>
+							<div th:replace="components/input::MDLTextField(name='amount', 
+								class='amount-field')"></div>
+							<div class="d-flex justify-content-center mt-3">
+								<div th:replace="components/base::MDCButton(text='Finish', 
+									class='submit-button', type='submit')"></div>					
+							</div>
+						</form>
+						<div th:if="${operationException != null}" th:text="${operationException.message}" 
+							class="text-danger pt-3">Oups !!! Operation failed !</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
