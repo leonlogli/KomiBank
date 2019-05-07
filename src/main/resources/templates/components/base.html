@@ -3,7 +3,7 @@
 
 <!-- MDCButton -->
 
-<button th:fragment="MDCButton(text)" class="mdc-button" th:id=${id}
+<button th:fragment="MDCButton(text)" th:type=${type} class="mdc-button" th:id=${id}
 	th:classappend="${class != null ? class : ''}">
 	
 	<i th:if="${leadingIcon != null}" class="material-icons mdc-button__icon" aria-hidden="true" 

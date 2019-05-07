@@ -8,10 +8,9 @@
 	th:classappend="${(class != null ? class : '')}">
 	
 	<input th:placeholder="${label != null ? placeHolder : ''}" th:type=${type} class="mdl-textfield__input" 
-		th:name=${name} th:id=${name} th:pattern=${pattern} th:value=${value}> 
+		th:name=${name}  th:pattern=${pattern} th:value=${value}> 
 	
-	<label class="mdl-textfield__label" style="margin-bottom: 0" th:for=${name} 
-		th:text="${label ?: placeHolder}">Label</label>
+	<label class="mdl-textfield__label" style="margin-bottom: 0" th:text="${label ?: placeHolder}">Label</label>
 </div>
 
 <!-- MDCTextField -->
@@ -23,28 +22,28 @@
 					+ (variant == 'outlined' ? ' mdc-text-field--outlined' : '')}">
 	
 	<th:block th:if="${variant == 'default'}">
-		<input th:type=${type} class="mdc-text-field__input" th:name=${name} th:id=${name}>
-		<label class="mdc-floating-label" th:for=${name} th:text="${label}">TextField Label</label>
+		<input th:type=${type} class="mdc-text-field__input" th:name=${name} >
+		<label class="mdc-floating-label" th:text="${label}">TextField Label</label>
 		<div class="mdc-line-ripple"></div>
 	</th:block>
 
 	<th:block th:if="${variant == 'textarea'}">
-		<textarea th:name=${name} th:id=${name} class="mdc-text-field__input" rows="8" cols="40"></textarea>
+		<textarea th:name=${name}  class="mdc-text-field__input" rows="8" cols="40"></textarea>
 		<div class="mdc-notched-outline">
 			<div class="mdc-notched-outline__leading"></div>
 			<div class="mdc-notched-outline__notch">
-				<label th:for=${name} th:text="${label}" class="mdc-floating-label">Textarea Label</label>
+				<label th:text="${label}" class="mdc-floating-label">Textarea Label</label>
 			</div>
 			<div class="mdc-notched-outline__trailing"></div>
 		</div>
 	</th:block>
 
 	<th:block th:if="${variant == 'outlined'}">
-		<input th:type=${type} th:name=${name} th:id=${name} class="mdc-text-field__input">
+		<input th:type=${type} th:name=${name} class="mdc-text-field__input">
 		<div class="mdc-notched-outline">
 			<div class="mdc-notched-outline__leading"></div>
 			<div class="mdc-notched-outline__notch">
-				<label th:for=${name} th:text="${label}" class="mdc-floating-label">Your Name</label>
+				<label th:text="${label}" class="mdc-floating-label">Your Name</label>
 			</div>
 			<div class="mdc-notched-outline__trailing"></div>
 		</div>

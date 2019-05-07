@@ -27,30 +27,30 @@ export class MDCTextField extends _MDCTextField {
         let field;
         if(variant && value.toUpperCase() == "OUTLINED") {
             field = createDIV("mdc-text-field mdc-text-field--outlined",
-                `<input type="text" id=${name} name=${name} class="mdc-text-field__input">
+                `<input type="text" name=${name} class="mdc-text-field__input">
                 <div class="mdc-notched-outline">
                   <div class="mdc-notched-outline__leading"></div>
                   <div class="mdc-notched-outline__notch">
-                    <label for=${name} class="mdc-floating-label">Your Name</label>
+                    <label class="mdc-floating-label">Your Name</label>
                   </div>
                   <div class="mdc-notched-outline__trailing"></div>
                 </div>`);
         }
         else if(variant && value.toUpperCase() == "TEXTAREA") {
             field = createDIV("mdc-text-field mdc-text-field--textarea",
-                `<textarea id=${name} name=${name} class="mdc-text-field__input" rows="8" cols="40"></textarea>
+                `<textarea name=${name} class="mdc-text-field__input" rows="8" cols="40"></textarea>
                 <div class="mdc-notched-outline">
                   <div class="mdc-notched-outline__leading"></div>
                   <div class="mdc-notched-outline__notch">
-                    <label for=${name} class="mdc-floating-label">Textarea Label</label>
+                    <label class="mdc-floating-label">Textarea Label</label>
                   </div>
                   <div class="mdc-notched-outline__trailing"></div>
                 </div>`);
         }
         else {
             field = createDIV("mdc-text-field",
-                `<input type="text" id=${name} name=${name} class="mdc-text-field__input">
-                <label class="mdc-floating-label" for=${name}>Label</label>
+                `<input type="text" name=${name} class="mdc-text-field__input">
+                <label class="mdc-floating-label">Label</label>
                 <div class="mdc-line-ripple"></div>`);
         }
         if(fieldClass) field.className = field.className + ' ' + fieldClass;

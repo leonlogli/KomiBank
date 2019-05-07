@@ -18,8 +18,8 @@ export class MDLTextField {
 
     static create(fieldClass, id, name) {
         const field = createDIV("mdl-textfield mdl-js-textfield mdl-textfield--floating-label",
-                `<input type="text" id=${name} name=${name} class="mdl-textfield__input">
-                <label class="mdl-textfield__label" for=${name} style="margin-bottom: 0">Label</label>
+                `<input type="text" name=${name} class="mdl-textfield__input">
+                <label class="mdl-textfield__label" style="margin-bottom: 0">Label</label>
                 <div class="mdc-line-ripple"></div>`);
         if(fieldClass) field.className = field.className + ' ' + fieldClass;
         if(id) field.id = id;
@@ -94,6 +94,14 @@ export class MDLTextField {
      *  Events Handler Methods                                                 *
      *                                                                         *
      **************************************************************************/
+
+    get onchange() {
+        return this.input_.onchange
+    }
+
+    set onchange(listener) {
+        this.input_.onchange = listener;
+    }
 
     addEventListener(type, listener, options) {
         this.input_.addEventListener(type, listener, options);

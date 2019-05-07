@@ -87,6 +87,9 @@ input:-webkit-autofill {
 // MDLTextField default style
 
 .mdl-textfield {
+    .mdl-textfield__input {
+        padding-bottom: 2px;
+    }
     &.mdl-textfield--with-leading-icon.mdl-textfield--with-trailing-icon { // has leading & trailing icon
         .mdl-textfield__icon {
             left: 0;
@@ -136,11 +139,11 @@ input:-webkit-autofill {
 
 /***************************************************************************
  *                                                                         *
- * MDLTextField                                                            *
+ * MDCTextField                                                            *
  *                                                                         *
  **************************************************************************/
  
- // MDLTextField mixins
+ // MDCTextField mixins
 
  @mixin mdc-text-field-dim($height, $iconSize) {
 	height: $height;

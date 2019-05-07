@@ -39,6 +39,34 @@ function isString(value) {
     return typeof value === 'string' || value instanceof String;
 }
 
+/**
+ * Detects that Storage is supported and also available
+ * @param {string} type storage type. Ex : 'localStorage', 'sessionStorage'
+ */
+function isStorageAvailable(type) {
+    try {
+        var storage = window[type],
+            x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (e.code === 22 || e.code === 1014 || e.name === 'QuotaExceededError' || 
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') && storage.length !== 0;
+    }
+}
+
+/** Detects that localStorage is supported and also available */
+function isLocalStorageAvailable() {
+    return isStorageAvailable('localStorage');
+}
+
+/** Detects that sessionStorage is supported and also available */
+function isSessionStorageAvailable() {
+    return isStorageAvailable('sessionStorage');
+}
+
 export {
-    isString, createElement, createDIV
+    isString, createElement, createDIV, isSessionStorageAvailable, isLocalStorageAvailable
 };
