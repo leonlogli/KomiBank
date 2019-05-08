@@ -53,7 +53,7 @@
 		<h5 class="card-header">Account operations</h5>
 		<div class="card-body">
 			<th:block th:if="${operations!=null and !operations.isEmpty()}">
-				<table class="table">
+				<table class="table table-responsive">
 					<thead>
 						<tr>
 							<th>Num</th><th>Type</th><th>Date</th><th>Amount</th>
@@ -72,6 +72,14 @@
 			<th:block th:unless="${operations!=null and !operations.isEmpty()}">
 				<label>Oups ! No transactions available</label>
 			</th:block>
+			<nav aria-label="Operations page navigation">
+				<ul class="pagination">
+					<li class="page-item" th:each="page:${operationsPages}">
+						<a class="mdc-button" th:href="@{/accounts(accountCode=${account.code}, 
+							operationPageNum=${page})}" th:text="${page}"></a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 	

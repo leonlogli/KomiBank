@@ -20,21 +20,21 @@
 
 		<div class="container pt-3 pb-5">
 			<div class="row py-3 actionButtons">
-				<div class="col-sm d-flex justify-content-center">
+				<div class="col-md d-flex justify-content-center">
 					<div th:replace="components/base::MDCButton(text='Add', class='add-button')"></div>
 				</div>
-				<div class="col-sm d-flex justify-content-center">
+				<div class="col-md d-flex justify-content-center">
 					<div th:replace="components/base::MDCButton(text='Edit', class='edit-button')"></div>
 				</div>
-				<div class="col-sm d-flex justify-content-center">
+				<div class="col-md d-flex justify-content-center">
 					<div th:replace="components/base::MDCButton(text='Delete', class='delete-button')"></div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-md-6">
 					<div layout:fragment="leftContent"></div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-md-6">
 					<div layout:fragment="rightContent"></div>
 				</div>
 			</div>
