@@ -14,6 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Base class for all kinds of banck accounts
@@ -27,6 +28,7 @@ import javax.persistence.OneToMany;
 public abstract class Account implements Serializable {
 
 	@Id
+	@NotBlank(message = "Account code is mandatory")
 	private String code;
 	private double balance;
 	private Date creationDate;
