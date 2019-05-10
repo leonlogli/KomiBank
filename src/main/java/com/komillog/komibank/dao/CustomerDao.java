@@ -9,4 +9,5 @@ import com.komillog.komibank.model.Customer;
 
 public interface CustomerDao extends JpaRepository<Customer, Long>{
 	List<Customer> findByName(String name);
+	Customer findByEmail(String email);
 }

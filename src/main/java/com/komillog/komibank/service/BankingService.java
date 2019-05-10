@@ -21,6 +21,16 @@ public interface BankingService {
 	public Account getAccount(String accountCode);
 	
 	/**
+	 * Open a new account with the specified parameters.
+	 * 
+	 * @param customerName the customer name
+	 * @param customerEmail the customer email
+	 * @param accountCode the code of the account
+	 * @param accountType acoount type. Ex : "CC" for CurrentAccount or "SA" for SavingsAccount
+	 */
+	public void openNewAccount(String customerName, String customerEmail, String accountCode, String accountType);
+	
+	/**
 	 * Make a transfer between two bank accounts
 	 * 
 	 * @param fromAccount the code of the origin account

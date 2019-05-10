@@ -30,14 +30,30 @@ public class BankController {
 	public String index() {
 		return "index";
 	}
+
+	@GetMapping("/addAccount")
+	public String showAddAccountPage() {
+		return "add-account";
+	}
+	
+	@PostMapping("/addAccount")
+    public String saveAccount(String customerName, String customerEmail, String accountCode, String accountType,
+    		Model model) {
+		try {
+			bankingService.openNewAccount(customerName, customerEmail, accountCode, accountType);
+		} catch (Exception e) {
+			model.addAttribute("accountException", e);
+		}        
+        return "add-account";
+    }
 	
 	@GetMapping("/addOperations")
-	public String addOperationsPage() {
+	public String showAddOperationsPage() {
 		return "add-operations";
 	}
 	
 	@PostMapping("/addOperations")
-	public String saveOperations(String operationType, String accountCode, double amount,
+	public String saveOperation(String operationType, String accountCode, double amount,
 			String recipientAccountCode, Model model) {
 		try {
 			if (operationType.equals("Payment")) {

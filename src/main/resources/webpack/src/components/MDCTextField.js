@@ -245,7 +245,7 @@ export class MDCTextField extends _MDCTextField {
 
     set helperText(value) {
         if(this.root_.nextElementSibling && this.root_.nextElementSibling.classList.contains('mdc-text-field-helper-line')) {
-            this.root_.nextElementSibling.innerHTML = value;
+            this.root_.nextElementSibling.querySelector('.mdc-text-field-helper-text').innerHTML = value;
         }
         else {
             this.root_.insertAdjacentHTML('afterend', 

@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.komillog.komibank.dao.AccountDao;
+import com.komillog.komibank.dao.CustomerDao;
 import com.komillog.komibank.dao.OperationDao;
 import com.komillog.komibank.model.Account;
 import com.komillog.komibank.model.CurrentAccount;
+import com.komillog.komibank.model.Customer;
 import com.komillog.komibank.model.Operation;
 import com.komillog.komibank.model.Payment;
+import com.komillog.komibank.model.SavingsAccount;
 import com.komillog.komibank.model.Withdrawal;
 
 /**
@@ -28,6 +31,9 @@ public class BankingServiceImpl implements BankingService {
 	
 	@Autowired
 	private AccountDao accountDao;
+	
+	@Autowired
+	private CustomerDao customerDao;
 	
 	@Autowired
 	private OperationDao operationDao;
@@ -97,6 +103,39 @@ public class BankingServiceImpl implements BankingService {
 	@Override
 	public Page<Operation> getAccountOperations(String accountCode, int pageNum, int pageSize) {
 		return operationDao.getAccountOperations(accountCode, PageRequest.of(pageNum, pageSize));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void openNewAccount(String customerName, String customerEmail, String accountCode, String accountType) {
+		if (accountType == null || !(accountType.equalsIgnoreCase("CA") || accountType.equalsIgnoreCase("SA"))) {
+			throw new RuntimeException("Error !!! Account type is mandatory !");
+		}
+		
+		Account account = null;
+		try {
+			account = getAccount(accountCode);
+		} catch (Exception e) { 
+			// This block does nothing but avoid displaying "Account not found" Exception.
+			// As we are creating a new account, it is useless to display this exception
+		}
+		
+		if(account != null) {
+			throw new RuntimeException("This account already exists !");
+		}
+		if(customerDao.findByEmail(customerEmail) != null) {
+			throw new RuntimeException("The email address you entered already exists !");
+		}
+		
+		Customer customer = customerDao.save(new Customer(customerName, customerEmail));
+		if(accountType.equalsIgnoreCase("CA")) {
+			accountDao.save(new CurrentAccount(accountCode, customer, 0, new Date(), 0));
+		}
+		else if(accountType.equalsIgnoreCase("SA")) {
+			accountDao.save(new SavingsAccount(accountCode, customer, 0, new Date(), 0));
+		}
 	}
 
 }

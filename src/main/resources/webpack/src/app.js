@@ -5,6 +5,7 @@ import {MDCCard} from './components/MDCCard';
 import * as SVG from "./svg";
 import "./accounts-admin";
 import "./add-operations";
+import "./add-account";
 import './sass/app.scss';
 
 // Setup a ripple effect for mdc compoents

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<div layout:fragment="content" id="add-account">
+		<div class="container py-0 py-md-4">
+			<div class="row pt-4 header text-center">
+				<div class="col-md-6">
+					<h3>Open an account</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-8 pt-4 pb-5">
+					<div class="mdc-card text-center px-4 py-5 px-md-5">
+						<h5 th:text="${accountType ?: 'Current Account'}">Current Account</h5>
+						<p class="mt-3 mb-2">Add personal inoformations and the account code</p>
+						<form th:action="@{/addAccount}" method="post" autocomplete="off">
+							<div class="my-4 py-1">
+								<div th:replace="components/input::MDCTextField(name='customerName', 
+								variant = 'outlined', class='customer-name-field')"></div>
+							</div>
+							<div class="my-4 py-1">
+								<div th:replace="components/input::MDCTextField(name='customerEmail', type='email',
+									variant = 'outlined', class='customer-email-field')"></div>
+							</div>
+							<div class="my-4 py-1">
+							<div th:replace="components/input::MDCTextField(name='accountCode', 
+								variant = 'outlined', class='account-code-field')"></div>
+							</div>
+							<div class="d-flex justify-content-center mt-3">
+								<div th:replace="components/base::MDCButton(text='Open now', 
+									class='submit-button', type='submit')"></div>					
+							</div>
+							<input type="hidden" name="accountType" th:value="${accountType ?: 'CA'}" value="CA">
+						</form>
+						<div th:if="${accountException != null}" th:text="${accountException.message}" 
+							class="text-danger pt-3">Oups !!! Can't create an account !</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
