@@ -8,13 +8,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
 
 /**
  * Base class for all kinds of banck accounts
@@ -28,8 +29,8 @@ import javax.validation.constraints.NotBlank;
 public abstract class Account implements Serializable {
 
 	@Id
-	@NotBlank(message = "Account code is mandatory")
-	private String code;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long code;
 	private double balance;
 	private Date creationDate;
 	
@@ -62,9 +63,8 @@ public abstract class Account implements Serializable {
 	 * @param balance account balance
 	 * @param creationDate the account creation date
 	 */
-	public Account(String code, Customer customer, double balance, Date creationDate) {
+	public Account(Customer customer, double balance, Date creationDate) {
 		super();
-		this.code = code;
 		this.customer = customer;
 		this.balance = balance;
 		this.creationDate = creationDate;
@@ -83,11 +83,11 @@ public abstract class Account implements Serializable {
      *                                                                         *
      **************************************************************************/
 
-	public String getCode() {
+	public Long getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 
@@ -121,6 +121,15 @@ public abstract class Account implements Serializable {
 
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
+	}
+	
+	/**
+	 * Returns the code of this account formatted with at least 8 digits. If the number of digits 
+	 * of the account Code is less than 8, it is completed with leading zeroes
+	 * @return the formatted account code on at least 8 digits
+	 */
+	public String formattedCode() {
+		return String.format("%0" + Math.max(8, String.valueOf(this.getCode()).length()) + "d", this.getCode());
 	}
 	
 }

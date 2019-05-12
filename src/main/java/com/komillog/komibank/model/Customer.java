@@ -1,7 +1,9 @@
 package com.komillog.komibank.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -60,6 +62,13 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 	
+	/**
+	 * Returns initials of this Customer's name as string
+	 * @return initials of this Customer's name as string
+	 */
+	public String nameInitials() {
+		return Arrays.stream(getName().split("\\s+")).map(i -> i.substring(0, 1)).collect(Collectors.joining());
+	}
 
     /***************************************************************************
      *                                                                         *

@@ -49,23 +49,23 @@ public class KomiBankApplicationTests {
         assertNotNull(customerFound2);
         assertEquals(customerFound.getName(), leon.getName());
         
-        CurrentAccount ca = accountDao.save(new CurrentAccount("C1", leon, 9000, new Date(), 1000));
-		SavingsAccount sa = accountDao.save(new SavingsAccount("C2", smith, 5000, new Date(), 5.5));
+        CurrentAccount ca = accountDao.save(new CurrentAccount(leon, 9000, new Date(), 1000));
+		SavingsAccount sa = accountDao.save(new SavingsAccount(smith, 5000, new Date(), 5.5));
 		
 		Account caFound = accountDao.findById(ca.getCode()).get();
 		Account saFound = accountDao.findById(sa.getCode()).get();
 
         assertEquals(caFound.getCustomer().getEmail(), ca.getCustomer().getEmail());
-        assertEquals(saFound.getCode(), "C2");
+        assertEquals(saFound.getCode(), 2, 0);
     }
 	
 	@Test
     public void testBanKService() {
-		bankingService.deposit("C1", 1000);
-		bankingService.deposit("C2", 3000);
-		bankingService.withdraw("C2", 5000);
+		bankingService.deposit(1L, 1000);
+		bankingService.deposit(2L, 3000);
+		bankingService.withdraw(2L, 5000);
 
-		assertEquals(bankingService.getAccount("C1").getBalance(), 10000, 0);
-		assertEquals(bankingService.getAccount("C2").getBalance(), 3000, 0.0001);
+		assertEquals(bankingService.getAccount(1L).getBalance(), 10000, 0);
+		assertEquals(bankingService.getAccount(2L).getBalance(), 3000, 0.0001);
     }
 }

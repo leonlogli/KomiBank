@@ -33,14 +33,13 @@ public class CurrentAccount extends Account {
 	/**
 	 * Create a new current account with the specified parameters
 	 * 
-	 * @param code the code of the account
 	 * @param customer the customer who owns this account
 	 * @param balance account balance
 	 * @param creationDate the account creation date
 	 * @param overdraft account's overdraft
 	 */
-	public CurrentAccount(String code, Customer customer, double balance, Date creationDate, double overdraft) {
-		super(code, customer, balance, creationDate);
+	public CurrentAccount(Customer customer, double balance, Date creationDate, double overdraft) {
+		super(customer, balance, creationDate);
 		this.overdraft = overdraft;
 	}
 	

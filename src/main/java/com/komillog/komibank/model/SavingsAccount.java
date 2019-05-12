@@ -26,14 +26,13 @@ public class SavingsAccount extends Account {
 	/**
 	 * Create a new savings account with the specified parameters
 	 * 
-	 * @param code the code of the account
 	 * @param customer the customer who owns this account
 	 * @param balance account balance
 	 * @param creationDate the account creation date
 	 * @param interestRate the interest rate of the account
 	 */
-	public SavingsAccount(String code, Customer customer, double balance, Date creationDate, double interestRate) {
-		super(code, customer, balance, creationDate);
+	public SavingsAccount(Customer customer, double balance, Date creationDate, double interestRate) {
+		super(customer, balance, creationDate);
 		this.interestRate = interestRate;
 	}
 	

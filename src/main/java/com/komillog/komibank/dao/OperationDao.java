@@ -12,6 +12,6 @@ import com.komillog.komibank.model.Operation;
 public interface OperationDao extends JpaRepository<Operation, Long>{
 
 	@Query("select op from Operation op where op.account.code=:x order by op.date desc")
-	Page<Operation> getAccountOperations(@Param("x") String accountCode, Pageable pageable);
+	Page<Operation> getAccountOperations(@Param("x") Long accountCode, Pageable pageable);
 	
 }
