@@ -8,7 +8,7 @@
 	th:classappend="${(class != null ? class : '')}">
 	
 	<input th:placeholder="${label != null ? placeHolder : ''}" th:type=${type} class="mdl-textfield__input" 
-		th:name=${name}  th:pattern=${pattern} th:value=${value}> 
+		th:name=${name}  th:pattern=${pattern} th:value=${value} th:readonly="${readonly}"> 
 	
 	<label class="mdl-textfield__label" style="margin-bottom: 0" th:text="${label ?: placeHolder}">Label</label>
 </div>
@@ -18,17 +18,20 @@
 <div th:fragment="MDCTextField" th:with="type=${type} ?: 'text', variant=${variant} ?: 'default'" 
 	th:id=${id} class="mdc-text-field " 
 	th:classappend="${(class != null ? class : '')
+					+ (disabled == true ? ' mdc-text-field--disabled' : '')
 					+ (variant == 'textarea' ? ' mdc-text-field--textarea' : '')
 					+ (variant == 'outlined' ? ' mdc-text-field--outlined' : '')}">
 	
 	<th:block th:if="${variant == 'default'}">
-		<input th:type=${type} class="mdc-text-field__input" th:name=${name} th:value=${value}>
+		<input th:type=${type} class="mdc-text-field__input" th:name=${name} 
+			th:value=${value} th:disabled="${disabled}" th:readonly="${readonly}">
 		<label class="mdc-floating-label" th:text="${label}">TextField Label</label>
 		<div class="mdc-line-ripple"></div>
 	</th:block>
 
 	<th:block th:if="${variant == 'textarea'}">
-		<textarea th:name=${name}  class="mdc-text-field__input" rows="8" cols="40" th:value=${value}></textarea>
+		<textarea th:name=${name}  class="mdc-text-field__input" rows="8" cols="40" th:value=${value} th:disabled="${disabled}">
+		</textarea>
 		<div class="mdc-notched-outline">
 			<div class="mdc-notched-outline__leading"></div>
 			<div class="mdc-notched-outline__notch">
@@ -39,7 +42,8 @@
 	</th:block>
 
 	<th:block th:if="${variant == 'outlined'}">
-		<input th:type=${type} th:name=${name} class="mdc-text-field__input" th:value=${value}>
+		<input th:type=${type} th:name=${name} class="mdc-text-field__input" th:value=${value} 
+			th:disabled="${disabled}" th:readonly="${readonly}">
 		<div class="mdc-notched-outline">
 			<div class="mdc-notched-outline__leading"></div>
 			<div class="mdc-notched-outline__notch">

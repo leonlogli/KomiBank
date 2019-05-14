@@ -3,13 +3,13 @@ import {MDCRipple} from '@material/ripple/index';
 import {MDCButton} from './components/MDCButton';
 import {MDCCard} from './components/MDCCard';
 import * as SVG from "./svg";
-import "./accounts-admin";
+import "./accounts-page";
 import "./add-operations";
-import "./add-account";
+import "./account-form";
 import './sass/app.scss';
 
 // Setup a ripple effect for mdc compoents
-const selector = '.mdc-button, .mdc-icon-button, .mdc-list-item, .mdc-card__primary-action';
+const selector = '.mdc-button, .mdc-icon-button, .mdc-fab, .mdc-list-item, .mdc-card__primary-action';
 const ripples = [].map.call(document.querySelectorAll(selector), function(item) {
     return new MDCRipple(item);
 });
@@ -47,8 +47,12 @@ if(document.querySelector('.home-page')) {
         at KomiBank also marks the beginning of your relationship with a financial institution.`);
     savingsAccountCard.addActionButton("Apply now", null, "apply-sa");
     savingsAccountCard.addActionButton("Learn more", null, null, true);
-    savingsAccountCard.addActionEventListener('click', "apply-sa", e => console.log(e));
-    savingsAccountCard.addEventListener('click', e => console.log("card clicked"));
+    savingsAccountCard.addActionEventListener('click', "apply-sa", e => {
+        window.location.href = '/account/add?type=SA';
+    });
+    savingsAccountCard.addEventListener('click', e => {
+        window.location.href = '/account/add?type=SA';
+    });
 
     // Cuurent account card
     currentAccountCard.mediaURL = "url('../images/current-account.jpg')";
@@ -58,6 +62,10 @@ if(document.querySelector('.home-page')) {
         accounts) on how many transactions can take place in your account`);
     currentAccountCard.addActionButton("Apply now", null, "apply-ca");
     currentAccountCard.addActionButton("Learn more", null, null, true);
-    currentAccountCard.addActionEventListener('click', "apply-ca", e => console.log(e));
-    currentAccountCard.addEventListener('click', e => console.log("card clicked"));
+    currentAccountCard.addActionEventListener('click', "apply-ca", e => {
+        window.location.href = '/account/add?type=CA';
+    });
+    currentAccountCard.addEventListener('click', e => {
+        window.location.href = '/account/add?type=CA';
+    });
 }

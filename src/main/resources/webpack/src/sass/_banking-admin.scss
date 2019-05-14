@@ -1,28 +1,12 @@
 /***************************************************************************
  *                                                                         *
- * Commons style for pages that extend banking-admin-layout                *
+ * Commons style                                                           *
  *                                                                         *
  **************************************************************************/
 
 .banking-admin {
-    .search-options-menu {
-        .mdc-button--raised {
-            @include mdc-button-horizontal-padding(22px);
-            @include mdc-button-container-fill-color($primary-color);    
-            // Disable background-focused color
-            &.mdc-ripple-upgraded--background-focused::before, &:not(.mdc-ripple-upgraded):focus::before {
-                opacity: 0;
-            }
-        }
-        .mdc-menu {
-            @include mdc-menu-width(200px);
-        }
-        .mdc-list {
-            .mdc-list-item--selected, .mdc-list-item--activated {
-                color: navy;
-            }
-        }  
-    }
+    background: #F2F2F2;
+
     .search-form {
         max-width: 250px;
         @media (min-width: 576px) {
@@ -38,32 +22,123 @@
             color: white;
             padding: 14px 20px;
             border-radius: 4px 4px 0 0;
+            .mdc-button--raised {
+                @include mdc-button-horizontal-padding(22px);
+                @include mdc-button-container-fill-color($primary-color);
+    
+                // Disable background-focused color
+                &.mdc-ripple-upgraded--background-focused::before,
+                &:not(.mdc-ripple-upgraded):focus::before {
+                    opacity: 0;
+                }
+            }
+            .mdc-menu {
+                @include mdc-menu-width(200px);
+            }  
+            .mdc-list {
+                .mdc-list-item--selected,
+                .mdc-list-item--activated {
+                    color: navy;
+                }
+            }
         }
         .card-body {
             label {
                 font-weight: 400
             }
         }
-    }  
+    }
+    .mdc-fab {
+        @include mdc-fab-icon-size(20px);
+        width: 45px;
+        height: 45px;
+    }
+    .table {
+        th:first-child, td:first-child, th:last-child, td:last-child {
+            position: sticky;
+            background-color: white;
+        }
+        thead th {
+            padding-top: 20px;
+        }
+        th:first-child, td:first-child {
+            left: 0px;
+            padding-left: 20px;
+        }
+        th:last-child, td:last-child {
+            right: 0px;
+            padding-right: 20px;
+        }
+        .action-col svg {
+            vertical-align: top;
+        }
+        td, th {
+            vertical-align: middle;
+        }
+        td {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+        @media (max-width: 767px) {
+            .mdc-icon-button {
+                @include mdc-icon-button-size(20px, 20px, 4px);
+            }
+        }
+        tbody tr{
+            cursor: pointer;
+        }
+    }
 }
 
 /***************************************************************************
  *                                                                         *
- * account-admin page style                                                *
+ * accounts-page style                                                     *
  *                                                                         *
  **************************************************************************/
 
-#accounts-admin { 
+#accounts-page {
     background-color: #FAFAFA;
     .header {
         background-color: cadetblue;
-        color: white;    
+        color: white;
     }
     .mdl-textfield {
+        width: 100%;
         @include mdl-field-colors(white, white, lighten(gainsboro, 5), $secondary-color);
         .mdl-textfield__error {
-            font-size:14px;
+            font-size: 14px;
             color: yellow;
         }
-    }         
+    }
+}
+
+/***************************************************************************
+ *                                                                         *
+ * account profile page style                                              *
+ *                                                                         *
+ **************************************************************************/
+
+ .account-profile {
+    .profile-header {
+        color: white;
+        .row {
+            background: $primary-color;
+            height: 140px;
+        }
+        .row ~ .row {
+            background: cadetblue;
+        }
+    }
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        background: #6d7073;
+        border: 4px solid white;
+        border-radius: 50%;
+        font-size: 2rem;
+        font-weight: 400;
+        color: white;
+        position: relative;
+        top: 70px;
+    }
 }

@@ -10,13 +10,14 @@
 @import "@material/tab-scroller/mdc-tab-scroller";
 @import "@material/tab-indicator/mdc-tab-indicator";
 @import "@material/tab/mdc-tab";
+@import "@material/fab/mdc-fab";
 @import "./components/inputs";
 @import "./layout";
 @import "./navbar";
 @import "./footer";
 @import "./banking-admin";
 @import "./add-operations";
-@import "./add-account.scss";
+@import "./account-form";
 
 // To remove all dotted outline around all clicked elements in html
 *, *:active, *:focus, *.focus, *.focus:active, *.active:focus, *:active:focus, *.active.focus {

@@ -1,4 +1,62 @@
 /**
+ * Media Query for screens < 576px
+ */
+const mqExtraSmall = window.matchMedia("(max-width: 576px)");
+/**
+ * Media Query for screens ≥ 576px
+ */
+const mqSmall = window.matchMedia("(min-width: 576px)");
+/**
+ * Media Query for screens ≥768px
+ */
+const mqMedium = window.matchMedia("(min-width: 768px)");
+/**
+ * Media Query for screens ≥992px
+ */
+const mqLarge = window.matchMedia("(min-width: 992px)");
+/**
+ * Media Query for screens ≥1200px
+ */
+const mqExtraLarge = window.matchMedia("(min-width: 1200px)");
+
+/**
+ * Listen to the given media query and run the specified callback function each time the query matches
+ */
+function addMediaQueryListener(query, callback) {
+    switch (query) {
+        case mqExtraSmall.media:
+        case mqExtraSmall:
+            _mq(mqExtraSmall);
+            break;
+        case mqSmall.media:
+        case mqSmall:
+            _mq(mqSmall);
+            break;
+        case mqMedium.media:
+        case mqMedium:
+            _mq(mqMedium);
+            break;
+        case mqLarge.media:
+        case mqLarge:
+            _mq(mqLarge);
+            break;
+        case mqExtraLarge.media:
+        case mqExtraLarge:
+            _mq(mqExtraLarge);
+            break;
+        default:
+            _mq(query instanceof MediaQueryList ? query : window.matchMedia(query));
+    }
+
+    function _mq(media) {
+        callback.apply(undefined, [media.matches, media.media]);
+        media.addListener(function (mq) {
+            callback.apply(undefined, [mq.matches, mq.media]);
+        });
+    }
+}
+
+/**
  * Creates an instance of the element for the specified tag.
  * @param {string} tagName The name of an element.
  * @param {string} classes classes as string separated by spaces. Ex : "class1 class2"
@@ -9,11 +67,11 @@
 function createElement(tagName, classes, innerHTML, ...childs) {
     const element = document.createElement(tagName);
     element.className = classes;
-    if(innerHTML) {
+    if (innerHTML) {
         element.innerHTML = innerHTML;
     }
     childs.forEach(child => {
-        if(child instanceof Node) {
+        if (child instanceof Node) {
             element.appendChild(child);
         }
     });
@@ -50,9 +108,8 @@ function isStorageAvailable(type) {
         storage.setItem(x, x);
         storage.removeItem(x);
         return true;
-    }
-    catch(e) {
-        return e instanceof DOMException && (e.code === 22 || e.code === 1014 || e.name === 'QuotaExceededError' || 
+    } catch (e) {
+        return e instanceof DOMException && (e.code === 22 || e.code === 1014 || e.name === 'QuotaExceededError' ||
             e.name === 'NS_ERROR_DOM_QUOTA_REACHED') && storage.length !== 0;
     }
 }
@@ -68,5 +125,15 @@ function isSessionStorageAvailable() {
 }
 
 export {
-    isString, createElement, createDIV, isSessionStorageAvailable, isLocalStorageAvailable
+    isString,
+    createElement,
+    createDIV,
+    isSessionStorageAvailable,
+    isLocalStorageAvailable,
+    mqExtraSmall,
+    mqSmall,
+    mqMedium,
+    mqLarge,
+    mqExtraLarge,
+    addMediaQueryListener
 };

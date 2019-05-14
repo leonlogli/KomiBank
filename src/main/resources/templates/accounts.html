@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<!-- Content -->
+	<div layout:fragment="content" class="banking-admin" th:id="accounts-page">
+
+		<div class="row d-flex justify-content-center px-3 py-2">
+			<div class="col-lg-8 col-md-12">
+				<div class="mdc-card my-4 my-md-5">
+					<div class="container-fluid card-header pt-1" id="accounts-table-header">
+						<div class="row d-flex justify-content-between">
+							<div class="col-5 col-md-3 my-auto">
+								<h4 class="mb-0">Accounts</h4>
+							</div>
+							<div class="col-7 col-md-9 my-auto d-flex justify-content-end">
+								<form th:action="@{/accounts}" method="post" autocomplete="off" class="search-form">
+									<div class="mdc-menu-surface--anchor">
+										<div th:replace="components/input::MDLTextField(name='accountCode')"></div>
+										<div th:replace="components/menu::MDCMenu(${ {'By account number', 
+											'By creation date'} })">
+										</div>
+									</div>									
+									<input type="hidden" name="menuSelectedValue" class="menu-selected-value">
+								</form>
+								<div class="my-auto ml-3 pb-2">
+									<div th:replace="components/base::MDCButton(text='Add account', class='add-account-button')"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="card-body p-0">
+						<th:block th:if="${accounts!=null and !accounts.isEmpty()}">
+							<div class="table-responsive">
+							    <table class="table mb-0" id="accounts-table">
+							    	<thead>
+										<tr>
+											<th class="stickyCol">No.</th>
+											<th>Type</th>
+											<th>Balance</th>
+											<th>Customer</th>
+											<th>Opened on</th>
+											<th class="action-col-header">
+												<div class="d-flex justify-content-between">
+													<span class="d-none d-md-inline-block">Edit</span>
+													<span class="d-none d-md-inline-block">Delete</span>
+												</div>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="a : ${accounts}">
+											<tr th:onclick="'window.location.href = \'' + @{/account/{code}(code=${a.code})} + '\''">
+												<td class="stickyCol" th:text="${a.code}">1</td>
+												<td th:text="${a.type()}">Savings Account</td>
+												<td th:text="${a.balance}">4785</td>
+												<td th:text="${a.customer.name}">Léon Logli</td>
+												<td th:text="${#dates.format(a.creationDate, 'MMMM&nbsp;dd,&nbsp;yyyy')}">01/04/219</td>
+												<td class="action-col">
+													<div class="d-flex justify-content-between">
+														<a class="mdc-icon-button d-inline-block action-col-edit" style="text-decoration:none" 
+															th:href="@{/account/update/{code}(code=${a.code})}">
+														</a>
+														<a class="mdc-icon-button material-icons d-inline-block text-danger" style="text-decoration:none"
+															th:href="@{/account/delete/{code}(code=${a.code})}">delete_forever
+														</a>
+													</div>
+												</td>
+											</tr>
+										</th:block>
+									</tbody>
+							    </table>
+							</div>
+						</th:block>
+						
+						<div class="container">
+							<div class="row d-flex justify-content-between">
+								<div class="col-8 my-auto">
+									<th:block th:if="${accounts!=null and !accounts.isEmpty()}">
+										<nav aria-label="accounts pagination pt-3">
+											<ul class="pagination">
+												<li class="page-item" th:each="page:${accountsPages}">
+													<a class="mdc-button" th:href="@{/accounts(accountCode=${account.code}, 
+														pageNumber=${page})}" th:text="${page}">
+													</a>
+												</li>
+											</ul>
+										</nav>
+									</th:block>
+									
+									<th:block th:unless="${accounts!=null and !accounts.isEmpty()}">
+										<label class="p-4">Oops !!! No account available !</label>
+									</th:block>
+								</div>
+								<div class="col-4 d-flex justify-content-end d-md-none my-auto pb-3">
+									<button class="mdc-fab" aria-label="Add"
+										onclick="window.location.href ='/account/add'">
+										<span class="mdc-fab__icon material-icons">person_add</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<!-- Thymeleaf JS process -->
+	<th:block layout:fragment="inlineScripts">
+	    <script th:inline="javascript">
+	    	var accountCode = /*[[${account?.code}]]*/ null;
+	    	var isAccountFound = /*[[!${!#strings.isEmpty(param.accountCode) and account == null}]]*/ false;
+	    	var accountException = /*[[${exception?.message}]]*/ 'Account not found !';
+		</script>
+     </th:block>
+</body>
+</html>

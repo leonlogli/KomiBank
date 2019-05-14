@@ -1,4 +1,4 @@
-#add-account {
+#account-form {
     background-image: url('../images/open-account.jpg');
     background-position: top center;
     background-repeat: no-repeat;
@@ -17,24 +17,25 @@
         color: white;
     }
     .mdc-text-field {
-        width: calc(100% - 50px);
+        width: calc(100%);
         &.mdc-text-field--focused {
             @include mdc-text-field-focused-outline-color($secondary-color);
             @include mdc-text-field-label-color($secondary-color);
         }
     }
+    .account-type-field, .account-type-field .mdc-text-field__input {
+        cursor: pointer;
+    }
     .mdc-text-field-helper-text {
         color: red;
         width: calc(100% - 50px);
         text-align: left !important;
-        padding-left: 25px;
-        padding-right: 25px;
     }
     .submit-button {
         @include mdc-button-container-fill-color($secondary-color);
-        width: calc(100% - 50px);
-        height: 44px;
+        height: 50px;
         display: block;
+        width: calc(100% - 50px);
     }
     @media screen and (max-width: 576px) { 
         .mdc-text-field, .mdc-text-field-helper-text, .submit-button {

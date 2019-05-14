@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,30 +32,101 @@ public class BankController {
 		return "index";
 	}
 
-	@GetMapping("/addAccount")
+	@GetMapping("/account/add")
 	public String showAddAccountPage() {
-		return "add-account";
+		return "account-form";
 	}
 	
-	@PostMapping("/addAccount")
-    public String saveAccount(String customerName, String customerEmail, String accountCode, String accountType,
+	@PostMapping("/account/add")
+    public String saveAccount(String accountType, Double balance, String customerName, String customerEmail, 
     		Model model) {
 		try {
-			bankingService.openNewAccount(customerName, customerEmail, accountCode, accountType);
+			bankingService.openNewAccount(accountType, balance, customerName, customerEmail);
 		} catch (Exception e) {
-			model.addAttribute("accountException", e);
+			model.addAttribute("${accountAddException", e);
+			return "account-form";
 		}        
-        return "add-account";
+        return "redirect:/accounts";
     }
 	
-	@GetMapping("/addOperations")
+	@GetMapping("account/update/{code}")
+    public String showUpdateAccountPage(@PathVariable("code") Long code, Model model) {
+        Account account = bankingService.getAccount(code);
+        model.addAttribute("account", account);
+        return "account-form";
+    }
+	
+    @PostMapping("account/update/{code}")
+	public String updateAccount(@PathVariable("code") Long accountCode, String customerName, String customerEmail, 
+			Double balance,	Double interestRate, Double overdraft, Model model) {
+    	try {
+    		bankingService.updateAccount(accountCode, customerName, customerEmail, balance, overdraft, interestRate);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("accountUpdateException", e);
+			return "account-form";
+		}
+        return "redirect:/accounts";
+    }
+    
+    @GetMapping("account/delete/{code}")
+	public String deleteAccount(@PathVariable("code") Long code, Model model) {
+    	try {
+    		bankingService.deleteAccount(code);
+		} catch (Exception e) {
+			model.addAttribute("accountDeleteException", e);
+			return "accounts";
+		}
+    	return "redirect:/accounts";
+    }
+    
+	@RequestMapping("/account/{code}")
+	public String getAccoutProfilePage(@PathVariable("code") Long accountCode, 
+			@RequestParam(name="pageNumber", defaultValue="1") int pageNumber,
+			@RequestParam(name="pageSize", defaultValue="5") int operationPageSize, Model model) {
+		try {
+			Account account = bankingService.getAccount(accountCode);
+			model.addAttribute("account", account);
+
+			Page<Operation> accountOperations = bankingService.getAccountOperations(accountCode, pageNumber - 1, operationPageSize);
+			model.addAttribute("operations", accountOperations.getContent());
+			
+			if(accountOperations.getTotalPages() > 1) {
+				model.addAttribute("operationsPages", IntStream.rangeClosed(1, accountOperations.getTotalPages()).toArray());
+			}
+		}
+		catch (Exception e) {
+			model.addAttribute("operationsException", e);
+		}
+		return "account-profile";
+	}
+	
+	@RequestMapping("/accounts")
+	public String getAccouts(Long accountCode, 
+			@RequestParam(name="pageNumber", defaultValue="1") int pageNumber,
+			@RequestParam(name="accountPageSize", defaultValue="10") int operationPageSize, Model model) {
+		try {
+			Page<Account> accounts = bankingService.getAccounts(pageNumber - 1, operationPageSize);
+			model.addAttribute("accounts", accounts.getContent());
+			// Add operations pages for pagination
+			if(accounts.getTotalPages() > 1) {
+				model.addAttribute("accountsPages", IntStream.rangeClosed(1, accounts.getTotalPages()).toArray());
+			}
+		}
+		catch (Exception e) {
+			model.addAttribute("accountsException", e);
+		}
+		return "accounts";
+	}
+
+	@GetMapping("/operation/add")
 	public String showAddOperationsPage() {
 		return "add-operations";
 	}
 	
-	@PostMapping("/addOperations")
-	public String saveOperation(String operationType, String accountCode, double amount,
-			String recipientAccountCode, Model model) {
+	@PostMapping("/operation/add")
+	public String saveOperation(String operationType, Long accountCode, double amount, 
+			Long recipientAccountCode, Model model) {
 		try {
 			if (operationType.equals("Payment")) {
 				bankingService.deposit(accountCode, amount);
@@ -71,25 +143,4 @@ public class BankController {
 		}
 		return "add-operations";
 	}
-	
-	@RequestMapping("/accounts")
-	public String accountsAdmin(String accountCode, 
-			@RequestParam(name="operationPageNum", defaultValue="1") int operationPageNum,
-			@RequestParam(name="operationPageSize", defaultValue="4") int operationPageSize, Model model) {
-		try {
-			Account account = bankingService.getAccount(accountCode);
-			model.addAttribute("account", account);	
-			
-			Page<Operation> operations = bankingService.getAccountOperations(accountCode, operationPageNum - 1, 
-					operationPageSize);
-			model.addAttribute("operations", operations.getContent());
-			// Add operations pages for pagination
-			model.addAttribute("operationsPages", IntStream.rangeClosed(1, operations.getTotalPages()).toArray());
-		}
-		catch (Exception e) {
-			model.addAttribute("exception", e);
-		}
-		return "accounts-admin";
-	}
-	
 }

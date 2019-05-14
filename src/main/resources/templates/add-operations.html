@@ -10,7 +10,7 @@
 		<div class="container-fluid px-md-5 px-0 pt-3 header">
 			<div class="row pt-3 pb-3">
 				<div class="col text-center">
-					<h3>Add Operations</h3>
+					<h3>Add operation</h3>
 				</div>
 			</div>
 			<div class="row">
@@ -29,7 +29,7 @@
 						<h5 class="card-header">Payment</h5>
 						<div class="card-body pb-5 px-md-5 px-4">
 							<p class="mt-3">Add a new payment operation</p>
-							<form th:action="@{/addOperations}" method="post" autocomplete="off">
+							<form th:action="@{/operation/add}" method="post" autocomplete="off">
 								<input type="hidden" name="operationType" value="Payment">
 								<div th:replace="components/input::MDLTextField(name='accountCode', 
 									class='acount-code-field')"></div>
@@ -53,7 +53,7 @@
 						<p class="mt-3">You can make as much withdrawal as you want as long as the amount 
 							is less than your available balance
 						</p>
-						<form th:action="@{/addOperations}" method="post" autocomplete="off">
+						<form th:action="@{/operation/add}" method="post" autocomplete="off">
 							<input type="hidden" name="operationType" value="Withdraw">
 							<div th:replace="components/input::MDLTextField(name='accountCode', 
 								class='acount-code-field')"></div>
@@ -76,7 +76,7 @@
 							<h5>Bank transfer</h5>
 						</div>
 						<p class="mt-2">Transfert money from your account to any other Komibank customer account</p>
-						<form th:action="@{/addOperations}" method="post" autocomplete="off">
+						<form th:action="@{/operation/add}" method="post" autocomplete="off">
 							<input type="hidden" name="operationType" value="Transfert">
 							<div th:replace="components/input::MDLTextField(name='accountCode', 
 								class='acount-code-field')"></div>

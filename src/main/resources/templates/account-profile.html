@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<!-- Content -->
+	
+	<div layout:fragment="content" class="account-profile banking-admin">
+		<div class="container-fluid pb-4 px-0 header profile-header">
+			<div class="row">
+				<div class="col d-flex align-items-center justify-content-center">
+					<div th:text=${account?.customer?.nameInitials()} 
+						class="avatar-circle d-flex align-items-center justify-content-center">CN
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col d-flex align-items-end justify-content-center pb-4 mb-2">
+					<h2 th:text=${account?.customer?.name}>Customer Name</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="container pt-3 pb-5">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="mdc-card my-3">
+						<h5 class="card-header">Account information</h5>
+						<div class="card-body">
+							<th:block th:if="${account}">
+								<label class="d-block">Customer : <span th:text="${account.customer.name}">C1BA4TG145</span></label>
+								<label class="d-block">Code : <span th:text="${account.formattedCode()}">C1BA4TG145</span></label>
+								<label class="d-block">Balance : <span th:text="${account.balance}">94520</span></label>
+								<label class="d-block">Creation date : 
+									<span th:text="${#dates.format(account.creationDate, 'MMMM&nbsp;dd,&nbsp;yyyy&nbsp;-&nbsp;HH:mm')}">
+										20/04/2019</span>
+								</label>
+								<label class="d-block">Type : <span th:text="${account.type()}">Account Type</span></label>
+								<th:block th:if="${account.class.simpleName=='CurrentAccount'}">
+									<label class="d-block">Overdraft : <span th:text="${account.overdraft}">1200</span></label>
+								</th:block>
+								<th:block th:if="${account.class.simpleName=='SavingsAccount'}">
+									<label class="d-block">Interest Rate : <span th:text="${account.interestRate}">5.2</span></label>
+								</th:block>
+							</th:block>
+							<th:block th:if="${account == null}">
+								<label>No information available. Search for an account to see its details here</label>
+							</th:block>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="mdc-card my-3">
+						<h5 class="card-header">Account operations</h5>
+						<div class="card-body  p-0">
+							<th:block th:if="${operations!=null and !operations.isEmpty()}">
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Num</th><th>Type</th><th>Date</th><th>Amount</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="o : ${operations}">
+												<td th:text="${o.id}">1</td>
+												<td th:text="${o.type()}">Operation Type</td>
+												<td th:text="${#dates.format(o.date, 'MMMM&nbsp;dd,&nbsp;yyyy&nbsp;-&nbsp;HH:mm')}">01/04/219</td>
+												<td th:text="${o.amount}">2500</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</th:block>
+							
+							<div class="container">
+								<div class="row d-flex justify-content-between">
+									<div class="col-8 my-auto">
+										<th:block th:if="${operations!=null and !operations.isEmpty()}">
+											<nav aria-label="Operations page navigation">
+												<ul class="pagination pt-3">
+													<li class="page-item" th:each="page:${operationsPages}">
+														<a class="mdc-button" th:href="@{/accounts(accountCode=${account.code}, 
+															operationPageNum=${page})}" th:text="${page}"></a>
+													</li>
+												</ul>
+											</nav>
+										</th:block>
+										
+										<th:block th:unless="${operations!=null and !operations.isEmpty()}">
+											<label class="p-4">Oups ! No transactions available !</label>
+										</th:block>
+									</div>
+									<div class="col-4 d-flex justify-content-end my-auto">
+										<button class="mdc-fab" aria-label="Add"
+											onclick="window.location.href ='/operation/add'; localStorage.setItem('operationsTabIndex', 0);">
+											<span class="mdc-fab__icon material-icons">add</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

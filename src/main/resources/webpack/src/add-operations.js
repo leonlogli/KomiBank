@@ -9,20 +9,25 @@ if(document.querySelector('#add-operations')) {
     // Set Tab Conent Views
     operationsTab.setContentViews("#add-operations .tab-view");
     // Get the active tab index in session storage
+    const activeTabIndex = 'operationsTabIndex';
     if(isSessionStorageAvailable) {
-        if(localStorage.getItem('operationsActiveTabIndex')) {
-            operationsTab.activateTab(parseInt(localStorage.getItem('operationsActiveTabIndex')));
+        if(localStorage.getItem(activeTabIndex)) {
+            operationsTab.activateTab(parseInt(localStorage.getItem(activeTabIndex)));
         } 
         else {
-            localStorage.setItem('operationsActiveTabIndex', 0);
+            localStorage.setItem(activeTabIndex, 0);
             operationsTab.activateTab(0);
         }
     }
 
     operationsTab.onActived(() => {
         if(isSessionStorageAvailable) {
-            localStorage.setItem('operationsActiveTabIndex', operationsTab.activedTabIndex);
+            localStorage.setItem(activeTabIndex, operationsTab.activedTabIndex);
         }
+        document.querySelectorAll('#add-operations .mdl-textfield__error').forEach(field => {
+            if(!field.classList.contains('invisible')) field.classList.add('invisible');
+            field.classList.remove('visible');
+        })
     })
     
     // Payement tab view 
@@ -38,30 +43,7 @@ if(document.querySelector('#add-operations')) {
 
         // Payement Form validation
         paymentForm.addEventListener("submit", function (event) {
-            if(!accountCodeField.value) {
-                accountCodeField.errorText = "The account code is required *";
-                accountCodeField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
-            }
-            else accountCodeField.showError(false);
-
-            if(!amountField.value) {
-                amountField.errorText = "The amount is required *";
-                amountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
-            }
-            else if (!/^\d+$/.test(amountField.value)) {
-                amountField.errorText = "The amount must be a number !";
-                amountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
-            }
-            else amountField.showError(false);
+            commonValidation(accountCodeField, amountField, event);
         }, false);
     }
 
@@ -78,30 +60,7 @@ if(document.querySelector('#add-operations')) {
 
         // Withdraw Form validation
         withdrawForm.addEventListener("submit", event => {
-            if(!accountCodeField.value) {
-                accountCodeField.errorText = "The account code is required *";
-                accountCodeField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
-            }
-            else accountCodeField.showError(false);
-
-            if(!amountField.value) {
-                amountField.errorText = "The amount is required *";
-                amountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
-            }
-            else if (!/^\d+$/.test(amountField.value)) {
-                amountField.errorText = "The amount must be a number !";
-                amountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
-            }
-            else amountField.showError(false);
+            commonValidation(accountCodeField, amountField, event);
         }, false);
     }
 
@@ -121,59 +80,64 @@ if(document.querySelector('#add-operations')) {
         // Transfert Form validation
         transfertForm.addEventListener("submit", function (event) {
             if(!senderAccountField.value) {
-                senderAccountField.errorText = "Sender account code is required *";
-                senderAccountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
+                validate(senderAccountField, "Sender account code is required *", event);
             }
             else senderAccountField.showError(false);
 
             if(!recipAccountField.value) {
-                recipAccountField.errorText = "Recipient account code is required *";
-                recipAccountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
+                validate(recipAccountField, "Recipient account code is required *", event);
             }
             else recipAccountField.showError(false);
 
             if(senderAccountField.value == recipAccountField.value) {
-                recipAccountField.errorText = "Recipient and sender account must be different !";
-                recipAccountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
+                validate(recipAccountField, "Recipient and sender account must be different !", event);
             }
             else recipAccountField.showError(false);
 
             if(!amountField.value) {
-                amountField.errorText = "The amount is required *";
-                amountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
+                validate(amountField, "The amount is required *", event);
             }
             else if (!/^\d+$/.test(amountField.value)) {
-                amountField.errorText = "The amount must be a number !";
-                amountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
+                validate(amountField, "The amount must be a number !", event);
             }
             else amountField.showError(false);
         }, false);
 
         recipAccountField.onchange = function() {
             if(senderAccountField.value == recipAccountField.value) {
-                recipAccountField.errorText = "Recipient and sender account must be different !";
-                recipAccountField.showError(true);
-                if(event) {
-                    event.preventDefault();
-                }
+                validate(recipAccountField, "Recipient and sender account must be different !", event);
             }
             else recipAccountField.showError(false);
         }
     }
-    
+
+    /**
+     * Handle the field validity
+     * @param {MDLTextField} field field to validate
+     * @param {string} errorText text to show if errors occur
+     * @param {Event} event the form submit event
+     */
+    function validate(field, errorText, event) {
+        field.errorText = errorText;
+        field.showError(true);
+        if(event) {
+            event.preventDefault();
+        }
+    }
+
+    // Amount and account code validation
+    function commonValidation(accountCodeField, amountField, event) {
+        if(!accountCodeField.value) {
+            validate(accountCodeField, "The account code is required *", event);
+        }
+        else accountCodeField.showError(false);
+
+        if(!amountField.value) {
+            validate(amountField, "The amount is required *", event);
+        }
+        else if (!/^\d+$/.test(amountField.value)) {
+            validate(amountField, "The amount must be a number !", event);
+        }
+        else amountField.showError(false);
+    }
 }
