@@ -20,12 +20,13 @@
             border-bottom: none;
             background-color: #5f9ea0;
             color: white;
-            padding: 14px 20px;
+            padding: 4px 20px;
             border-radius: 4px 4px 0 0;
-            .mdc-button--raised {
+            transition: padding .5s ease-in-out;
+            .mdc-button {
                 @include mdc-button-horizontal-padding(22px);
                 @include mdc-button-container-fill-color($primary-color);
-    
+                @include mdc-button-ink-color(white);
                 // Disable background-focused color
                 &.mdc-ripple-upgraded--background-focused::before,
                 &:not(.mdc-ripple-upgraded):focus::before {
@@ -33,14 +34,13 @@
                 }
             }
             .mdc-menu {
-                @include mdc-menu-width(200px);
-            }  
-            .mdc-list {
-                .mdc-list-item--selected,
-                .mdc-list-item--activated {
-                    color: navy;
+                .mdc-list-item {
+                    height: 35px;
                 }
-            }
+                .mdc-list-item--disabled {
+                    color: $primary-color;
+                }
+            } 
         }
         .card-body {
             label {
@@ -109,6 +109,11 @@
             font-size: 14px;
             color: yellow;
         }
+        &.mdl-textfield--floating-label.is-dirty, &.mdl-textfield--floating-label.is-focused {
+            .mdl-textfield__label {
+                top: 8px;
+            }
+        } 
     }
 }
 

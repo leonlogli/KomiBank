@@ -2,43 +2,54 @@ import {MDCMenu} from './components/MDCMenu';
 import {MDLTextField} from './components/MDLTextField';
 import {MDCButton} from './components/MDCButton';
 import * as SVG from "./svg";
-import {mqMedium, addMediaQueryListener} from "./utils";
+import {isSessionStorageAvailable} from "./utils";
 
-if(document.querySelector('#accounts-page')) {
+if (document.querySelector('#accounts-page')) {
     // Instantiations
     const accountSearchField = new MDLTextField("#accounts-page .search-form .mdl-textfield");
-    const searchMenu = new MDCMenu('#accounts-page .search-form .mdc-menu');
+    const pageSizeMenu = new MDCMenu('#accounts-page #accounts-table-header .mdc-menu');
+    const pageSizeButton = new MDCButton('#accounts-page .page-size-button');
     const addAccountButton = new MDCButton('#accounts-page .add-account-button');
-    
-    // Account search field
-    accountSearchField.labelText = "Search an account";
-    accountSearchField.root_.classList.remove('mdl-textfield--floating-label');
+    const pageSizeField = document.querySelector('#accounts-page .page-size-field');
+    const accountsPageSize = 'accountsPageSize';
 
-    addAccountButton.variant('raised');
+    // addAccount Button
+    addAccountButton.variant('unelevated');
     addAccountButton.leadingIcon = 'person_add';
     addAccountButton.addEventListener('click', e => window.location.href = "/account/add");
     
-    accountSearchField.trailingIcon = 'arrow_drop_down';
-    accountSearchField.errorText = accountException;
-    accountSearchField.value = accountCode;
-    accountSearchField.showError(!isAccountFound);
-    document.querySelector('#accounts-page .card-header').style.paddingBottom = isAccountFound ? "0" : "4px";
+    // Account search field
+    accountSearchField.labelText = "Search";
+    console.log(searchText); 
 
-    document.querySelectorAll('#accounts-page .action-col-edit').forEach(icon => {
+    // Set edit icon in the table with svg icon
+    document.querySelectorAll('#accounts-page table .action-col-edit').forEach(icon => {
         icon.appendChild(SVG.AccountEditIcon("blue", "mdc-icon-button__icon"));
     });
     
-    // Search options & menus
-    searchMenu.setAnchorMargin({bottom: -20});
-    searchMenu.root_.style.width = Math.max(180, Math.round(accountSearchField.root_.getBoundingClientRect().width)) + "px";
-
-    accountSearchField.addTrailingIconEventListener('click', e => {
-        searchMenu.open = !searchMenu.open;
+    // Page size button & menu
+    pageSizeButton.variant('unelevated');
+    pageSizeButton.trailingIcon = 'arrow_drop_down';
+    if(isSessionStorageAvailable && localStorage.getItem(accountsPageSize)) {
+        pageSizeButton.text = localStorage.getItem(accountsPageSize);
+    }
+    else pageSizeButton.text = 5;
+    pageSizeField.value = pageSizeButton.text;
+    
+    pageSizeMenu.setAnchorMargin({bottom: -20});
+    pageSizeButton.addEventListener('click', e => {
+        pageSizeMenu.open = !pageSizeMenu.open;
     });
 
-    window.addEventListener('resize', e => searchMenu.open = false);
-   
-    addMediaQueryListener(mqMedium, function(mqMatches) {
-        addAccountButton.root_.style.display = mqMatches ? 'inline-block' : 'none';
-    });
+    pageSizeMenu.root_.querySelector('.mdc-list-item').classList.add('mdc-list-item--disabled');
+    pageSizeMenu.onSelected(e => {
+        pageSizeButton.text = pageSizeMenu.selectedItemText;
+        if(isSessionStorageAvailable) {
+            localStorage.setItem(accountsPageSize, pageSizeMenu.selectedItemText);
+        }
+
+        pageSizeField.value = pageSizeMenu.selectedItemText;
+        document.querySelector('#accounts-page .search-form').submit();
+    })
+    window.addEventListener('resize', e => pageSizeMenu.open = false);
 }

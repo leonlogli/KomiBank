@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.komillog.komibank.dao.AccountDao;
+import com.komillog.komibank.dao.AccountSpecs;
 import com.komillog.komibank.dao.CustomerDao;
 import com.komillog.komibank.dao.OperationDao;
 import com.komillog.komibank.model.Account;
@@ -46,16 +47,25 @@ public class BankingServiceImpl implements BankingService {
 				.orElseThrow(() -> new RuntimeException("Account not found ! Invalid account code " + code));
 	}
 	
+	/** {@inheritDoc} */
 	@Override
-	public Page<Account> getAccounts(int pageNumber, int pageSize) {
-		return accountDao.findAll(PageRequest.of(pageNumber, pageSize));
+	public Page<Account> getAccounts(String searchCriteriaText, int pageNumber, int pageSize) {
+		if(searchCriteriaText == null || searchCriteriaText.isBlank()) {
+			return accountDao.findAll(PageRequest.of(pageNumber, pageSize));
+		}
+		else {
+			return accountDao.findAll(AccountSpecs.contains(searchCriteriaText), 
+					PageRequest.of(pageNumber, pageSize));
+		}
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
+
+	/** {@inheritDoc} */
 	@Override
-	public void openNewAccount(String accountType, double balance, String customerName, String customerEmail) {
+	public void openNewAccount(String accountType, Double balance, String customerName, String customerEmail) {
+		if(balance == null) {
+			balance = 0.0;
+		}
+		
 		if(accountType != null) {
 			if(accountType.equalsIgnoreCase("Savings Account") || accountType.equalsIgnoreCase("SA")) {
 				Customer customer = customerDao.save(new Customer(customerName, customerEmail));

@@ -21,13 +21,15 @@ public interface BankingService {
 	public Account getAccount(Long code);
 	
 	/**
-	 * Returns all accounts by page with the specified parameters
+	 * Returns all accounts that match the specified {@code searchCriteriaText}
 	 * 
+	 * @param searchCriteriaText the search text criteria
+	 * @param sortCriteria the sort criteria.
 	 * @param pageNumber number the page
 	 * @param pageSize the size of the page
 	 * @return a Page of accounts
 	 */
-	public Page<Account> getAccounts(int pageNumber, int pageSize);
+	public Page<Account> getAccounts(String searchCriteriaText, int pageNumber, int pageSize);
 	
 	/**
 	 * Updates an account whose code matches {@code code}. Only the specified parameters of the account 
@@ -51,7 +53,7 @@ public interface BankingService {
 	 * @param customerName the customer name
 	 * @param customerEmail the customer email
 	 */
-	public void openNewAccount(String accountType, double balance, String customerName, String customerEmail);
+	public void openNewAccount(String accountType, Double balance, String customerName, String customerEmail);
 	
 	/**
 	 * Deletes an account whose code matches {@code code}

@@ -10,24 +10,28 @@
 	<div layout:fragment="content" class="banking-admin" th:id="accounts-page">
 
 		<div class="row d-flex justify-content-center px-3 py-2">
-			<div class="col-lg-8 col-md-12">
+			<div class="col-md-12 col-lg-9 col-xl-8">
 				<div class="mdc-card my-4 my-md-5">
-					<div class="container-fluid card-header pt-1" id="accounts-table-header">
+					<div class="container-fluid card-header pt-2" id="accounts-table-header">
 						<div class="row d-flex justify-content-between">
-							<div class="col-5 col-md-3 my-auto">
-								<h4 class="mb-0">Accounts</h4>
+							<div class="col-12 col-sm-3 col-xl-4 my-auto text-center text-sm-left">
+								<h4 class="mb-0 mt-2 mt-sm-0">Accounts</h4>
 							</div>
-							<div class="col-7 col-md-9 my-auto d-flex justify-content-end">
-								<form th:action="@{/accounts}" method="post" autocomplete="off" class="search-form">
-									<div class="mdc-menu-surface--anchor">
-										<div th:replace="components/input::MDLTextField(name='accountCode')"></div>
-										<div th:replace="components/menu::MDCMenu(${ {'By account number', 
-											'By creation date'} })">
-										</div>
+							<div class="col-12  col-sm-9 col-xl-8 my-auto d-flex justify-content-end">
+								<form th:action="@{/accounts}" method="post" autocomplete="off" class="flex-grow-1 search-form">
+									<div th:replace="components/input::MDLTextField(name='searchText', 
+										value=${searchText})">
 									</div>									
-									<input type="hidden" name="menuSelectedValue" class="menu-selected-value">
+									<input type="hidden" name="pageSize" class="page-size-field">
 								</form>
 								<div class="my-auto ml-3 pb-2">
+									<div class="mdc-menu-surface--anchor">
+										<div th:replace="components/base::MDCButton(text='5', class='page-size-button')"></div>
+										<div th:replace="components/menu::MDCMenu(${ {'Item per page', '5', '10', '25', '50'} })">
+										</div>
+									</div>
+								</div>
+								<div class="my-auto ml-3 pb-2 d-md-block d-none">
 									<div th:replace="components/base::MDCButton(text='Add account', class='add-account-button')"></div>
 								</div>
 							</div>
@@ -79,14 +83,15 @@
 						</th:block>
 						
 						<div class="container">
-							<div class="row d-flex justify-content-between">
+							<div class="row d-flex justify-content-between pt-3 pt-md-0">
 								<div class="col-8 my-auto">
-									<th:block th:if="${accounts!=null and !accounts.isEmpty()}">
+									<th:block th:if="${accounts!=null and !accounts.isEmpty() and accountsPages != null}">
 										<nav aria-label="accounts pagination pt-3">
 											<ul class="pagination">
 												<li class="page-item" th:each="page:${accountsPages}">
-													<a class="mdc-button" th:href="@{/accounts(accountCode=${account.code}, 
-														pageNumber=${page})}" th:text="${page}">
+													<a class="page-link" th:href="@{/accounts(searchText=${searchText}, 
+														pageNumber=${page}, pageSize=${pageSize})}" 
+														th:text="${page}">
 													</a>
 												</li>
 											</ul>
@@ -108,17 +113,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		
+		</div>	
 	</div>
 	
 	<!-- Thymeleaf JS process -->
 	<th:block layout:fragment="inlineScripts">
 	    <script th:inline="javascript">
-	    	var accountCode = /*[[${account?.code}]]*/ null;
-	    	var isAccountFound = /*[[!${!#strings.isEmpty(param.accountCode) and account == null}]]*/ false;
-	    	var accountException = /*[[${exception?.message}]]*/ 'Account not found !';
+	    	var searchText = /*[[${searchText}]]*/ null;
 		</script>
      </th:block>
 </body>

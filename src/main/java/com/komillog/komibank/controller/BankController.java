@@ -102,19 +102,25 @@ public class BankController {
 	}
 	
 	@RequestMapping("/accounts")
-	public String getAccouts(Long accountCode, 
+	public String getAccouts(String searchText, 
 			@RequestParam(name="pageNumber", defaultValue="1") int pageNumber,
-			@RequestParam(name="accountPageSize", defaultValue="10") int operationPageSize, Model model) {
+			@RequestParam(name="pageSize", defaultValue="5") int pageSize, Model model) {
 		try {
-			Page<Account> accounts = bankingService.getAccounts(pageNumber - 1, operationPageSize);
+			System.out.println(pageSize);
+			Page<Account> accounts = bankingService.getAccounts(searchText, pageNumber - 1, pageSize);
 			model.addAttribute("accounts", accounts.getContent());
-			// Add operations pages for pagination
+			
+			if(!accounts.getContent().isEmpty()) {
+				model.addAttribute("searchText", searchText);
+			}
+			
 			if(accounts.getTotalPages() > 1) {
 				model.addAttribute("accountsPages", IntStream.rangeClosed(1, accounts.getTotalPages()).toArray());
+				model.addAttribute("pageSize", pageSize);
 			}
 		}
 		catch (Exception e) {
-			model.addAttribute("accountsException", e);
+			model.addAttribute("accountSearchException", e);
 		}
 		return "accounts";
 	}
