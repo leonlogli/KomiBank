@@ -11,11 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 /**
- * A bank customer
+ * A bank customer class
  * 
  * @author KomiLLog
  */
@@ -35,6 +37,10 @@ public class Customer implements Serializable {
 	
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private List<Account> accounts;
+	
+	@OneToOne
+    @JoinColumn(name="user_id", unique = true)
+	private User user;
 	
 	
     /***************************************************************************
@@ -106,5 +112,13 @@ public class Customer implements Serializable {
 
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -17,13 +17,41 @@
 
 <!-- MDCIconButtonToggle -->
 
-<button th:fragment="MDCIconButtonToggle(onIcon, offIcon)" class="mdc-icon-button" 
-	aria-hidden="true" aria-pressed="false"
-	th:id=${id} th:with="active=${active} ?: 'false'"
+<button th:fragment="MDCIconButtonToggle(onIcon, offIcon)" th:with="active=${active} ?: 'false'"
+	aria-hidden="true" aria-pressed="false" class="mdc-icon-button" th:id=${id} 
 	th:classappend="${(class != null ? class : '') + (active == 'true' ? ' mdc-icon-button--on' : '')}">
    
    <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on" th:text=${onIcon}>favorite</i> 
    <i class="material-icons mdc-icon-button__icon" th:text=${offIcon}>favorite_border</i>
 </button>
 
+<!-- MDCCheckbox -->
+
+<div th:fragment="MDCCheckbox" class="mdc-form-field" 
+	th:id=${id} th:classappend="${(class != null ? class : '')}">
+	
+	<div class="mdc-checkbox">
+		<input type="checkbox" class="mdc-checkbox__native-control" th:name=${name} />
+		<div class="mdc-checkbox__background">
+			<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+				<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+			</svg>
+			<div class="mdc-checkbox__mixedmark"></div>
+		</div>
+	</div>
+	<label th:utext=${text}>Checkbox Label</label>
+</div>
+
+<!-- MDCSnackbar -->
+
+<div th:fragment="MDCSnackbar" class="mdc-snackbar">
+  <div class="mdc-snackbar__surface">
+    <div class="mdc-snackbar__label text-left" role="status" aria-live="polite" th:text=${text}>
+      	Can't send photo. Retry in 5 seconds.
+    </div>
+    <div class="mdc-snackbar__actions">
+      <button type="button" class="mdc-button mdc-snackbar__action" th:text="${actionText ?: 'Close'}">Retry</button>
+    </div>
+  </div>
+</div>
 </html>

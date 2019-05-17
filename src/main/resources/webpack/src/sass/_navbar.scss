@@ -18,39 +18,22 @@
         padding-bottom: 0.75rem;
     }
         
-    &.navbar-dark .navbar-nav .nav-link {
+    &.navbar-dark .navbar-nav .nav-link, .nav-link {
         color: white;
 
         &:hover {
             color: rgba(255, 255, 255, .8);
         }
     }
-
-    .dropdown-item {
-        color: white !important;
-        background-color: $primary-color;
-        padding-top: 5px;
-        padding-bottom: 8px;
-        cursor: default !important;
-
-        &:hover, &:focus {
-            color: rgba(0, 0, 0, .7) !important;
-            background-color: $secondary-color;
+    .mdc-button {
+        @include mdc-button-ink-color(white);
+        @include mdc-button-outline-color(white);
+        @include mdc-button-container-fill-color(seagreen);
+        height: 34px;
+        &.logout {
+            @include mdc-button-container-fill-color($primary-color);
         }
     }
-
-    .dropdown-menu, .dropdown-menu.show {
-        margin: 0;
-        padding: 0;
-        border: none;
-        border-radius: 0;
-        background-color: $primary-color;
-    }
-
-    .dropdown-divider {
-        border-top: 1px solid rgba(255, 255, 255, .3);
-    }
-
     &.navbar-dark .navbar-toggler {
         border-color: transparent;
     }
@@ -58,28 +41,6 @@
     @media screen and (min-width: 767px) {
         .navbar-brand img {
             margin-top: -16px;
-        }
-
-        .dropdown-menu {
-            top: 54px;
-        }
-
-        .dropdown {
-            margin-bottom: -7px;
-            margin-top: -7px;
-            align-items: center;
-            display: flex;
-        }
-
-        &.navbar-at-top {
-            .dropdown-menu {
-                top: 64px;
-            }
-
-            .dropdown {
-                margin-bottom: -12px;
-                margin-top: -12px;
-            }
         }
     }
 

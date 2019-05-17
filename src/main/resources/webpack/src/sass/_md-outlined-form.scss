@@ -1,0 +1,115 @@
+.md-outlined-form {
+    background-repeat: no-repeat;
+    background-size: cover;
+    @media screen and (max-width: 576px) { 
+        & {
+            background: linear-gradient(180deg, darken($primary-color, 20%),rgba($primary-color, 0.1));
+        }
+    }
+    @media screen and (max-width: 767px) { 
+        & {
+            background-position: top left;
+        }
+    }
+    .header {
+        color: white;
+    }
+    .mdc-text-field {
+        width: calc(100%);
+    }
+    .account-type-field, .account-type-field .mdc-text-field__input {
+        cursor: pointer;
+    }
+    .mdc-text-field-helper-text {
+        color: red !important;
+        width: calc(100% - 50px);
+        text-align: left !important;
+    }
+    .submit-button {
+        @include mdc-button-container-fill-color($secondary-color);
+    }
+    @media screen and (max-width: 576px) { 
+        .mdc-text-field, .mdc-text-field-helper-text{
+            width: 100%;
+        }
+    }
+    .mdc-card {
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    }
+    .mdc-checkbox {
+        @include mdc-checkbox-container-colors(white, transparent, whitesmoke, green);
+        @include mdc-checkbox-ink-color(white);
+    }
+    .mdc-form-field {
+        label {
+            color: white;
+            margin-bottom: 0 !important;
+            text-align: left;
+        }
+    }
+}
+
+#account-form {
+    background-image: url('../images/open-account.jpg');
+    background-position: top center;
+    .mdc-text-field {
+        width: calc(100%);
+        &.mdc-text-field--focused {
+            @include mdc-text-field-focused-outline-color($secondary-color);
+            @include mdc-text-field-label-color($secondary-color);
+        }
+    }
+    .submit-button {
+        width: calc(100% - 50px);
+        height: 50px;
+        @media screen and (max-width: 576px) { 
+            & {
+                width: 100%;
+            }
+        }
+    }    
+}
+
+#login-form, #signup-form {
+    color: white;
+    background-image: url('../images/login.jpg');
+    background-position: center;
+    .mdc-card {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 8px;
+    }
+    .mdc-text-field {
+        @include mdc-text-field-label-color(white);
+        @include mdc-text-field-ink-color(white);
+        @include mdc-text-field-outline-color(white);
+        @include mdc-text-field-caret-color(white);
+        &.mdc-text-field--focused {
+            @include mdc-text-field-focused-outline-color($secondary-color);
+            @include mdc-text-field-label-color($secondary-color);
+            .mdc-text-field__icon{
+                color: $secondary-color;
+            }
+        }
+        .mdc-text-field__icon{
+            color: white;
+        }
+    }
+    a, a:hover{
+        color: #24e6ff;
+        font-weight: 400;
+    }
+    .submit-button {
+        @include mdc-button-horizontal-padding(40px);
+    }
+}
+
+#login-form .submit-button {
+    @include mdc-button-ink-color(white);
+    @include mdc-button-outline-color(white);
+    @media screen and (max-width: 576px) { 
+        & {
+            @include mdc-button-horizontal-padding(22px);
+        }
+    }
+}

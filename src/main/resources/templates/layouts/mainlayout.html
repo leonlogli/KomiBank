@@ -43,6 +43,9 @@
 		<div layout:fragment="content"></div>
     </div>
     
+    <!-- Status snackbar -->
+	<div th:replace="components/base::MDCSnackbar(text='Status bar')"></div>
+    
 	<footer th:replace="partials/footer::footer"></footer>
 	
 	<!-- Inline Scripts to pass data to JS with Thymeleaf -->

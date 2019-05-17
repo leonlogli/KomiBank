@@ -6,7 +6,10 @@ import * as SVG from "./svg";
 import "./accounts-page";
 import "./add-operations";
 import "./account-form";
+import "./login";
+import "./signup";
 import './sass/app.scss';
+import {statusBar} from './utils';
 
 // Setup a ripple effect for mdc compoents
 const selector = '.mdc-button, .mdc-icon-button, .mdc-fab, .mdc-list-item, .mdc-card__primary-action';
@@ -37,6 +40,7 @@ if(document.querySelector('.home-page')) {
     // Home Page Button
     signUpButton.variant('outlined');
     homePageButton.trailingIcon = 'chevron_right';
+    homePageButton.variant('raised');
     homePageButton.onclick(e => window.location.href='#accounts-header');
     
     // Savings Account Card

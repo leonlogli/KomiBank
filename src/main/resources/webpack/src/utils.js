@@ -1,3 +1,10 @@
+import {MDCSnackbar} from '@material/snackbar/index';
+
+/**
+ * Global Status Snake bar
+ */
+const statusBar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
+
 /**
  * Media Query for screens < 576px
  */
@@ -135,5 +142,6 @@ export {
     mqMedium,
     mqLarge,
     mqExtraLarge,
-    addMediaQueryListener
+    addMediaQueryListener,
+    statusBar
 };

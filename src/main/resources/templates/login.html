@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<div layout:fragment="content" class="md-outlined-form" id="login-form">
+		<div class="container py-0 py-md-4">
+			<div class="row py-3 d-flex justify-content-center">
+				<div class="col-lg-7 col-xl-6 col-md-9 py-5">
+					<div class="mdc-card text-center px-4 py-5 px-sm-5 mx-2">
+						<h3>Login here</h3>
+						<form th:action="@{/login}" method="post" autocomplete="off">
+							<div class="my-4 py-1">
+								<div th:replace="components/input::MDCTextField(name='username', 
+									variant = 'outlined', class='user-name-field')">
+								</div>
+							</div>
+							<div class="my-4 py-1">
+								<div th:replace="components/input::MDCTextField(name='password', 
+									variant = 'outlined', type = 'password', class='password-field')">
+								</div>
+							</div>
+							<div class="container-fluid mt-3">
+								<div class="row d-flex justify-content-sm-between align-items-sm-center">
+									<div class="col-7 flex-grow-1 pl-0 text-left terms">
+										<div th:replace="components/base::MDCCheckbox(name='remember-me', 
+											text='Remember me')">
+										</div>
+									</div>
+									<div class="col-5 pr-0 text-right">
+										<div th:replace="components/base::MDCButton(text='Login', 
+											class='submit-button', type='submit')">
+										</div>
+									</div>									
+								</div>
+								<div class="row mt-4 d-flex justify-content-center">
+									<div class="col">
+										<label class="mb-0">Aren't you a KomiBank user yet ?
+											<a th:href="@{/signup}">Register</a>
+										</label>
+									</div>
+								</div>
+								
+								<!-- Error handling -->
+								<div class="row mt-3 d-flex justify-content-center" th:if="${param}">
+									<div class="col-xs-12">
+										<p th:if="${param.error}" class="text-danger">
+											Invalid username and password !
+										</p>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Thymeleaf JS process -->
+	
+	<th:block layout:fragment="inlineScripts">
+	    <script th:inline="javascript">
+	    	var userLogout = /*[[ ${param.logout}]]*/ null;
+		</script>
+     </th:block>
+</body>
+</html>
