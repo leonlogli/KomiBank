@@ -2,7 +2,7 @@ import {MDCTextField} from './components/MDCTextField';
 import {MDCButton} from './components/MDCButton';
 import {MDCFormField} from '@material/form-field/index';
 import {MDCCheckbox} from '@material/checkbox/index';
-import {statusBar} from './utils';
+import {statusBar, toggleNavBarClass} from './utils';
 
 if(document.querySelector('#signup-form')) {
     const userNameField = new MDCTextField("#signup-form .user-name-field");
@@ -91,4 +91,8 @@ if(document.querySelector('#signup-form')) {
             event.preventDefault();
         }
     }
+    
+    document.querySelector('.main-container').style.paddingTop = 0;
+    window.onscroll = e => toggleNavBarClass(e);
+    toggleNavBarClass();
 }

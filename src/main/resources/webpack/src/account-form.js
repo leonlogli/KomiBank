@@ -1,6 +1,7 @@
 import {MDCMenu} from './components/MDCMenu';
 import {MDCTextField} from './components/MDCTextField';
 import {MDCButton} from './components/MDCButton';
+import {toggleNavBarClass} from './utils';
 
 if(document.querySelector('#account-form')) {
     const customerNameField = new MDCTextField("#account-form .customer-name-field");
@@ -98,4 +99,8 @@ if(document.querySelector('#account-form')) {
             event.preventDefault();
         }
     }
+    
+    document.querySelector('.main-container').style.paddingTop = 0;
+    window.onscroll = e => toggleNavBarClass(e);
+    toggleNavBarClass();
 }

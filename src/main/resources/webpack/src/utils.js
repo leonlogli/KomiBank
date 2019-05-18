@@ -131,6 +131,15 @@ function isSessionStorageAvailable() {
     return isStorageAvailable('sessionStorage');
 }
 
+/** toggle navbar class when it scrolles at top*/
+function toggleNavBarClass(e) {
+    const navbar = document.querySelector("#main-menu");
+    if(window.pageYOffset == 0) {
+        navbar.classList.add('navbar-at-top');
+    }
+    else navbar.classList.remove('navbar-at-top');
+};
+
 export {
     isString,
     createElement,
@@ -143,5 +152,6 @@ export {
     mqLarge,
     mqExtraLarge,
     addMediaQueryListener,
-    statusBar
+    statusBar,
+    toggleNavBarClass
 };

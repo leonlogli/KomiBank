@@ -10,7 +10,7 @@ import "./account-form";
 import "./login";
 import "./signup";
 import './sass/app.scss';
-import {statusBar} from './utils';
+import {toggleNavBarClass} from './utils';
 
 // Setup a ripple effect for mdc compoents
 const selector = '.mdc-button, .mdc-icon-button, .mdc-fab, .mdc-list-item, .mdc-card__primary-action';
@@ -37,12 +37,18 @@ if(document.querySelector('.home-page')) {
     const currentAccountCard = new MDCCard("#current-account-card");
     const homePageButton = new MDCButton('#home-carousel-1 .mdc-button');
     const signUpButton = new MDCButton('#sign-up .mdc-button');
-
+    const navbar = document.querySelector("#main-menu");
+    
+    window.onscroll = e => toggleNavBarClass(e);
+    toggleNavBarClass();
+    
     // Home Page Button
     signUpButton.variant('outlined');
     homePageButton.trailingIcon = 'chevron_right';
     homePageButton.variant('raised');
-    homePageButton.onclick(e => window.location.href='#accounts-header');
+    homePageButton.onclick(e => {
+        document.querySelector('#accounts-header').scrollIntoView({ behavior: 'smooth' });
+    });
     
     // Savings Account Card
     savingsAccountCard.mediaURL = "url('../images/savings-account.jpg')";

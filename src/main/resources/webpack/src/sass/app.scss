@@ -27,13 +27,23 @@
 	outline: none !important;
 }
 
+html {
+	// Smooth scrolling on the whole document
+	scroll-behavior: smooth; 
+	@media screen and (prefers-reduced-motion: reduce) {
+		& {
+			scroll-behavior: auto;
+		}
+	}	
+}
+
 body {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 
 	> .container-fluid {
 		overflow-x: hidden; // Disable horizontal scrolling
-	}	
+	}
 }
 
 /***************************************************************************
