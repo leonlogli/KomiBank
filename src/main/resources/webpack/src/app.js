@@ -4,6 +4,7 @@ import {MDCButton} from './components/MDCButton';
 import {MDCCard} from './components/MDCCard';
 import * as SVG from "./svg";
 import "./accounts-page";
+import "./customers-page";
 import "./add-operations";
 import "./account-form";
 import "./login";

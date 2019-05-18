@@ -20,7 +20,6 @@ if (document.querySelector('#accounts-page')) {
     
     // Account search field
     accountSearchField.labelText = "Search";
-    console.log(searchText); 
 
     // Set edit icon in the table with svg icon
     document.querySelectorAll('#accounts-page table .action-col-edit').forEach(icon => {

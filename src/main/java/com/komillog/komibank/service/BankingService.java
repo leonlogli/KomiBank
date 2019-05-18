@@ -3,6 +3,7 @@ package com.komillog.komibank.service;
 import org.springframework.data.domain.Page;
 
 import com.komillog.komibank.model.Account;
+import com.komillog.komibank.model.Customer;
 import com.komillog.komibank.model.Operation;
 
 /**
@@ -13,10 +14,10 @@ import com.komillog.komibank.model.Operation;
 public interface BankingService {
 
 	/**
-	 * Returns the account that matching the  {@code accountCode}
+	 * Returns the account that matching the {@code accountCode}
 	 * 
 	 * @param code the code of the account to get
-	 * @return he account that matching the  {@code accountCode}
+	 * @return the account that matching the {@code accountCode}
 	 */
 	public Account getAccount(Long code);
 	
@@ -24,10 +25,9 @@ public interface BankingService {
 	 * Returns all accounts that match the specified {@code searchCriteriaText}
 	 * 
 	 * @param searchCriteriaText the search text criteria
-	 * @param sortCriteria the sort criteria.
 	 * @param pageNumber number the page
 	 * @param pageSize the size of the page
-	 * @return a Page of accounts
+	 * @return a Page of Customer
 	 */
 	public Page<Account> getAccounts(String searchCriteriaText, int pageNumber, int pageSize);
 	
@@ -96,4 +96,35 @@ public interface BankingService {
 	 */
 	public Page<Operation> getAccountOperations(Long accountCode, int pageNumber, int pageSize);
 
+	/**
+	 * Returns all customers that match the specified {@code searchCriteriaText}
+	 * 
+	 * @param searchCriteriaText the search text criteria
+	 * @param pageNumber number the page
+	 * @param pageSize the size of the page
+	 * @return a Page of Customer
+	 */
+	public Page<Customer> getCustomers(String searchCriteriaText, int pageNumber, int pageSize);
+
+	/**
+	 * Deletes a customer whose id matches {@code id}
+	 * @param id the id of the customer to delete
+	 */
+	public void deleteCustomer(Long id);
+
+	/**
+	 * Returns the customer by id
+	 * 
+	 * @param id the id of the customer to get
+	 * @return the customer by id
+	 */
+	Customer getCustomer(Long id);
+
+	/**
+	 * Returns the customer by its username
+	 * 
+	 * @param username the id of the customer to get
+	 * @return the customer
+	 */
+	public Customer getCustomerByUserName(String username);
 }

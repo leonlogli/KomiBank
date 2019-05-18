@@ -7,15 +7,16 @@
 <title>Access denied</title>
 </head>
 <body>
-	<div layout:fragment="content" class="py-5">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="card">
-				<h5 class="card-header bg-primary text-white">Access denied</h5>
-				<div class="card-body">
-					<div class="text-danger" th:utext=${accessError}>
+	<div layout:fragment="content" class="row py-5 d-flex justify-content-center px-4">
+		<div class="col-sm-10 col-md-8 col-lg-6">
+			<div class="mdc-card">
+				<h4 class="card-header text-white bg-danger">Access denied</h4>
+				<div class="card-body text-center">
+					<i class="material-icons text-danger" style="font-size: 70px">lock</i>
+					<div class="text-center py-3" th:utext=${accessError} style="font-size: 20px; font-weight: 400;">
 						You are not authorized for the requested resource !
 					</div>
-					<i class="material-icons">face</i>
+					
 				</div>
 			</div>
 		</div>

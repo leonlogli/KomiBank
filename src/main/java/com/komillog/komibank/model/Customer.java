@@ -38,7 +38,7 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private List<Account> accounts;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="user_id", unique = true)
 	private User user;
 	

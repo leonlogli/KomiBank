@@ -1,5 +1,6 @@
 package com.komillog.komibank.controller;
 
+import java.security.Principal;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.komillog.komibank.model.Account;
+import com.komillog.komibank.model.Customer;
 import com.komillog.komibank.model.Operation;
+import com.komillog.komibank.security.KomiBankUserService;
 import com.komillog.komibank.service.BankingService;
 
 /**
@@ -26,6 +29,9 @@ public class BankController {
 
 	@Autowired
 	private BankingService bankingService;
+	
+	@Autowired
+	private KomiBankUserService userService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -33,7 +39,10 @@ public class BankController {
 	}
 
 	@GetMapping("/account/add")
-	public String showAddAccountPage() {
+	public String showAddAccountPage(Principal principal, Model model) {
+		if(!userService.isCurrentUserAdmin()) {
+			model.addAttribute("customer", bankingService.getCustomerByUserName(principal.getName()));
+		}
 		return "account-form";
 	}
 	
@@ -43,10 +52,10 @@ public class BankController {
 		try {
 			bankingService.openNewAccount(accountType, balance, customerName, customerEmail);
 		} catch (Exception e) {
-			model.addAttribute("${accountAddException", e);
+			model.addAttribute("accountAddException", e);
 			return "account-form";
 		}        
-        return "redirect:/accounts";
+        return userService.isCurrentUserAdmin() ? "redirect:/accounts" : "redirect:/user/accounts";
     }
 	
 	@GetMapping("account/update/{code}")
@@ -81,11 +90,19 @@ public class BankController {
     }
     
 	@RequestMapping("/account/{code}")
-	public String getAccoutProfilePage(@PathVariable("code") Long accountCode, 
+	public String getAccounttProfilePage(@PathVariable("code") Long accountCode, 
 			@RequestParam(name="pageNumber", defaultValue="1") int pageNumber,
-			@RequestParam(name="pageSize", defaultValue="5") int operationPageSize, Model model) {
+			@RequestParam(name="pageSize", defaultValue="5") int operationPageSize,
+			Principal principal, Model model) {
 		try {
 			Account account = bankingService.getAccount(accountCode);
+			
+			if(!userService.isCurrentUserAdmin()) {
+				if(!account.getCustomer().getUser().getName().equals(principal.getName())) {
+					return "redirect:/403";
+				}
+			}
+			
 			model.addAttribute("account", account);
 
 			Page<Operation> accountOperations = bankingService.getAccountOperations(accountCode, pageNumber - 1, operationPageSize);
@@ -102,11 +119,10 @@ public class BankController {
 	}
 	
 	@RequestMapping("/accounts")
-	public String getAccouts(String searchText, 
+	public String getAccounts(String searchText, 
 			@RequestParam(name="pageNumber", defaultValue="1") int pageNumber,
 			@RequestParam(name="pageSize", defaultValue="5") int pageSize, Model model) {
 		try {
-			System.out.println(pageSize);
 			Page<Account> accounts = bankingService.getAccounts(searchText, pageNumber - 1, pageSize);
 			model.addAttribute("accounts", accounts.getContent());
 			
@@ -147,6 +163,61 @@ public class BankController {
 		catch (Exception e) {
 			model.addAttribute("operationException", e);
 		}
-		return "add-operations";
+		return userService.isCurrentUserAdmin() ? "redirect:/accounts" : "redirect:/account/" + accountCode;
+	}
+	
+	@RequestMapping("/customers")
+	public String getCustomers(String searchText, 
+			@RequestParam(name="pageNumber", defaultValue="1") int pageNumber,
+			@RequestParam(name="pageSize", defaultValue="5") int pageSize, Model model) {
+		try {
+			Page<Customer> customers = bankingService.getCustomers(searchText, pageNumber - 1, pageSize);
+			model.addAttribute("customers", customers.getContent());
+			
+			if(!customers.getContent().isEmpty()) {
+				model.addAttribute("searchText", searchText);
+			}
+			
+			if(customers.getTotalPages() > 1) {
+				model.addAttribute("customersPages", IntStream.rangeClosed(1, customers.getTotalPages()).toArray());
+				model.addAttribute("pageSize", pageSize);
+			}
+		}
+		catch (Exception e) {
+			model.addAttribute("customerSearchException", e);
+		}
+		return "customers";
+	}
+
+    @GetMapping("customer/delete/{id}")
+	public String deleteCustomer(@PathVariable("id") Long id, Model model) {
+    	try {
+    		bankingService.deleteCustomer(id);
+		} catch (Exception e) {
+			model.addAttribute("customerDeleteException", e);
+			return "customers";
+		}
+    	return "redirect:/customers";
+    }
+	
+	// User only
+    
+    @RequestMapping("user/accounts")
+	public String getUserAcconts(Principal principal, Model model) {
+    	Customer customer = null;
+		try {
+			if (principal != null) {
+				customer = bankingService.getCustomerByUserName(principal.getName());
+				if(customer.getAccounts().size() == 1) {
+					return "redirect:/account/" + customer.getAccounts().get(0).getCode();
+				}
+				model.addAttribute("accounts", customer.getAccounts());
+			}
+		}
+		catch (Exception e) {
+			model.addAttribute("userAccountsException", e);
+		}
+		model.addAttribute("username", principal.getName());
+		return "user-accounts";
 	}
 }

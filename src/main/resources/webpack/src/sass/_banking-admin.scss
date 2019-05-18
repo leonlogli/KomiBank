@@ -15,6 +15,16 @@
             }
         }
     }
+    .mdc-button {
+        @include mdc-button-horizontal-padding(22px);
+        @include mdc-button-container-fill-color($primary-color);
+        @include mdc-button-ink-color(white);
+        // Disable background-focused color
+        &.mdc-ripple-upgraded--background-focused::before,
+        &:not(.mdc-ripple-upgraded):focus::before {
+            opacity: 0;
+        }
+    }
     .mdc-card {
         .card-header {
             border-bottom: none;
@@ -23,16 +33,6 @@
             padding: 4px 20px;
             border-radius: 4px 4px 0 0;
             transition: padding .5s ease-in-out;
-            .mdc-button {
-                @include mdc-button-horizontal-padding(22px);
-                @include mdc-button-container-fill-color($primary-color);
-                @include mdc-button-ink-color(white);
-                // Disable background-focused color
-                &.mdc-ripple-upgraded--background-focused::before,
-                &:not(.mdc-ripple-upgraded):focus::before {
-                    opacity: 0;
-                }
-            }
             .mdc-menu {
                 .mdc-list-item {
                     height: 35px;
@@ -84,9 +84,6 @@
                 @include mdc-icon-button-size(20px, 20px, 4px);
             }
         }
-        tbody tr{
-            cursor: pointer;
-        }
     }
 }
 
@@ -98,6 +95,11 @@
 
 #accounts-page {
     background-color: #FAFAFA;
+    .table {
+        tbody tr {
+            cursor: pointer;
+        }
+    }
     .header {
         background-color: cadetblue;
         color: white;
@@ -114,6 +116,59 @@
                 top: 8px;
             }
         } 
+    }
+}
+
+/***************************************************************************
+ *                                                                         *
+ * customer page style                                                     *
+ *                                                                         *
+ **************************************************************************/
+
+#customers-page {
+    .search-form {
+        max-width: 100%;
+        @media (min-width: 576px) {
+            & {
+                max-width: 100%;
+            }
+        }
+    }
+    #customers-header {
+        h4 {
+            color: rgba(0, 0, 0, 0.7);
+        }
+    }
+    .mdl-textfield {
+        width: 100%;
+        @include mdl-field-colors(rgba(0, 0, 0, 0.8), $secondary-color, gainsboro);
+        &:not(.is-focused) .mdl-textfield__label {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        &.mdl-textfield--floating-label.is-dirty, &.mdl-textfield--floating-label.is-focused {
+            .mdl-textfield__label {
+                top: 8px;
+            }
+        } 
+    }
+    .table {
+        th:last-child, td:last-child {
+            position: relative;
+            background-color: white;
+        }
+        th:last-child, td:last-child {
+            right: inherit;
+        }
+        td {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        thead {
+            color: rgba(0, 0, 0, 0.7);
+        }
+    }
+    .mdc-button {
+        @include mdc-button-container-fill-color($secondary-color);
     }
 }
 
@@ -145,5 +200,21 @@
         color: white;
         position: relative;
         top: 70px;
+    }
+}
+
+/***************************************************************************
+ *                                                                         *
+ * user accounts page style                                              *
+ *                                                                         *
+ **************************************************************************/
+
+.user-accounts {
+    .avatar-circle {
+        border: 4px solid gainsboro;
+        color: gainsboro;
+    }
+    .profile-header h2 {
+        color: gainsboro;
     }
 }

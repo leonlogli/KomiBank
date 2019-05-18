@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.komillog.komibank.dao.AccountDao;
 import com.komillog.komibank.dao.AccountSpecs;
 import com.komillog.komibank.dao.CustomerDao;
+import com.komillog.komibank.dao.CustomerSpecs;
 import com.komillog.komibank.dao.OperationDao;
 import com.komillog.komibank.model.Account;
 import com.komillog.komibank.model.CurrentAccount;
@@ -18,7 +19,9 @@ import com.komillog.komibank.model.Customer;
 import com.komillog.komibank.model.Operation;
 import com.komillog.komibank.model.Payment;
 import com.komillog.komibank.model.SavingsAccount;
+import com.komillog.komibank.model.User;
 import com.komillog.komibank.model.Withdrawal;
+import com.komillog.komibank.security.KomiBankUserService;
 
 /**
  * Bank business layer implementation
@@ -37,10 +40,11 @@ public class BankingServiceImpl implements BankingService {
 	
 	@Autowired
 	private OperationDao operationDao;
+	
+	@Autowired
+	private KomiBankUserService userService;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public Account getAccount(Long code) {
 		return accountDao.findById(code)
@@ -67,12 +71,21 @@ public class BankingServiceImpl implements BankingService {
 		}
 		
 		if(accountType != null) {
+			User currentUser = userService.getCurrentUser();
+			
+			Customer customer = customerDao.getCustomerByUserName(currentUser.getName())
+					.orElseGet(() -> customerDao.save(new Customer(customerName, customerEmail)));
+			
 			if(accountType.equalsIgnoreCase("Savings Account") || accountType.equalsIgnoreCase("SA")) {
-				Customer customer = customerDao.save(new Customer(customerName, customerEmail));
+				if(!userService.isCurrentUserAdmin()) {
+					customer.setUser(currentUser);
+				}
 				accountDao.save(new SavingsAccount(customer, balance, new Date(), 0));
 			}
 			else if(accountType.equalsIgnoreCase("Current Account") || accountType.equalsIgnoreCase("CA")) {
-				Customer customer = customerDao.save(new Customer(customerName, customerEmail));
+				if(!userService.isCurrentUserAdmin()) {
+					customer.setUser(currentUser);
+				}
 				accountDao.save(new CurrentAccount(customer, balance, new Date(), 0));
 			}
 			else throw new RuntimeException("Error !!! Invalid account type !");
@@ -167,4 +180,36 @@ public class BankingServiceImpl implements BankingService {
 	public Page<Operation> getAccountOperations(Long accountCode, int pageNum, int pageSize) {
 		return operationDao.getAccountOperations(accountCode, PageRequest.of(pageNum, pageSize));
 	}
+
+	/**  {@inheritDoc} */
+	@Override
+	public Page<Customer> getCustomers(String searchCriteriaText, int pageNumber, int pageSize) {
+		if(searchCriteriaText == null || searchCriteriaText.isBlank()) {
+			return customerDao.findAll(PageRequest.of(pageNumber, pageSize));
+		}
+		else {
+			return customerDao.findAll(CustomerSpecs.contains(searchCriteriaText), 
+					PageRequest.of(pageNumber, pageSize));
+		}
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public Customer getCustomer(Long id) {
+		return customerDao.findById(id)
+				.orElseThrow(() -> new RuntimeException("Customer not found !"));
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public void deleteCustomer(Long id) {
+		customerDao.delete(getCustomer(id));
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public Customer getCustomerByUserName(String username) {
+		return customerDao.getCustomerByUserName(username).orElse(null);
+	}
+	
 }

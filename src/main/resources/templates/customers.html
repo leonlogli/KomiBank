@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<!-- Content -->
+	<div layout:fragment="content" class="banking-admin" id="customers-page">
+
+		<div class="row d-flex justify-content-center px-3 py-5">
+			<div class="col-md-12 col-lg-9 col-xl-8">
+			
+				<div class="container-fluid pt-2 mdc-card px-4" id="customers-header">
+					<div class="row d-flex justify-content-between">
+						<div class="col-12 col-sm-6 col-xl-4 my-auto text-center text-sm-left">
+							<h4 class="mb-0 mt-2 mt-sm-0">KomiBank Customers</h4>
+						</div>
+						<div class="col-12  col-sm-6 col-xl-8 my-auto d-flex justify-content-end">
+							<form th:action="@{/customers}" method="post" autocomplete="off" class="flex-grow-1 search-form">
+								<div th:replace="components/input::MDLTextField(name='searchText', 
+									value=${searchText})">
+								</div>									
+								<input type="hidden" name="pageSize" class="page-size-field">
+							</form>
+							<div class="my-auto ml-3 pb-2">
+								<div class="mdc-menu-surface--anchor">
+									<div th:replace="components/base::MDCButton(text='5', class='page-size-button')"></div>
+									<div th:replace="components/menu::MDCMenu(${ {'Item per page', '5', '10', '25', '50'} })">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="mdc-card my-4 my-md-5">
+					<div class="card-body p-0">
+						<th:block th:if="${customers!=null and !customers.isEmpty()}">
+							<div class="table-responsive">
+							    <table class="table mb-0" id="customers-table">
+							    	<thead>
+										<tr>
+											<th class="stickyCol">No.</th>
+											<th>Name</th>
+											<th>Email</th>
+											<th>Delete</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="c : ${customers}">
+											<td class="stickyCol" th:text="${c.id}">1</td>
+											<td th:text="${c.name}">Full Name</td>
+											<td th:text="${c.email}">email@mail.com</td>
+											<td>
+												<a class="mdc-icon-button material-icons d-inline-block text-danger" style="text-decoration:none"
+													th:href="@{/customer/delete/{id}(id=${c.id})}">delete_forever
+												</a>
+											</td>
+											
+										</tr>
+									</tbody>
+							    </table>
+							</div>
+						</th:block>
+						
+						<div class="container">
+							<div class="row d-flex justify-content-between pt-3 pt-md-0">
+								<div class="col-8 my-auto">
+									<th:block th:if="${customers!=null and !customers.isEmpty() and customerssPages != null}">
+										<nav aria-label="customers pagination pt-3">
+											<ul class="pagination">
+												<li class="page-item" th:each="page:${customersPages}">
+													<a class="page-link" th:href="@{/customers(searchText=${searchText}, 
+														pageNumber=${page}, pageSize=${pageSize})}" 
+														th:text="${page}">
+													</a>
+												</li>
+											</ul>
+										</nav>
+									</th:block>
+									
+									<th:block th:unless="${customers!=null and !customers.isEmpty()}">
+										<label class="p-4">Oops !!! No customer available !</label>
+									</th:block>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+	
+	<!-- Thymeleaf JS process -->
+	<th:block layout:fragment="inlineScripts">
+	    <script th:inline="javascript">
+	    	var searchText = /*[[${searchText}]]*/ null;
+		</script>
+     </th:block>
+</body>
+</html>

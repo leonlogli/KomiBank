@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Accounts</title>
+</head>
+<body>
+
+	<!-- Content -->
+	
+	<div layout:fragment="content" class="account-profile banking-admin user-accounts">
+		<div class="container-fluid pb-4 px-0 header profile-header">
+			<div class="row">
+				<div class="col d-flex align-items-center justify-content-center">
+					<div th:text="${#strings.substring(username,0,1)}"
+						class="avatar-circle d-flex align-items-center justify-content-center">CN
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col d-flex align-items-end justify-content-center pb-4 mb-2">
+					<h2 th:text="${'@' + username}">Username</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="container pt-3 pb-5">
+			<div class="row d-flex align-items-center">
+				<div class="col-md-4" th:if="${accounts != null and !accounts.isEmpty()}" th:each="account : ${accounts}">
+					<div class="mdc-card my-3">
+						<div class="mdc-card__primary-action  py-3 px-4" tabindex="0"
+							th:onclick="'window.location.href = \'' + @{/account/{code}(code=${account.code})} + '\''">
+							<h4 th:text="${account.type()}">Account Type</h4>
+							<label class="d-block">Date : 
+								<span th:text="${#dates.format(account.creationDate, 'MMMM&nbsp;dd,&nbsp;yyyy')}">
+								C1BA4TG145</span>
+							</label>
+							<label class="d-block">Code : <span th:text="${account.formattedCode()}">C1BA4TG145</span></label>
+							<label class="d-block">Balance : <span th:text="${account.balance}">94520</span></label>
+							<label class="d-block">Click for details</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3" th:if="${accounts == null}">
+					<div class="mdc-card my-3 py-3 px-4">
+						<label>All your Komibank accounts will be displayed here. For the moment, it seems 
+						that you have none yet. No worries. Start by creating your first account right now</label>
+						<div class="d-flex justify-content-end my-auto pb-3">
+							<button class="mdc-fab" aria-label="Add"
+								onclick="window.location.href ='/account/add'; localStorage.setItem('operationsTabIndex', 0);">
+								<span class="mdc-fab__icon material-icons">add</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

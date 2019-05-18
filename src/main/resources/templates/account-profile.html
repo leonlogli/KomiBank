@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="mdc-card my-3">
-						<h5 class="card-header">Account information</h5>
+						<h5 class="card-header py-3">Account information</h5>
 						<div class="card-body">
 							<th:block th:if="${account}">
 								<label class="d-block">Customer : <span th:text="${account.customer.name}">C1BA4TG145</span></label>
@@ -47,15 +47,15 @@
 								</th:block>
 							</th:block>
 							<th:block th:if="${account == null}">
-								<label>No information available. Search for an account to see its details here</label>
+								<label>No information available ! It seems that the requested account does not exist</label>
 							</th:block>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="mdc-card my-3">
-						<h5 class="card-header">Account operations</h5>
-						<div class="card-body  p-0">
+						<h5 class="card-header py-3">Account operations</h5>
+						<div class="card-body p-0">
 							<th:block th:if="${operations!=null and !operations.isEmpty()}">
 								<div class="table-responsive">
 									<table class="table">
@@ -94,7 +94,7 @@
 											<label class="p-4">Oups ! No transactions available !</label>
 										</th:block>
 									</div>
-									<div class="col-4 d-flex justify-content-end my-auto">
+									<div class="col-4 d-flex justify-content-end my-auto pb-3">
 										<button class="mdc-fab" aria-label="Add"
 											onclick="window.location.href ='/operation/add'; localStorage.setItem('operationsTabIndex', 0);">
 											<span class="mdc-fab__icon material-icons">add</span>

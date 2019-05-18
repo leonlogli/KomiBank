@@ -28,13 +28,14 @@
 						<form th:action="${formAction}" method="post" autocomplete="off">
 							<div class="my-4 py-1">
 								<div th:replace="components/input::MDCTextField(name='customerName', 
-									variant = 'outlined', class='customer-name-field')">
+									variant = 'outlined', class='customer-name-field', 
+									readonly=${customer}, value = ${customer?.name})">
 								</div>
 							</div>
 							<div class="my-4 py-1">
 								<div th:replace="components/input::MDCTextField(name='customerEmail', type='email',
-									variant = 'outlined', class='customer-email-field', 
-									value = ${account?.customer?.email})">
+									variant = 'outlined', class='customer-email-field',
+									value = ${account?.customer?.email?:customer?.email}, readonly=${customer})">
 								</div>
 							</div>
 							<div class="my-4 py-1 mdc-menu-surface--anchor">
@@ -74,7 +75,7 @@
 							</div>
 						</form>
 						<div th:if="${accountAddException != null or accountUpdateException != null}" 
-							th:text="${${accountAddException?.message ?: accountUpdateException?.message}" 
+							th:text="${accountAddException?.message ?: accountUpdateException?.message}" 
 							class="text-danger pt-3">Oups !!! Can't create an account !</div>
 					</div>
 				</div>

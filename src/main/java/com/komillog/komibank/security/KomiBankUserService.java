@@ -15,4 +15,8 @@ public interface KomiBankUserService extends UserDetailsService {
     User findUser(String username);
     
     User save(UserRegistrationDto registration);
+    
+    User getCurrentUser();
+
+	boolean isCurrentUserAdmin();
 }

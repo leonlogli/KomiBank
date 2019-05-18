@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.komillog.komibank.dao.RoleDao;
 import com.komillog.komibank.dao.UserDao;
@@ -74,4 +75,17 @@ public class KomiBankUserServiceImpl implements KomiBankUserService {
 		return roleDao.findByName("ROLE_USER").orElseGet(() -> roleDao.save(new Role(roleName)));
 	}
 
+	@Override
+	public User getCurrentUser() {
+		return findUser(SecurityContextHolder.getContext().getAuthentication().getName());
+	}
+	
+	@Override
+	public boolean isCurrentUserAdmin() {
+		return SecurityContextHolder.getContext()
+				.getAuthentication()
+				.getAuthorities()
+				.stream()
+				.map(g -> g.toString()).anyMatch(role -> role.equals("ROLE_ADMIN"));
+	}
 }
