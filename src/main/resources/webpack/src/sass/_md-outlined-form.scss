@@ -26,7 +26,7 @@
         text-align: left !important;
     }
     .submit-button {
-        @include mdc-button-container-fill-color($secondary-color);
+        @include mdc-button-container-fill-color($primary-color);
     }
     @media screen and (max-width: 576px) { 
         .mdc-text-field, .mdc-text-field-helper-text{
@@ -38,7 +38,7 @@
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
     }
     .mdc-checkbox {
-        @include mdc-checkbox-container-colors(white, transparent, whitesmoke, green);
+        @include mdc-checkbox-container-colors(white, transparent, whitesmoke, $primary-color);
         @include mdc-checkbox-ink-color(white);
     }
     .mdc-form-field {

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeLeaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}">
 <head>
-<title>Accounts</title>
+<title>Home</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
 				<div class="carousel-item active" id="home-carousel-1">
 					<div class="w-100 h-100 cover-pane"></div>
 					<div class="carousel-caption text-left">
-						<div class="container">
+						<div class="container" data-aos="zoom-in">
 							<div class="row">
 								<div class="col-md-6 pt-2 px-3">
 									<h2>Welcome to KomiBank</h2>
@@ -69,19 +69,19 @@
 				</div>
 			</div>
 			<div class="row features-content">
-				<div class="col-lg-4 text-center">
+				<div class="col-lg-4 text-center" data-aos="zoom-in-right">
 					<i class="material-icons">public</i>
 					<h4>Internet Banking</h4>
 					<p>Explore the power of simpler and smarter banking. With KomiBank online, manage
 					your accounts and our services whenever or wherever you want</p>
 				</div>
-				<div class="col-lg-4 text-center">
+				<div class="col-lg-4 text-center" data-aos="zoom-in">
 					<i class="material-icons">phonelink_lock</i>
 					<h4>Move With Confidence</h4>
 					<p>Securely manage your money with our Mobile Banking app. You can view your balance, 
 					make payments, deposit cheques and much more. Note: this feature is coming soon</p>
 				</div>
-				<div class="col-lg-4 text-center" id="sign-up">
+				<div class="col-lg-4 text-center" id="sign-up" data-aos="zoom-in-left">
 					<i class="material-icons">people</i>
 					<h4>KomiBank community</h4>
 					<p>Our community is growing every day and we are happy because our customers are satisfied.</p>
@@ -100,11 +100,11 @@
 			</div>
 		</div>
 		<div class="row pt-3 pb-5 accounts" id="accounts">
-			<div class="col-md-6">
+			<div class="col-md-6" data-aos="fade-right">
 				<div th:replace="components/card::MDCCard(id='savings-account-card', class='mx-auto mr-lg-4 mr mb-4',
 					title='Savings Account', subTitle='An interest earning account')"></div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6" data-aos="fade-left">
 				<div th:replace="components/card::MDCCard(id='current-account-card', class='mx-auto ml-lg-4 mb-5',
 					title='Current Account', subTitle='A transactional checking account')"></div>
 			</div>

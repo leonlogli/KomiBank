@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Registration</title>
+<title>Signup</title>
 </head>
 <body>
 
@@ -11,7 +11,7 @@
 		<div class="container py-0 py-md-4">
 			<div class="row py-3 d-flex justify-content-center">
 				<div class="col-lg-7 col-xl-6 col-md-9 py-5">
-					<div class="mdc-card text-center px-4 py-5 px-sm-5 mx-2 mt-5">
+					<div class="mdc-card text-center px-4 py-5 px-sm-5 mx-2 mt-5" data-aos="zoom-in" data-aos-duration="800">
 						<h3>Sign up</h3>
 						<form th:action="@{/signup}" th:object="${user}" method="post" autocomplete="off">
 							<div class="my-4 py-1">

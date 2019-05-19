@@ -58,4 +58,5 @@ buildNumber.properties
 
 ### static resource & webpack dir ###
 src/main/resources/static/
+src/main/resources/favicon.ico
 src/main/resources/webpack/node_modules/

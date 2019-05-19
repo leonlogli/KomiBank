@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeLeaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/mainlayout}">
 <head>
-<title>Accounts</title>
+<title>Account</title>
 </head>
 <body>
 
 	<div layout:fragment="content" class="md-outlined-form" id="account-form">
 		<div class="container py-0 py-md-4">
 			<div class="row pt-4 header text-center mt-5">
-				<div class="col-md-6">
+				<div class="col-md-6 pt-3">
 					<h3 th:text="${account != null ? 'Update account' : 'Open an account online'}">
 						Open an account online
 					</h3>
@@ -18,7 +18,7 @@
 			<div class="row" th:with="formAction=${account != null} ? 
 				@{/account/update/{code}(code=*{code})} : @{/account/add}">
 				<div class="col-lg-6 col-md-8 pt-4 pb-5">
-					<div class="mdc-card text-center px-4 py-5 px-md-5">
+					<div class="mdc-card text-center px-4 py-5 px-md-5" data-aos="fade-right" data-aos-duration="800">
 						<h5>Komibank Account</h5>
 						<p class="mt-3 mb-2" th:text="${account != null ? 
 							'Edit account informantions by filling out the form below and submitting changes' : 

@@ -30,8 +30,8 @@
 			<a class="nav-link mdc-button mdc-button--outlined logout" th:href="@{/logout}">Logout</a>
 		</th:block>
 		<th:block th:if="${#request.userPrincipal == null}">
-			<a class="nav-link mr-3 pl-0" th:href="@{/login}">Login</a>
-			<a class="nav-link mdc-button mdc-button--outlined" th:href="@{/signup}">Sign up</a>
+			<a class="nav-link mr-3 pl-0 login" th:href="@{/login}">Login</a>
+			<a class="nav-link mdc-button mdc-button--outlined signup" th:href="@{/signup}">Sign up</a>
 		</th:block>
 	</div>
 </nav>

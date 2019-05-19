@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Optional meta tags -->
-	<title>KomiBank</title>
+	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">KomiBank</title>
 	<meta name="author" content="Léon Logli">
 	<meta name="description" content="Application for Bank's basic operations and services">
 	<meta name="keywords" content="KomiBank, Online Banking, Banking,spring, bank">
@@ -24,13 +24,11 @@
 	-->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/aos.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/mdl-textfield.css}" />
+	<!-- Now our app.css -->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
-	<!--
-	<link rel="shortcut icon" href="./assets/img/favicon.ico">
-	<link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
-	-->
 </head>
 <body>
 	<header th:insert="partials/navbar::navbar"></header>
@@ -60,9 +58,12 @@
 	<script th:src="@{/js/bootstrap-native-v4.min.js}"></script>
 	<script th:src="@{/js/aos.js}"></script>
 	<script th:src="@{/js/mdl-textfield.js}"></script>
+	<!-- Now our app.js -->
 	<script th:src="@{/js/app.js}"></script>
 	<script>
-		AOS.init();
+		AOS.init({
+			duration: 1000
+		});
 	</script>
 	
 	<!-- Additional JS (Optional) -->

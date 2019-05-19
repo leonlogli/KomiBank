@@ -95,4 +95,7 @@ if(document.querySelector('#signup-form')) {
     document.querySelector('.main-container').style.paddingTop = 0;
     window.onscroll = e => toggleNavBarClass(e);
     toggleNavBarClass();
+
+    document.querySelector(".nav-link.login").style.display = 'none';
+    document.querySelector(".nav-link.signup").style.display = 'none';
 }

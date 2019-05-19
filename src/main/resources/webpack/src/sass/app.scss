@@ -169,5 +169,11 @@ body {
 		.more-text {
 			display: none;
 		}
+		.mdc-card__media {
+			transition: transform 0.5s ease-in-out;
+		}
+		&:hover .mdc-card__media {
+			transform: scale(1.03);
+		}
 	}
 }
