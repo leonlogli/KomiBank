@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{layouts/mainlayout}">
+<head>
+<meta charset="UTF-8" />
+<title>Access denied</title>
+</head>
+<body>
+	<div layout:fragment="content" class="row py-5 d-flex justify-content-center px-4">
+		<div class="col-sm-10 col-md-8 col-lg-6">
+			<div class="mdc-card">
+				<h4 class="card-header text-white bg-secondary">Something went wrong !</h4>
+				<div class="card-body text-center">
+					<i class="material-icons text-secondary" style="font-size: 70px">sentiment_very_dissatisfied</i>
+					<div class="text-center py-3" style="font-size: 20px; font-weight: 400;">
+						Oops !, an error has occurred. We are working on it. Please try again later or click the 
+						button below to go to the homepage.
+					</div>
+					<a class="mdc-button mdc-button--raised nav-link bg-secondary" href="/">Go home</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

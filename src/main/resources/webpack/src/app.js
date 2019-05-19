@@ -10,7 +10,7 @@ import "./account-form";
 import "./login";
 import "./signup";
 import './sass/app.scss';
-import {toggleNavBarClass} from './utils';
+import {toggleNavBarClass, statusBar} from './utils';
 
 // Setup a ripple effect for mdc compoents
 const selector = '.mdc-button, .mdc-icon-button, .mdc-fab, .mdc-list-item, .mdc-card__primary-action';
@@ -30,23 +30,37 @@ footerSocialIcons.item(0).appendChild(SVG.GooglePlusIcon());
 footerSocialIcons.item(1).appendChild(SVG.TwitterIcon());
 footerSocialIcons.item(2).appendChild(SVG.FacebookIcon());
 
+// About our app
+document.querySelector(".nav-link.about").onclick = e => {
+    if(statusBar.isOpen) {
+        statusBar.close();
+    }
+    statusBar.labelText = "KomiBank is developed by Léon Logli";
+    statusBar.actionButtonText = "CLOSE";
+    statusBar.timeoutMs = 9500;
+    statusBar.open();
+}
+
 // On Home (index) page
 if(document.querySelector('.home-page')) {
     // Instantiations
     const savingsAccountCard = new MDCCard("#savings-account-card");
     const currentAccountCard = new MDCCard("#current-account-card");
     const homePageButton = new MDCButton('#home-carousel-1 .mdc-button');
-    const signUpButton = new MDCButton('#sign-up .mdc-button');
-    const navbar = document.querySelector("#main-menu");
-    
+    const joinUsButton = new MDCButton('#sign-up .mdc-button');
+
     window.onscroll = e => toggleNavBarClass(e);
     toggleNavBarClass();
-    
+
     // Home Page Button
-    signUpButton.variant('outlined');
     homePageButton.trailingIcon = 'chevron_right';
     homePageButton.variant('raised');
     homePageButton.onclick(e => {
+        document.querySelector('#accounts-header').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    joinUsButton.variant('outlined');
+    joinUsButton.onclick(e => {
         document.querySelector('#accounts-header').scrollIntoView({ behavior: 'smooth' });
     });
     

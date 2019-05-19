@@ -2,7 +2,7 @@ import {MDCTextField} from './components/MDCTextField';
 import {MDCButton} from './components/MDCButton';
 import {MDCFormField} from '@material/form-field/index';
 import {MDCCheckbox} from '@material/checkbox/index';
-import {statusBar, isSessionStorageAvailable, toggleNavBarClass} from './utils';
+import {statusBar, toggleNavBarClass} from './utils';
 
 if(document.querySelector('#login-form')) {
     const userNameField = new MDCTextField("#login-form .user-name-field");
@@ -11,7 +11,6 @@ if(document.querySelector('#login-form')) {
     const submitButton = new MDCButton('#login-form .submit-button');
     const rememberMeCheckBox = new MDCCheckbox(document.querySelector('#login-form .mdc-checkbox'));
     const formField = new MDCFormField(document.querySelector('#login-form .mdc-form-field'));
-    const rememberMe = 'rememberme';
     formField.input = rememberMeCheckBox;
 
     userNameField.labelText = "Username";
@@ -24,23 +23,21 @@ if(document.querySelector('#login-form')) {
 
     // Account Form validation
     accountForm.addEventListener("submit", function (event) {
-        if(!isSessionStorageAvailable || localStorage.getItem(rememberMe) == 'false') {
-            if(!userNameField.value) {
-                validate(userNameField, "Username is required *", event);
-            }
-            else if (!/^[a-zA-Z0-9.\\-_$@*!]{3,30}$/.test(userNameField.value)) {
-                validate(userNameField, "Invalid username !", event);
-            }
-            else userNameField.showHelperText(false);
-    
-            if(!passwordField.value) {
-                validate(passwordField, "Password is required *", event);
-            }
-            else if(passwordField.value.length < 4) {
-                validate(passwordField, "Your password must have at least 4 characters !", event);
-            }
-            else passwordField.showHelperText(false);
+        if(!userNameField.value) {
+            validate(userNameField, "Username is required *", event);
         }
+        else if (!/^[a-zA-Z0-9.\\-_$@*!]{3,30}$/.test(userNameField.value)) {
+            validate(userNameField, "Invalid username !", event);
+        }
+        else userNameField.showHelperText(false);
+
+        if(!passwordField.value) {
+            validate(passwordField, "Password is required *", event);
+        }
+        else if(passwordField.value.length < 4) {
+            validate(passwordField, "Your password must have at least 4 characters !", event);
+        }
+        else passwordField.showHelperText(false);
     }, false);
 
     //Remember Me
@@ -48,7 +45,7 @@ if(document.querySelector('#login-form')) {
     let rememberAlreadyChecked = false;
 
     rememberMeCheckBox.listen('change', e => {
-        if(rememberAlreadyChecked == false && rememberMeCheckBox.checked && localStorage.getItem(rememberMe) == 'false') {
+        if(rememberAlreadyChecked == false) {
             if(statusBar.isOpen) {
                 statusBar.close();
             }
@@ -57,13 +54,6 @@ if(document.querySelector('#login-form')) {
             statusBar.timeoutMs = 5000;
             statusBar.open();
             rememberAlreadyChecked = true;
-        }
-
-        if(userLogout) {
-            localStorage.setItem(rememberMe, false);
-        }
-        else if(isSessionStorageAvailable) {
-            localStorage.setItem(rememberMe, rememberMeCheckBox.checked);
         }
     });
     
@@ -77,8 +67,6 @@ if(document.querySelector('#login-form')) {
         statusBar.actionButtonText = "CLOSE";
         statusBar.timeoutMs = 5000;
         statusBar.open();
-
-        localStorage.setItem(rememberMe, false);
     }
 
     /**

@@ -41,7 +41,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String showSignupPage(Model model) {
-        return "signup";
+        return "auth/signup";
     }
 
     @PostMapping("/signup")
@@ -52,7 +52,7 @@ public class UserController {
         
         if (result.hasErrors()){
         	System.out.println(result.getFieldError().toString());
-            return "signup";
+            return "auth/signup";
         }
 
         userService.save(userDto);
@@ -68,7 +68,7 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public String showLoginPage() {
-		return "login";
+		return "auth/login";
 	}
 
 
@@ -85,6 +85,6 @@ public class UserController {
 					"<br>You are not authorized for the requested resource !";
 			model.addAttribute("accessError", message);
 		}
-		return "403";
+		return "error/403";
 	}
 }

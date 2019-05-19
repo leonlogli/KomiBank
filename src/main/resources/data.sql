@@ -18,7 +18,7 @@ ON DUPLICATE KEY UPDATE name='admin', password='$2a$10$hKDVYxLefVHV/vtuPhWD3Oigt
  
  INSERT INTO user (id, name, password) VALUES 
 (2, 'user', '$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by')
-ON DUPLICATE KEY UPDATE name='admin', password='$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by';
+ON DUPLICATE KEY UPDATE name='user', password='$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by';
 
 REPLACE into user_role(user_id, role_id) values
 (1,1),

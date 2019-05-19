@@ -84,7 +84,7 @@ public class BankController {
     		bankingService.deleteAccount(code);
 		} catch (Exception e) {
 			model.addAttribute("accountDeleteException", e);
-			return "accounts";
+			return "admin/accounts";
 		}
     	return "redirect:/accounts";
     }
@@ -99,7 +99,7 @@ public class BankController {
 			
 			if(!userService.isCurrentUserAdmin()) {
 				if(!account.getCustomer().getUser().getName().equals(principal.getName())) {
-					return "redirect:/403";
+					return "redirect:/error/403";
 				}
 			}
 			
@@ -138,7 +138,7 @@ public class BankController {
 		catch (Exception e) {
 			model.addAttribute("accountSearchException", e);
 		}
-		return "accounts";
+		return "admin/accounts";
 	}
 
 	@GetMapping("/operation/add")
@@ -186,7 +186,7 @@ public class BankController {
 		catch (Exception e) {
 			model.addAttribute("customerSearchException", e);
 		}
-		return "customers";
+		return "admin/customers";
 	}
 
     @GetMapping("customer/delete/{id}")
@@ -218,6 +218,6 @@ public class BankController {
 			model.addAttribute("userAccountsException", e);
 		}
 		model.addAttribute("username", principal.getName());
-		return "user-accounts";
+		return "user/user-accounts";
 	}
 }

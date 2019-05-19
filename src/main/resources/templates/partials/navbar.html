@@ -16,7 +16,6 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="/" th:href="@{/}">Home</a></li>
-			<li class="nav-item"><a class="nav-link" href="#accounts-header">Products & services</a></li>
 			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 				<li class="nav-item"><a class="nav-link" th:href="@{/accounts}">Accounts</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/customers}">Customers</a></li>
@@ -24,6 +23,7 @@
 			<th:block sec:authorize="hasRole('ROLE_USER')">
 				<li class="nav-item"><a class="nav-link" th:href="@{/user/accounts}">Your profile</a></li>
 			</th:block>
+			<li class="nav-item"><a class="nav-link" href="/#accounts-header">Products &amp; services</a></li>
 			<li class="nav-item"><a class="nav-link about" href="#">About</a></li>
 		</ul>
 		<th:block sec:authorize="isAuthenticated()">
