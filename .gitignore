@@ -1,6 +1,5 @@
 HELP.md
 /target/
-/images/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -61,3 +60,4 @@ buildNumber.properties
 src/main/resources/static/
 src/main/resources/favicon.ico
 src/main/resources/webpack/node_modules/
+src/main/resources/webpack/\.vscode/settings\.json
