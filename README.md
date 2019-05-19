@@ -32,32 +32,52 @@ There are two roles : user and admin
 		**password:** user
 
 ### Demo
+
+
 Sign up page. Note that the username must not contain spaces or special characters
-![Sign up page](https://github.com/leonlogli/KomiBank/blob/masthttps://github.com/leonlogli/KomiBank/blob/master/images/signup.PNG)
+![Sign up page](https://github.com/leonlogli/KomiBank/blob/master/images/signup.PNG)
+
+
 
 Login page showing validation
-![Login](https://github.com/leonlogli/KomiBank/blob/masthttps://github.com/leonlogli/KomiBank/blob/master/images/login.PNG)
+![Login](https://github.com/leonlogli/KomiBank/blob/master/images/login.PNG)
+
+
 
 Account types
 ![Account types](https://github.com/leonlogli/KomiBank/blob/master/images/accountTypes.PNG)
 
+
+
 Open new account
 ![Open new account](https://github.com/leonlogli/KomiBank/blob/master/images/openNewAccount.PNG)
+
+
 
 Add new banking operation
 ![Add new banking operation](https://github.com/leonlogli/KomiBank/blob/master/images/addNewOperation.PNG)
 
+
+
 Withdrow tab view validation
 ![Withdrow validation](https://github.com/leonlogli/KomiBank/blob/master/images/withdrawError.PNG)
+
+
 
 View account details
 ![View account details](https://github.com/leonlogli/KomiBank/blob/master/images/accountInfos.PNG)
 
+
+
 User accounts (a user can have many accounts)
 ![User accounts (a user can have many accounts)](https://github.com/leonlogli/KomiBank/blob/master/images/usersAccount.PNG)
 
+
+
 All account management page (Only admins can access this page)
 ![All account management page (Only admins can access this page)](https://github.com/leonlogli/KomiBank/blob/master/images/accountsViewAdmin.PNG)
+
+
 
 Bank customers management page (Only admins can access this page)
 ![Bank customers management page (Only admins can access this page)](https://github.com/leonlogli/KomiBank/blob/master/images/customersAdmin.PNG)
