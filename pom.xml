@@ -10,9 +10,26 @@
 	</parent>
 	<groupId>com.komillog</groupId>
 	<artifactId>KomiBank</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>KomiBank</name>
-	<description>Application for Bank's basic operations</description>
+	<url>https://github.com/leonlogli/komibank</url>
+	<description>Online Banking Simulator developed using Spring Boot</description>
+	
+    <developers>
+        <developer>
+            <id>leonlogli</id>
+            <name>Léon Logli Komi</name>
+            <email>leonlogli@gmail.com</email>
+            <url>https://github.com/leonlogli</url>
+            <organization>KomiLLog</organization>
+            <timezone>+1</timezone>
+            <roles>
+                <role>founder</role>
+                <role>project owner</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 
 	<properties>
 		<java.version>11</java.version>

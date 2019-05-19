@@ -71,14 +71,14 @@
 								<!-- Terms error handling -->
 								<div class="row mt-3 d-flex justify-content-center" th:each="error: ${#fields.errors('terms')}">
 									<div class="col-xs-12" >
-					                    <p class="text-danger" th:text="${error}">You must accept terms !</p>
+					                    <p class="text-warning" th:text="${error}">You must accept terms !</p>
 					                </div>
 								</div>
 								
 								<!-- Global error handling -->
 								<div class="row mt-3 d-flex justify-content-center" th:if="${#fields.hasGlobalErrors()}">
 									<div class="col-xs-12">
-										<p class="error-message" th:each="error : ${#fields.errors('global')}"
+										<p class="text-warning" th:each="error : ${#fields.errors('global')}"
 											th:text="${error}">Validation error
 										</p>
 									</div>

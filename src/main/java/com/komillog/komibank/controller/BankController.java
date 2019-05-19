@@ -59,8 +59,15 @@ public class BankController {
     }
 	
 	@GetMapping("account/update/{code}")
-    public String showUpdateAccountPage(@PathVariable("code") Long code, Model model) {
+    public String showUpdateAccountPage(@PathVariable("code") Long code, Principal principal, Model model) {
         Account account = bankingService.getAccount(code);
+        
+        if(!userService.isCurrentUserAdmin()) {
+			if(!account.getCustomer().getUser().getName().equals(principal.getName())) {
+				return "error/403";
+			}
+		}
+        
         model.addAttribute("account", account);
         return "account-form";
     }
@@ -75,7 +82,7 @@ public class BankController {
 			model.addAttribute("accountUpdateException", e);
 			return "account-form";
 		}
-        return "redirect:/accounts";
+        return "redirect:/account/" + accountCode;
     }
     
     @GetMapping("account/delete/{code}")
@@ -99,7 +106,7 @@ public class BankController {
 			
 			if(!userService.isCurrentUserAdmin()) {
 				if(!account.getCustomer().getUser().getName().equals(principal.getName())) {
-					return "redirect:/error/403";
+					return "error/403";
 				}
 			}
 			
@@ -162,6 +169,7 @@ public class BankController {
 		} 
 		catch (Exception e) {
 			model.addAttribute("operationException", e);
+			return "add-operations";
 		}
 		return userService.isCurrentUserAdmin() ? "redirect:/accounts" : "redirect:/account/" + accountCode;
 	}

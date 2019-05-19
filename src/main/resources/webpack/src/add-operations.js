@@ -87,9 +87,7 @@ if(document.querySelector('#add-operations')) {
             if(!recipAccountField.value) {
                 validate(recipAccountField, "Recipient account code is required *", event);
             }
-            else recipAccountField.showError(false);
-
-            if(senderAccountField.value == recipAccountField.value) {
+            else if(senderAccountField.value == recipAccountField.value) {
                 validate(recipAccountField, "Recipient and sender account must be different !", event);
             }
             else recipAccountField.showError(false);

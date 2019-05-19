@@ -47,7 +47,7 @@
 							</div>
 							<div class="my-4 py-1">
 								<div th:replace="components/input::MDCTextField(name='balance', type='number',
-									value=${account?.balance}, variant = 'outlined', class='balance-field')">
+									value=${account?.balance}, disabled=${account}, variant = 'outlined', class='balance-field')">
 								</div>
 							</div>
 							<th:block th:if="${account}">

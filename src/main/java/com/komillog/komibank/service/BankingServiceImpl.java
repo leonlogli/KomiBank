@@ -80,13 +80,19 @@ public class BankingServiceImpl implements BankingService {
 				if(!userService.isCurrentUserAdmin()) {
 					customer.setUser(currentUser);
 				}
-				accountDao.save(new SavingsAccount(customer, balance, new Date(), 0));
+				Account account = accountDao.save(new SavingsAccount(customer, 0, new Date(), 0));
+				if(balance > 0) {
+					deposit(account.getCode(), balance);
+				}
 			}
 			else if(accountType.equalsIgnoreCase("Current Account") || accountType.equalsIgnoreCase("CA")) {
 				if(!userService.isCurrentUserAdmin()) {
 					customer.setUser(currentUser);
 				}
-				accountDao.save(new CurrentAccount(customer, balance, new Date(), 0));
+				Account account = accountDao.save(new CurrentAccount(customer, balance, new Date(), 0));
+				if(balance > 0) {
+					deposit(account.getCode(), balance);
+				}
 			}
 			else throw new RuntimeException("Error !!! Invalid account type !");
 		}
